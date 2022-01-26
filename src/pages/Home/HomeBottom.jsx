@@ -1,5 +1,9 @@
-import { Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export const HomeBottom = () => {
-  return <Text>HomeBottom</Text>;
+  return (
+    <Flex>
+      <p>HomeBottom</p>
+    </Flex>
+  );
 };
