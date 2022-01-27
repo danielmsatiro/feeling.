@@ -1,5 +1,14 @@
-import { Text } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
+import { HomeBottom } from "./HomeBottom";
+import { HomeTop } from "./HomeTop"
 
 export const Home = () => {
-  return <Text color="black">Home</Text>;
-};
+  return (
+    <Grid>
+      <HomeTop/>
+      <HomeBottom />;
+    </Grid>
+  )
+}
+
+
