@@ -1,5 +1,5 @@
 import { Span } from "./styles";
-import { Flex, Heading, Text, Image, Button, Box } from "@chakra-ui/react";
+import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
