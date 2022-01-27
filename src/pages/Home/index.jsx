@@ -1,5 +1,4 @@
 import { Grid } from "@chakra-ui/react";
-import { Header } from "../../components/Header";
 import { HomeBottom } from "./HomeBottom";
 import { HomeTop } from "./HomeTop";
 
