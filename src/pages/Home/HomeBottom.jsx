@@ -1,9 +1,10 @@
 import { Span } from "./styles";
 import { Box, Flex, Image, Text, Link } from "@chakra-ui/react";
 
-import Folders from "../../assets/folders.svg";
-import Selfie from "../../assets/selfie.svg";
-import Levitate from "../../assets/levitate.svg";
+import folders from "../../assets/folders.svg";
+import selfie from "../../assets/selfie.svg";
+import levitate from "../../assets/levitate.svg";
+import heart from "../../assets/Loves.svg";
 
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -17,35 +18,35 @@ const squareVariants = {
 };
 
 export const HomeBottom = () => {
-  const controls1 = useAnimation();
-  const controls2 = useAnimation();
-  const controls3 = useAnimation();
+  const controls4 = useAnimation();
+  const controls5 = useAnimation();
+  const controls6 = useAnimation();
 
-  const [ref1, inView1] = useInView({
+  const [ref4, inView4] = useInView({
     threshold: 0,
   });
 
-  const [ref2, inView2] = useInView({
+  const [ref5, inView5] = useInView({
     threshold: 0,
   });
 
-  const [ref3, inView3] = useInView({
+  const [ref6, inView6] = useInView({
     threshold: 0,
   });
 
   useEffect(() => {
-    if (inView1) {
-      controls1.start("visible");
+    if (inView4) {
+      controls4.start("visible");
     }
 
-    if (inView2) {
-      controls2.start("visible");
+    if (inView5) {
+      controls5.start("visible");
     }
 
-    if (inView3) {
-      controls3.start("visible");
+    if (inView6) {
+      controls6.start("visible");
     }
-  }, [controls1, controls2, controls3, inView1, inView2, inView3]);
+  }, [controls4, controls5, controls6, inView4, inView5, inView6]);
 
   return (
     <>
@@ -55,11 +56,13 @@ export const HomeBottom = () => {
         justifyContent="center"
         alignItems="center"
         bgColor="yellow.50"
-        ref={ref1}
-        animate={controls1}
+        ref={ref4}
+        animate={controls4}
         initial="hidden"
         variants={squareVariants}
+        position="relative"
       >
+        <Image src={heart} w="80px" position="absolute" top="-10" />
         <Text
           w={["290px", "290px", "290px", "fit-content"]}
           fontSize={["2xl", "2xl", "2xl", "3xl"]}
@@ -75,7 +78,7 @@ export const HomeBottom = () => {
           quiser!
         </Text>
         <Image
-          src={Folders}
+          src={folders}
           w={["200px", "200px", "200px", "300px"]}
           mt="40px"
         />
@@ -92,13 +95,13 @@ export const HomeBottom = () => {
         justifyContent="center"
         alignItems="center"
         bgColor="white"
-        ref={ref2}
-        animate={controls2}
+        ref={ref5}
+        animate={controls5}
         initial="hidden"
         variants={squareVariants}
       >
         <Image
-          src={Selfie}
+          src={selfie}
           h={["250px", "250px", "250px", "500px"]}
           mt="20px"
         />
@@ -123,13 +126,13 @@ export const HomeBottom = () => {
         justifyContent="center"
         alignItems="center"
         bgColor="yellow.50"
-        ref={ref3}
-        animate={controls3}
+        ref={ref6}
+        animate={controls6}
         initial="hidden"
         variants={squareVariants}
       >
         <Image
-          src={Levitate}
+          src={levitate}
           w={["300px", "300px", "500px", "500px", "700px"]}
           mb="20px"
         />
@@ -153,7 +156,7 @@ export const HomeBottom = () => {
         padding="20px 0"
         fontSize="sm"
       >
-        <Link>voltar ao topo</Link>
+        <Link href="#top">voltar ao topo</Link>
         <Link m="0 20px">criadores</Link>
         <Link>repositório</Link>
       </Flex>

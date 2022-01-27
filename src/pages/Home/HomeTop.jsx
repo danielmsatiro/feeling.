@@ -1,3 +1,4 @@
+import { Span } from "./styles";
 import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
@@ -7,27 +8,82 @@ import {
 import loving from "../../assets/loving.svg";
 import clumsy from "../../assets/clumsy.svg";
 import coffee from "../../assets/coffee.svg";
-import { useHistory } from "react-router-dom";
+
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
+import { useEffect } from "react";
+
+const FlexMotion = motion(Flex);
+
+const squareVariants = {
+  visible: { opacity: 1, transition: { duration: 2 } },
+  hidden: { opacity: 0 },
+};
 
 export const HomeTop = () => {
-  const history = useHistory();
+  const controls1 = useAnimation();
+  const controls2 = useAnimation();
+  const controls3 = useAnimation();
+
+  const [ref1, inView1] = useInView({
+    threshold: 0,
+  });
+
+  const [ref2, inView2] = useInView({
+    threshold: 0,
+  });
+
+  const [ref3, inView3] = useInView({
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView1) {
+      controls1.start("visible");
+    }
+
+    if (inView2) {
+      controls2.start("visible");
+    }
+
+    if (inView3) {
+      controls3.start("visible");
+    }
+  }, [controls1, controls2, controls3, inView1, inView2, inView3]);
   return (
-    <Flex flexDirection="column">
-      <Flex
+    <Flex flexDirection="column" id="#top">
+      <FlexMotion
+        ref={ref1}
+        animate={controls1}
+        initial="hidden"
+        variants={squareVariants}
         bg="yellow.50"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        minH="100vh"
+        minH="101vh"
         padding="35px"
-        w="100%"
       >
-        <Heading color="orange.500" as="h1" size="2xl" fontWeight="medium">
+        <Text
+          color="orange.500"
+          fontSize={["4xl", "4xl", "4xl", "5xl"]}
+          fontWeight="medium"
+        >
           feeling.
-        </Heading>
-        <Image src={loving} alt="loving guy" boxSize={["250px", "350px"]} />
+        </Text>
+        <Image
+          src={loving}
+          alt="loving guy"
+          w={["300px", "300px", "300px", "400px"]}
+          m="10px 0"
+        />
 
-        <Heading color="orange.500" as="h2" size="xl" fontWeight="medium">
+        <Heading
+          color="orange.500"
+          as="h2"
+          fontSize={["3xl", "3xl", "3xl", "4xl"]}
+          fontWeight="medium"
+        >
           Bem Vindo(a)!
         </Heading>
 
@@ -48,7 +104,6 @@ export const HomeTop = () => {
           borderColor="orange.500"
           h="30px"
           w="200px"
-          onClick={() => history.push("/login")}
           fontWeight="medium"
           _hover={{
             background: "yellow.50",
@@ -72,7 +127,6 @@ export const HomeTop = () => {
           borderColor="orange.500"
           h="30px"
           w="200px"
-          onClick={() => history.push("/signup")}
           fontWeight="medium"
           _hover={{
             background: "yellow.50",
@@ -83,65 +137,82 @@ export const HomeTop = () => {
           <MdOutlineKeyboardArrowLeft size="1.5rem" />
           cadastro
         </Button>
-      </Flex>
+      </FlexMotion>
 
-      <Flex
+      <FlexMotion
         bg="red.50"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
         h="100vh"
         padding="35px"
-        w="100%"
+        ref={ref2}
+        animate={controls2}
+        initial="hidden"
+        variants={squareVariants}
       >
-        <Image src={clumsy} alt="loving guy" boxSize={["250px", "350px"]} />
+        <Image
+          src={clumsy}
+          alt="clumsy guy"
+          w={["300px", "300px", "300px", "400px"]}
+          mb="20px"
+        />
 
         <Flex
-          w={["80%", "60%"]}
-          flexDirection={["column", "column", "row"]}
-          alignItems={["flex-start", "flex-start", "center"]}
+          flexDirection={["column", "column", "column", "row"]}
+          alignItems="flex-start"
           maxW="500px"
         >
-          <Heading w={["100%", "100%", "50%"]} mr="25px" mb="20px">
+          <Text
+            w={["300px", "300px", "300px", "400px"]}
+            mr={["", "", "", "15px"]}
+            mb={["15px", "15px", "15px", ""]}
+            fontSize={["3xl", "3xl", "3xl", "4xl"]}
+            fontWeight="semibold"
+          >
             A vida <br />
-            nem sempre é
-            <Text as="abbr" color="orange.500">
-              {" "}
-              fácil...
-            </Text>
-          </Heading>
+            nem sempre é<Span> fácil...</Span>
+          </Text>
 
-          <Text w={["100%", "100%", "50%"]}>
+          <Text w={["300px", "300px", "300px", "400px"]} fontWeight="semibold">
             Sabemos que a vida pode oferecer dificuldades em certos momentos.
-            Encontre aqui{" "}
-            <Text as="abbr" color="orange.500">
-              um jeito novo de se motivar
-            </Text>{" "}
-            e vencer seus desafios!
+            Encontre aqui <Span>um jeito novo de se motivar</Span> e vencer seus
+            desafios!
           </Text>
         </Flex>
-      </Flex>
+      </FlexMotion>
 
-      <Flex
+      <FlexMotion
+        position="relative"
         bg="white"
         flexDirection="column"
         alignItems="center"
-        justifyContent="space-around"
+        justifyContent="center"
         h="100vh"
-        padding="35px"
-        w="100%"
+        ref={ref3}
+        animate={controls3}
+        initial="hidden"
+        variants={squareVariants}
       >
         <Flex
-          maxW="600px"
-          justifyContent="space-between"
-          flexDirection={["column", "row"]}
+          justifyContent="center"
+          alignItems={["center", "center", "center", "flex-start"]}
+          flexDirection={["column", "column", "column", "row"]}
+          mb="50px"
         >
-          <Flex flexDirection="column" w={["100%", "50%"]}>
-            <Heading mb="15px">Quem Somos?</Heading>
-            <Text>
-              <Text as="abbr" color="orange.500">
-                feeling.{" "}
-              </Text>
+          <Flex flexDirection="column">
+            <Text
+              w="300px"
+              mb="15px"
+              fontSize={["3xl", "3xl", "3xl", "4xl"]}
+              fontWeight="semibold"
+            >
+              Quem Somos?
+            </Text>
+            <Text w={["300px", "300px", "300px", "290px"]} mb="15px">
+              <Span>
+                <b>feeling.</b>{" "}
+              </Span>
               é uma plataforma dedicada a deixar sua vida um pouco mais leve.
               Aqui você encontra motivação extra para seu dia a dia, através de
               citações de autores conhecidos ou não.
@@ -149,25 +220,31 @@ export const HomeTop = () => {
           </Flex>
 
           <Flex
+            h="fit-content"
+            w={["300px", "300px", "300px", "250px"]}
             flexDirection="column"
-            justifyContent="space-between"
+            justifyContent="center"
             bg="yellow.50"
             padding="20px 30px"
-            w={["100%", "40%"]}
             mt={["20px", "0px"]}
             borderRadius="15px"
           >
-            <Text mb="10px">
-              Loss is nothing else but change, and change is Natures delight.
+            <Text mb="15px" fontStyle="italic">
+              Patience and perseverance have a magical effect before which
+              difficulties disappear and obstacles vanish.
             </Text>
             <Text color="orange.500" fontWeight="medium">
-              Marcus Aurelius
+              John Adams
             </Text>
           </Flex>
         </Flex>
 
-        <Image src={coffee} alt="man coffee" mt="25px" />
-      </Flex>
+        <Image
+          src={coffee}
+          alt="man coffee"
+          w={["300px", "300px", "300px", "450px"]}
+        />
+      </FlexMotion>
     </Flex>
   );
 };
