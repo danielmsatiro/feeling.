@@ -17,13 +17,20 @@ export const HomeTop = () => {
                 padding="35px"
                 w="100%"
             >
-
-                <Heading color="orange.500" as="h1" size="2xl" fontWeight="medium"> 
+                <Heading 
+                    color="orange.500" 
+                    as="h1" size="2xl" 
+                    fontWeight="medium"
+                > 
                     feeling. 
                 </Heading>
                 <Image src={loving} alt="loving guy" boxSize={["250px", "350px"]}/>
 
-                <Heading color="orange.500" as="h2" size='xl' fontWeight="medium">
+                <Heading 
+                    color="orange.500" 
+                    as="h2" size='xl' 
+                    fontWeight="medium"
+                >
                     Bem Vindo(a)!
                 </Heading>
 

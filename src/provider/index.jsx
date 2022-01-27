@@ -1,10 +1,6 @@
-import { ChakraProvider } from "@chakra-ui/react"
-import { theme } from "../styles/theme"
+import { ChakraProvider } from "@chakra-ui/react";
+import { theme } from "../styles/theme";
 
-export const Providers = ({children}) => {
-    return (
-        <ChakraProvider theme={theme}>
-            {children}
-        </ChakraProvider>
-    )
-}
+export const Provider = ({ children }) => {
+  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+};
