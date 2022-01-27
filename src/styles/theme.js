@@ -17,9 +17,10 @@ export const theme = extendTheme({
         green: {
             600: '#168821',
         },
+    },
         fonts: {
-            heading: 'Poppins',
-            body: 'Poppins',
+            heading: 'Poppins, sans-serif',
+            body: 'Poppins, sans-serif',
         },
         fontSizes: {
             xs:     '0.75rem',
@@ -42,5 +43,4 @@ export const theme = extendTheme({
                 color: 'black',
             }
         }
-    }
 })
