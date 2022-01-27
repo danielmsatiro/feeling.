@@ -1,5 +1,5 @@
-import { Text } from "@chakra-ui/react";
+import { HomeBottom } from "./HomeBottom";
 
 export const Home = () => {
-  return <Text color="#000">Home</Text>;
+  return <HomeBottom />;
 };
