@@ -1,9 +1,9 @@
 import { Span } from "./styles";
 import { Box, Flex, Image, Text, Link } from "@chakra-ui/react";
 
-import Folders from "../../assets/folders.svg";
-import Selfie from "../../assets/selfie.svg";
-import Levitate from "../../assets/levitate.svg";
+import folders from "../../assets/folders.svg";
+import selfie from "../../assets/selfie.svg";
+import levitate from "../../assets/levitate.svg";
 import heart from "../../assets/Loves.svg";
 
 import { motion, useAnimation } from "framer-motion";
@@ -78,7 +78,7 @@ export const HomeBottom = () => {
           quiser!
         </Text>
         <Image
-          src={Folders}
+          src={folders}
           w={["200px", "200px", "200px", "300px"]}
           mt="40px"
         />
@@ -101,7 +101,7 @@ export const HomeBottom = () => {
         variants={squareVariants}
       >
         <Image
-          src={Selfie}
+          src={selfie}
           h={["250px", "250px", "250px", "500px"]}
           mt="20px"
         />
@@ -132,7 +132,7 @@ export const HomeBottom = () => {
         variants={squareVariants}
       >
         <Image
-          src={Levitate}
+          src={levitate}
           w={["300px", "300px", "500px", "500px", "700px"]}
           mb="20px"
         />

@@ -160,7 +160,7 @@ export const HomeTop = () => {
 
         <Flex
           flexDirection={["column", "column", "column", "row"]}
-          alignItems={["flex-start", "flex-start", "center"]}
+          alignItems="flex-start"
           maxW="500px"
         >
           <Text
