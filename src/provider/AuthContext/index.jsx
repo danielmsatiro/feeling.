@@ -37,6 +37,17 @@ const AuthProvider = ({ children }) => {
     setData({ accessToken, user });
   }, []);
 
+  const signUp = useCallback(async ({ name, email, password }) => {
+    const response = await api.post("register/", { name, email, password });
+
+    const { accessToken, user } = response.data;
+
+    localStorage.setItem("@Doit: accessToken", accessToken);
+    localStorage.setItem("@Doit: user", JSON.stringify(user));
+
+    setData({ accessToken, user });
+  }, []);
+
   const signOut = useCallback(() => {
     localStorage.removeItem("@Doit: accessToken");
     localStorage.removeItem("@Doit: user");
@@ -50,6 +61,7 @@ const AuthProvider = ({ children }) => {
         accessToken: data.accessToken,
         user: data.user,
         signIn,
+        signUp,
         signOut,
       }}
     >
