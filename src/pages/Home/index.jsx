@@ -1,14 +1,14 @@
 import { Grid } from "@chakra-ui/react";
+import { Header } from "../../components/Header";
 import { HomeBottom } from "./HomeBottom";
-import { HomeTop } from "./HomeTop"
+import { HomeTop } from "./HomeTop";
 
 export const Home = () => {
   return (
     <Grid>
-      <HomeTop/>
+      <Header />
+      <HomeTop />
       <HomeBottom />;
     </Grid>
-  )
-}
-
-
+  );
+};
