@@ -1,5 +1,9 @@
-import { Text } from "@chakra-ui/react";
+import { LoginForm } from "./LoginForm";
 
 export const Login = () => {
-  return <Text>Login</Text>;
+  return (
+    <>
+      <LoginForm />
+    </>
+  );
 };
