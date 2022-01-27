@@ -6,20 +6,23 @@ import {
   MdOutlineMenu,
   MdOutlinePowerSettingsNew,
   MdOutlineSearch,
-  MdOutlineZoomOut,
-  MdQuestionAnswer,
 } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { Menu } from "./Menu";
+import { Search } from "./Search";
 
 export const Header = () => {
-  const sizeIcon = 25;
-  const colorIcon = theme.colors.yellow[500];
   const { isOpen, onClose, onToggle } = useDisclosure();
   const { signOut } = useAuth();
 
+  const sizeIcon = 25;
+  const colorIcon = theme.colors.yellow[500];
+
   const history = useHistory();
+
+  const location = useLocation();
 
   return (
     <Flex paddingX="8" paddingY="2" background={theme.colors.yellow[200]}>
@@ -33,9 +36,17 @@ export const Header = () => {
         <Center onClick={() => history.push("/comments")} as="button">
           <MdComment color={colorIcon} size={sizeIcon} />
         </Center>
-        <Center onClick={() => history.push("/phrases")} as="button">
-          <MdOutlineSearch color={colorIcon} size={sizeIcon} />
-        </Center>
+        {location.pathname === "/phrases" ? (
+          <Search />
+        ) : (
+          <Center
+            display={location.pathname === "/phrases" && "none"}
+            onClick={() => history.push("/phrases")}
+            as="button"
+          >
+            <MdOutlineSearch color={colorIcon} size={sizeIcon} />
+          </Center>
+        )}
       </Flex>
       <Center
         ml="auto"

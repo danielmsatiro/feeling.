@@ -9,10 +9,10 @@ import {
   Flex,
   Heading,
   Text,
+  theme,
 } from "@chakra-ui/react";
 import { useAuth } from "../../provider/AuthContext";
 import { FiLogOut } from "react-icons/fi";
-import { theme } from "../../styles/theme";
 
 export const Menu = ({ isOpen, onClose }) => {
   const { user, signOut } = useAuth();
