@@ -29,33 +29,8 @@ const AuthProvider = ({ children }) => {
     return {};
   });
 
-  // const signIn = useCallback(async ({ email, password }) => {
-  //   const response = await api.post("login/", { email, password });
-
-  //   const { accessToken, user } = response.data;
-
-  //   localStorage.setItem("@Doit: accessToken", accessToken);
-  //   localStorage.setItem("@Doit: user", JSON.stringify(user));
-
-  //   setData({ accessToken, user });
-  // }, []);
-
-  const signIn = ({ info }) => {
-    api
-      .post("/login", info)
-      .then((response) => {
-        const { accessToken, user } = response.data;
-        setData({ accessToken, user });
-        localStorage.setItem("@Feeling: accessToken", accessToken);
-        localStorage.setItem("@Feeling: user", JSON.stringify(user));
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  };
-
-  const signUp = useCallback(async ({ name, email, password }) => {
-    const response = await api.post("register/", { name, email, password });
+  const signIn = useCallback(async ({ email, password }) => {
+    const response = await api.post("login/", { email, password });
 
     const { accessToken, user } = response.data;
 
@@ -64,6 +39,42 @@ const AuthProvider = ({ children }) => {
 
     setData({ accessToken, user });
   }, []);
+
+  // const signIn = ({ info }) => {
+  //   api
+  //     .post("/login", info)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       // const { accessToken, user } = response.data;
+  //       // setData({ accessToken, user });
+  //       // localStorage.setItem("@Feeling: accessToken", accessToken);
+  //       // localStorage.setItem("@Feeling: user", JSON.stringify(user));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.response.data);
+  //     });
+  // };
+
+  const signUp = (info) => {
+    api.post("/register", info).then((response) => {
+      const { accessToken, user } = response.data;
+      localStorage.setItem("@Doit: accessToken", accessToken);
+      localStorage.setItem("@Doit: user", JSON.stringify(user));
+
+      setData({ accessToken, user });
+    });
+  };
+
+  // const signUp = useCallback(async ({ name, email, password }) => {
+  //   const response = await api.post("register/", { name, email, password });
+
+  //   const { accessToken, user } = response.data;
+
+  //   localStorage.setItem("@Doit: accessToken", accessToken);
+  //   localStorage.setItem("@Doit: user", JSON.stringify(user));
+
+  //   setData({ accessToken, user });
+  // }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem("@Doit: accessToken");

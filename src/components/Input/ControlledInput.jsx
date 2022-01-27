@@ -1,7 +1,7 @@
 import { FormControl, FormErrorMessage, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
-export const ControlledInput = ({ error, name, ...rest }) => {
+const ControlledInput = ({ error, name, ...rest }, ref) => {
   const [value, setValue] = useState("");
   // const [status, setStatus] = useState("default");
   // const handleChange = (event) => setValue(event.target.value);
@@ -33,19 +33,16 @@ export const ControlledInput = ({ error, name, ...rest }) => {
         display={["flex"]}
         alignItems={["center"]}
       >
-        {/* <Text>{value}</Text> */}
         <Input
           name={name}
-          // value={value}
-          onChange={(event) => setValue(event.target.value)}
-          // size="lg"
+          onChangeCapture={(event) => setValue(event.target.value)}
           h={["50px", "50px", "50px", "60px"]}
           pr="4.5rem"
           bg="yellow.200"
           border="none"
           borderRadius="30px"
           focusBorderColor="orange.500"
-          // ref={ref}
+          ref={ref}
           {...rest}
         />
         {!!error && <FormErrorMessage>{error}</FormErrorMessage>}
@@ -53,3 +50,4 @@ export const ControlledInput = ({ error, name, ...rest }) => {
     </>
   );
 };
+export const Entrada = forwardRef(ControlledInput);

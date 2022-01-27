@@ -11,15 +11,16 @@ const signInSchema = yup.object().shape({
   password: yup.string().required("Senha obrigatória"),
 });
 export const Login = () => {
-  const { signUp } = useAuth();
+  const { signIn } = useAuth();
   const {
     formState: { errors },
     register,
     handleSubmit,
   } = useForm({ resolver: yupResolver(signInSchema) });
 
-  const Doido = (data) => {
+  const Sender = (data) => {
     console.log(data);
+    signIn(data);
   };
 
   return (
@@ -41,7 +42,11 @@ export const Login = () => {
       </Flex>
       <Flex h="100%" justifyContent={["space-between"]} align={["center"]}>
         <LoginImage />
-        <LoginForm doido={handleSubmit(Doido)} />
+        <LoginForm
+          sender={handleSubmit(Sender)}
+          register={register}
+          error={errors}
+        />
       </Flex>
     </Flex>
   );

@@ -1,36 +1,30 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { ControlledInput } from "../../components/Input/ControlledInput";
+import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
 
-export const LoginForm = ({ doido, register }) => {
+export const LoginForm = ({ sender, register, error }) => {
   const history = useHistory();
 
   return (
     <>
-      <Box
-        as="form"
-        w={["300px", "300px", "350px", "400px"]}
-        onSubmit={(event) => event.preventDefault()}
-      >
+      <Box as="form" w={["300px", "300px", "350px", "400px"]} onSubmit={sender}>
         <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
           <Text fontSize={["3xl", "3xl", "4xl", "5xl"]}>login.</Text>
         </Flex>
 
-        <ControlledInput
+        <Entrada
           placeholder="Email"
           name="email"
-          // id="email"
-          // error={error}
-          // {...register("email")}
+          errors={error}
+          {...register("email")}
         />
 
-        <ControlledInput
+        <Entrada
           type="password"
           placeholder="Senha"
           name="password"
-          // id="senha"
-          // error={error}
-          // {...register("password")}
+          errors={error}
+          {...register("password")}
         />
         <Flex h={["80px"]} alignItems={["center"]}>
           <Button
@@ -42,7 +36,6 @@ export const LoginForm = ({ doido, register }) => {
             color="yellow.50"
             borderRadius="30px"
             padding="0"
-            onClick={doido}
           >
             entrar
           </Button>
