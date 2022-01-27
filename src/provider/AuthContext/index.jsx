@@ -1,23 +1,26 @@
-import { createContext, useCallback, useContext, useState } from "react";
-
-import { api } from "../../services/api";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { localApi as api } from "../../services/api";
 
 const AuthContext = createContext({});
 
 const useAuth = () => {
   const context = useContext(AuthContext);
-
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
-
   return context;
 };
 
 const AuthProvider = ({ children }) => {
   const [data, setData] = useState(() => {
-    const accessToken = localStorage.getItem("@Doit: accessToken");
-    const user = localStorage.getItem("@Doit: user");
+    const accessToken = localStorage.getItem("@Feeling: accessToken");
+    const user = localStorage.getItem("@Feeling: user");
 
     if (accessToken && user) {
       return { accessToken, user: JSON.parse(user) };
@@ -26,16 +29,30 @@ const AuthProvider = ({ children }) => {
     return {};
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("login/", { email, password });
+  // const signIn = useCallback(async ({ email, password }) => {
+  //   const response = await api.post("login/", { email, password });
 
-    const { accessToken, user } = response.data;
+  //   const { accessToken, user } = response.data;
 
-    localStorage.setItem("@Doit: accessToken", accessToken);
-    localStorage.setItem("@Doit: user", JSON.stringify(user));
+  //   localStorage.setItem("@Doit: accessToken", accessToken);
+  //   localStorage.setItem("@Doit: user", JSON.stringify(user));
 
-    setData({ accessToken, user });
-  }, []);
+  //   setData({ accessToken, user });
+  // }, []);
+
+  const signIn = ({ info }) => {
+    api
+      .post("/login", info)
+      .then((response) => {
+        const { accessToken, user } = response.data;
+        setData({ accessToken, user });
+        localStorage.setItem("@Feeling: accessToken", accessToken);
+        localStorage.setItem("@Feeling: user", JSON.stringify(user));
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
+  };
 
   const signUp = useCallback(async ({ name, email, password }) => {
     const response = await api.post("register/", { name, email, password });
