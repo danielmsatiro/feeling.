@@ -2,14 +2,19 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
 
-export const LoginForm = ({ sender, register, error }) => {
+export const SignupForm = ({ sender, register, error }) => {
   const history = useHistory();
 
   return (
     <>
-      <Box as="form" w={["300px", "300px", "350px", "400px"]} onSubmit={sender}>
+      <Box
+        as="form"
+        w={["300px", "300px", "350px", "400px"]}
+        onSubmit={sender}
+        // paddingLeft={["", "", "50px", ""]}
+      >
         <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
-          <Text fontSize={["3xl", "3xl", "4xl", "5xl"]}>login.</Text>
+          <Text fontSize={["3xl", "3xl", "4xl", "5xl"]}>sign up.</Text>
         </Flex>
 
         <Entrada
@@ -18,6 +23,12 @@ export const LoginForm = ({ sender, register, error }) => {
           errors={error}
           {...register("email")}
         />
+        <Entrada
+          placeholder="Nome"
+          name="name"
+          errors={error}
+          {...register("name")}
+        />
 
         <Entrada
           type="password"
@@ -25,6 +36,13 @@ export const LoginForm = ({ sender, register, error }) => {
           name="password"
           errors={error}
           {...register("password")}
+        />
+        <Entrada
+          type="password"
+          placeholder="Confirme sua Senha"
+          name="confirm_password"
+          errors={error}
+          {...register("confirm_password")}
         />
         <Flex h={["80px"]} alignItems={["center"]}>
           <Button
@@ -37,21 +55,21 @@ export const LoginForm = ({ sender, register, error }) => {
             borderRadius="30px"
             padding="0"
           >
-            entrar
+            cadastrar
           </Button>
         </Flex>
         <Flex
           justifyContent={["center"]}
           fontSize={["14px", "14px", "13px", "16px"]}
         >
-          <Text paddingRight="5px">Não tem uma conta?</Text>
+          <Text paddingRight="5px">Já possui uma conta? Faça</Text>
           <Text
             as="button"
             color="orange.500"
             fontWeight="bold"
-            onClick={() => history.push("/signup")}
+            onClick={() => history.push("/login")}
           >
-            Cadastre-se
+            Login
           </Text>
         </Flex>
       </Box>
