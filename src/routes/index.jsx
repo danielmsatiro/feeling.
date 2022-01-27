@@ -1,5 +1,5 @@
-import { Switch, Route } from "react-router-dom";
-
+import { Switch } from "react-router-dom";
+import { Route } from "./route";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
