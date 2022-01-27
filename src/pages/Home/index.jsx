@@ -7,7 +7,7 @@ export const Home = () => {
   return (
     <Grid>
       <HomeTop />
-      <HomeBottom />;
+      <HomeBottom />
     </Grid>
   );
 };
