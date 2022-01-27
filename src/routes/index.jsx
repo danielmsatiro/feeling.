@@ -1,5 +1,6 @@
 import { Switch } from "react-router-dom";
-import { Route } from "./route";
+import { Route } from "./Route";
+
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 import { SignUp } from "../pages/SignUp";
@@ -13,9 +14,9 @@ export const Routes = () => (
     <Route exact path="/" component={Home} />
     <Route path="/login" component={Login} />
     <Route path="/signup" component={SignUp} />
-    <Route path="/dashboard" component={Dashboard} />
-    <Route path="/phrases" component={Phrases} />
-    <Route path="/favorites" component={Favorites} />
-    <Route path="/comments" component={Comments} />
+    <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/phrases" component={Phrases} isPrivate />
+    <Route path="/favorites" component={Favorites} isPrivate />
+    <Route path="/comments" component={Comments} isPrivate />
   </Switch>
 );

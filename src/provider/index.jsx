@@ -1,10 +1,12 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "../styles/theme";
+import { AuthProvider } from "./AuthContext";
 
-export const Providers = ({ children }) => {
+
+export const Provider = ({ children }) => {
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      {children}
-    </ChakraProvider>
+    <AuthProvider>
+      <ChakraProvider resetCSS theme={theme}>{children}</ChakraProvider>
+    </AuthProvider>
   );
 };
