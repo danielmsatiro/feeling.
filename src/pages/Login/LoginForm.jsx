@@ -56,6 +56,7 @@ export const LoginForm = () => {
               color="yellow.50"
               borderRadius="30px"
               padding="0"
+              onClick={() => history.push("/")}
             >
               entrar
             </Button>
