@@ -25,7 +25,14 @@ export const Header = () => {
   const location = useLocation();
 
   return (
-    <Flex paddingX="8" paddingY="2" background={theme.colors.yellow[200]}>
+    <Flex
+      position={"fixed"}
+      overflow={"visible"}
+      w={"100%"}
+      paddingX="8"
+      paddingY="2"
+      background={theme.colors.yellow[200]}
+    >
       <Flex display={["none", "flex"]} gap={3}>
         <Center onClick={() => history.push("/dashboard")} as="button">
           <MdHomeFilled color={colorIcon} size={sizeIcon} />
@@ -48,6 +55,9 @@ export const Header = () => {
           </Center>
         )}
       </Flex>
+      <Flex display={["flex", "none"]} gap={3}>
+        {location.pathname === "/phrases" && <Search />}
+      </Flex>
       <Center
         ml="auto"
         onClick={signOut}
@@ -66,7 +76,7 @@ export const Header = () => {
       >
         <MdOutlineMenu color={colorIcon} size={sizeIcon} />
       </Center>
-      {/* <Menu isOpen={isOpen} onClose={onClose} /> */}
+      <Menu isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 };
