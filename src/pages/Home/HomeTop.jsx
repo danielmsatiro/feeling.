@@ -2,6 +2,7 @@ import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowDown
 } from "react-icons/md";
 
 import loving from "../../assets/loving.svg";
@@ -66,6 +67,7 @@ export const HomeTop = () => {
         alignItems="center"
         justifyContent="center"
         minH="101vh"
+        maxH="101vh"
         padding="35px"
       >
         <Text
@@ -143,6 +145,10 @@ export const HomeTop = () => {
           <MdOutlineKeyboardArrowLeft size="1.5rem" />
           cadastro
         </Button>
+
+          <Flex color="orange.500" fontSize="2rem">
+              <MdOutlineKeyboardArrowDown/>
+          </Flex>
       </FlexMotion>
 
       <FlexMotion
