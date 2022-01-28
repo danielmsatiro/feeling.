@@ -1,8 +1,8 @@
-import { Span } from "./styles";
 import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowDown
 } from "react-icons/md";
 
 import loving from "../../assets/loving.svg";
@@ -12,6 +12,7 @@ import coffee from "../../assets/coffee.svg";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const FlexMotion = motion(Flex);
 
@@ -21,6 +22,9 @@ const squareVariants = {
 };
 
 export const HomeTop = () => {
+
+  const history = useHistory()
+
   const controls1 = useAnimation();
   const controls2 = useAnimation();
   const controls3 = useAnimation();
@@ -50,6 +54,7 @@ export const HomeTop = () => {
       controls3.start("visible");
     }
   }, [controls1, controls2, controls3, inView1, inView2, inView3]);
+
   return (
     <Flex flexDirection="column" id="#top">
       <FlexMotion
@@ -62,6 +67,7 @@ export const HomeTop = () => {
         alignItems="center"
         justifyContent="center"
         minH="101vh"
+        maxH="101vh"
         padding="35px"
       >
         <Text
@@ -93,6 +99,7 @@ export const HomeTop = () => {
         </Text>
 
         <Button
+          onClick={() => history.push("/login")}
           m="10px"
           display="flex"
           justifyContent="space-between"
@@ -116,6 +123,7 @@ export const HomeTop = () => {
         </Button>
 
         <Button
+          onClick={() => history.push("/signup")}
           m="10px"
           display="flex"
           justifyContent="space-between"
@@ -137,6 +145,10 @@ export const HomeTop = () => {
           <MdOutlineKeyboardArrowLeft size="1.5rem" />
           cadastro
         </Button>
+
+          <Flex color="orange.500" fontSize="2rem">
+              <MdOutlineKeyboardArrowDown/>
+          </Flex>
       </FlexMotion>
 
       <FlexMotion
@@ -171,13 +183,20 @@ export const HomeTop = () => {
             fontWeight="semibold"
           >
             A vida <br />
-            nem sempre é<Span> fácil...</Span>
+            nem sempre é
+            <Text as="abbr" color="orange.500">
+              {" "}
+              fácil...
+            </Text>
           </Text>
 
           <Text w={["300px", "300px", "300px", "400px"]} fontWeight="semibold">
             Sabemos que a vida pode oferecer dificuldades em certos momentos.
-            Encontre aqui <Span>um jeito novo de se motivar</Span> e vencer seus
-            desafios!
+            Encontre aqui{" "}
+            <Text as="abbr" color="orange.500">
+              um jeito novo de se motivar
+            </Text>{" "}
+            e vencer seus desafios!
           </Text>
         </Flex>
       </FlexMotion>
@@ -210,9 +229,9 @@ export const HomeTop = () => {
               Quem Somos?
             </Text>
             <Text w={["300px", "300px", "300px", "290px"]} mb="15px">
-              <Span>
-                <b>feeling.</b>{" "}
-              </Span>
+              <Text as="abbr" fontWeight="semibold" color="orange.500">
+                feeling.{" "}
+              </Text>
               é uma plataforma dedicada a deixar sua vida um pouco mais leve.
               Aqui você encontra motivação extra para seu dia a dia, através de
               citações de autores conhecidos ou não.

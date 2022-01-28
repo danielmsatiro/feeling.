@@ -1,4 +1,3 @@
-import { Span } from "./styles";
 import { Box, Flex, Image, Text, Link } from "@chakra-ui/react";
 
 import folders from "../../assets/folders.svg";
@@ -69,9 +68,9 @@ export const HomeBottom = () => {
           fontWeight="semibold"
         >
           Seu espaço, do{" "}
-          <Span display="inline" color="orange.500">
+          <Text as="abbr" color="orange.500">
             seu jeito!
-          </Span>
+          </Text>
         </Text>
         <Text w={["300px", "300px", "300px", "fit-content"]} mt="15px">
           Aqui você pode guardar suas frases favoritas para lê-las quando
@@ -111,7 +110,10 @@ export const HomeBottom = () => {
             fontSize={["2xl", "2xl", "2xl", "3xl"]}
             fontWeight="semibold"
           >
-            <Span>Encontre pessoas</Span> como você!
+            <Text as="abbr" color="orange.500">
+              Encontre pessoas
+            </Text>{" "}
+            como você!
           </Text>
 
           <Text w={["300px", "300px", "300px", "400px"]} mt="15px">
@@ -143,10 +145,13 @@ export const HomeBottom = () => {
           fontWeight="semibold"
         >
           A{" "}
-          <Span display="inline" color="orange.500">
+          <Text as="abbr" color="orange.500">
             feeling.
-          </Span>{" "}
-          quer te fazer <Span>flutuar!</Span>
+          </Text>{" "}
+          quer te fazer{" "}
+          <Text as="abbr" color="orange.500">
+            flutuar!
+          </Text>
         </Text>
       </FlexMotion>
       <Flex
