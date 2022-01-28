@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react";
-import { localApi as api } from "../../services/api";
+import { api } from "../../services/api";
 
 const AuthContext = createContext({});
 
@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("login/", { email, password });
+    const response = await api.post("/login", { email, password });
 
     const { accessToken, user } = response.data;
 

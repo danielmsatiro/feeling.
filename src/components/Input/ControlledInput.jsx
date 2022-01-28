@@ -1,29 +1,8 @@
-import { FormControl, FormErrorMessage, Input, Text } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, Input } from "@chakra-ui/react";
 import { forwardRef, useState } from "react";
 
 const ControlledInput = ({ error, name, ...rest }, ref) => {
   const [value, setValue] = useState("");
-  // const [status, setStatus] = useState("default");
-  // const handleChange = (event) => setValue(event.target.value);
-  // useEffect(() => {
-  //   if (error) {
-  //     return setStatus("error");
-  //   }
-  // }, [error]);
-
-  // const handleInputFocus = useCallback(() => {
-  //   if (!error) {
-  //     setStatus("focus");
-  //   }
-  // }, [error]);
-
-  // const handleInputBlur = useCallback(() => {
-  //   if (value.length > 1 && !error) {
-  //     return setStatus("filled");
-  //   }
-  // }, [error, value]);
-
-  // console.log(value);
 
   return (
     <>
@@ -31,10 +10,13 @@ const ControlledInput = ({ error, name, ...rest }, ref) => {
         isInvalid={!!error}
         h={["80px"]}
         display={["flex"]}
+        flexDirection={["column"]}
+        justifyContent={["center"]}
         alignItems={["center"]}
       >
         <Input
           name={name}
+          defaultValue={value}
           onChangeCapture={(event) => setValue(event.target.value)}
           h={["50px", "50px", "50px", "60px"]}
           pr="4.5rem"

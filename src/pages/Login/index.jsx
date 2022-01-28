@@ -19,7 +19,6 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(signInSchema) });
 
   const Sender = (data) => {
-    console.log(data);
     signIn(data);
   };
 
