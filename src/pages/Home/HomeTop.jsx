@@ -2,6 +2,7 @@ import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
+  MdOutlineKeyboardArrowDown
 } from "react-icons/md";
 
 import loving from "../../assets/loving.svg";
@@ -11,6 +12,7 @@ import coffee from "../../assets/coffee.svg";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const FlexMotion = motion(Flex);
 
@@ -20,6 +22,9 @@ const squareVariants = {
 };
 
 export const HomeTop = () => {
+
+  const history = useHistory()
+
   const controls1 = useAnimation();
   const controls2 = useAnimation();
   const controls3 = useAnimation();
@@ -49,6 +54,7 @@ export const HomeTop = () => {
       controls3.start("visible");
     }
   }, [controls1, controls2, controls3, inView1, inView2, inView3]);
+
   return (
     <Flex flexDirection="column" id="#top">
       <FlexMotion
@@ -61,6 +67,7 @@ export const HomeTop = () => {
         alignItems="center"
         justifyContent="center"
         minH="101vh"
+        maxH="101vh"
         padding="35px"
       >
         <Text
@@ -92,6 +99,7 @@ export const HomeTop = () => {
         </Text>
 
         <Button
+          onClick={() => history.push("/login")}
           m="10px"
           display="flex"
           justifyContent="space-between"
@@ -115,6 +123,7 @@ export const HomeTop = () => {
         </Button>
 
         <Button
+          onClick={() => history.push("/signup")}
           m="10px"
           display="flex"
           justifyContent="space-between"
@@ -136,6 +145,10 @@ export const HomeTop = () => {
           <MdOutlineKeyboardArrowLeft size="1.5rem" />
           cadastro
         </Button>
+
+          <Flex color="orange.500" fontSize="2rem">
+              <MdOutlineKeyboardArrowDown/>
+          </Flex>
       </FlexMotion>
 
       <FlexMotion
