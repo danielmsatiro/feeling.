@@ -25,58 +25,96 @@ export const Header = () => {
   const location = useLocation();
 
   return (
-    <Flex
-      position={"fixed"}
-      overflow={"visible"}
-      w={"100%"}
-      paddingX="8"
-      paddingY="2"
-      background={theme.colors.yellow[200]}
-    >
-      <Flex display={["none", "flex"]} gap={3}>
-        <Center onClick={() => history.push("/dashboard")} as="button">
-          <MdHomeFilled color={colorIcon} size={sizeIcon} />
-        </Center>
-        <Center onClick={() => history.push("/favorites")} as="button">
-          <MdOutlineFavorite color={colorIcon} size={sizeIcon} />
-        </Center>
-        <Center onClick={() => history.push("/comments")} as="button">
-          <MdComment color={colorIcon} size={sizeIcon} />
-        </Center>
-        {location.pathname === "/phrases" ? (
-          <Search />
-        ) : (
+    <>
+      <Flex
+        position={"fixed"}
+        overflow={"visible"}
+        w={"100%"}
+        paddingX="8"
+        h="60px"
+        background={theme.colors.yellow[200]}
+      >
+        <Flex display={["none", "flex"]} gap={3}>
           <Center
-            display={location.pathname === "/phrases" && "none"}
-            onClick={() => history.push("/phrases")}
+            color={colorIcon}
+            onClick={() => history.push("/dashboard")}
             as="button"
+            _hover={{
+              color: theme.colors.orange[500],
+            }}
           >
-            <MdOutlineSearch color={colorIcon} size={sizeIcon} />
+            <MdHomeFilled size={sizeIcon} />
           </Center>
-        )}
+          <Center
+            color={colorIcon}
+            onClick={() => history.push("/favorites")}
+            as="button"
+            _hover={{
+              color: theme.colors.orange[500],
+            }}
+          >
+            <MdOutlineFavorite size={sizeIcon} />
+          </Center>
+          <Center
+            color={colorIcon}
+            onClick={() => history.push("/comments")}
+            as="button"
+            _hover={{
+              color: theme.colors.orange[500],
+            }}
+          >
+            <MdComment size={sizeIcon} />
+          </Center>
+          {location.pathname === "/phrases" ? (
+            <Center>
+              <Search />
+            </Center>
+          ) : (
+            <Center
+              display={location.pathname === "/phrases" && "none"}
+              onClick={() => history.push("/phrases")}
+              as="button"
+              color={colorIcon}
+              _hover={{
+                color: theme.colors.orange[500],
+              }}
+            >
+              <MdOutlineSearch size={sizeIcon} />
+            </Center>
+          )}
+        </Flex>
+        <Center display={["flex", "none"]} gap={3}>
+          {location.pathname === "/phrases" && <Search />}
+        </Center>
+        <Center
+          ml="auto"
+          onClick={signOut}
+          as="button"
+          fontSize="2rem"
+          display={["none", "flex"]}
+          color={colorIcon}
+          _hover={{
+            color: theme.colors.orange[500],
+          }}
+        >
+          <MdOutlinePowerSettingsNew size={sizeIcon} />
+        </Center>
+        <Center
+          ml="auto"
+          onClick={onToggle}
+          as="button"
+          fontSize="2rem"
+          display={["flex", "none"]}
+          color={colorIcon}
+          _hover={{
+            color: theme.colors.orange[500],
+          }}
+        >
+          <MdOutlineMenu size={sizeIcon} />
+        </Center>
+        <Menu isOpen={isOpen} onClose={onClose} />
       </Flex>
-      <Flex display={["flex", "none"]} gap={3}>
-        {location.pathname === "/phrases" && <Search />}
-      </Flex>
-      <Center
-        ml="auto"
-        onClick={signOut}
-        as="button"
-        fontSize="2rem"
-        display={["none", "flex"]}
-      >
-        <MdOutlinePowerSettingsNew color={colorIcon} size={sizeIcon} />
-      </Center>
-      <Center
-        ml="auto"
-        onClick={onToggle}
-        as="button"
-        fontSize="2rem"
-        display={["flex", "none"]}
-      >
-        <MdOutlineMenu color={colorIcon} size={sizeIcon} />
-      </Center>
-      <Menu isOpen={isOpen} onClose={onClose} />
-    </Flex>
+      <Flex h="60px" />
+    </>
   );
 };

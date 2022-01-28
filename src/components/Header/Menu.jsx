@@ -38,31 +38,65 @@ export const Menu = ({ isOpen, onClose }) => {
         background={theme.colors.yellow[200]}
         ml="auto"
         mr="20px"
-        mt="60px"
+        mt="80px"
         w={"50px"}
       >
         <DrawerBody>
           <VStack>
-            <Center onClick={() => history.push("/dashboard")} as="button">
-              <MdHomeFilled color={colorIcon} size={sizeIcon} />
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: theme.colors.orange[500],
+              }}
+              onClick={() => history.push("/dashboard")}
+              as="button"
+            >
+              <MdHomeFilled size={sizeIcon} />
             </Center>
-            <Center onClick={() => history.push("/favorites")} as="button">
-              <MdOutlineFavorite color={colorIcon} size={sizeIcon} />
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: theme.colors.orange[500],
+              }}
+              onClick={() => history.push("/favorites")}
+              as="button"
+            >
+              <MdOutlineFavorite size={sizeIcon} />
             </Center>
-            <Center onClick={() => history.push("/comments")} as="button">
-              <MdComment color={colorIcon} size={sizeIcon} />
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: theme.colors.orange[500],
+              }}
+              onClick={() => history.push("/comments")}
+              as="button"
+            >
+              <MdComment size={sizeIcon} />
             </Center>
             {location.pathname !== "/phrases" && (
               <Center
                 display={location.pathname === "/phrases" && "none"}
                 onClick={() => history.push("/phrases")}
                 as="button"
+                color={colorIcon}
+                _hover={{
+                  color: theme.colors.orange[500],
+                }}
               >
-                <MdOutlineSearch color={colorIcon} size={sizeIcon} />
+                <MdOutlineSearch size={sizeIcon} />
               </Center>
             )}
-            <Center ml="auto" onClick={signOut} as="button" fontSize="2rem">
-              <MdOutlinePowerSettingsNew color={colorIcon} size={sizeIcon} />
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: theme.colors.orange[500],
+              }}
+              ml="auto"
+              onClick={signOut}
+              as="button"
+              fontSize="2rem"
+            >
+              <MdOutlinePowerSettingsNew size={sizeIcon} />
             </Center>
           </VStack>
         </DrawerBody>
