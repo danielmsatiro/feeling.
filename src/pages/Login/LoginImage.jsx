@@ -7,7 +7,7 @@ export const LoginImage = () => {
         src={dancing}
         alt="dancing"
         h="auto"
-        w={["0", "0", "400px", "800px"]}
+        w={["0", "0", "350px", "400px"]}
       />
     </Box>
   );

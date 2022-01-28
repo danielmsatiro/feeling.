@@ -7,7 +7,7 @@ export const SignupImage = () => {
         src={ballet}
         alt="dancing"
         h="auto"
-        w={["0", "0", "400px", "500px"]}
+        w={["0", "0", "350px", "400px"]}
       />
     </Box>
   );

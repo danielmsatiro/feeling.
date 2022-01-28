@@ -10,6 +10,7 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
+const ImageMotion = motion(Image);
 
 const squareVariants = {
   visible: { opacity: 1, transition: { duration: 2 } },
@@ -61,7 +62,13 @@ export const HomeBottom = () => {
         variants={squareVariants}
         position="relative"
       >
-        <Image src={heart} w="80px" position="absolute" top="-10" />
+        <Image
+          src={heart}
+          w="80px"
+          position="absolute"
+          top="-10"
+          draggable={false}
+        />
         <Text
           w={["290px", "290px", "290px", "fit-content"]}
           fontSize={["2xl", "2xl", "2xl", "3xl"]}
@@ -80,6 +87,7 @@ export const HomeBottom = () => {
           src={folders}
           w={["200px", "200px", "200px", "300px"]}
           mt="40px"
+          draggable={false}
         />
       </FlexMotion>
 
@@ -103,6 +111,7 @@ export const HomeBottom = () => {
           src={selfie}
           h={["250px", "250px", "250px", "500px"]}
           mt="20px"
+          draggable={false}
         />
         <Box padding={[null, null, null, "50px"]}>
           <Text
@@ -133,10 +142,13 @@ export const HomeBottom = () => {
         initial="hidden"
         variants={squareVariants}
       >
-        <Image
+        <ImageMotion
           src={levitate}
           w={["300px", "300px", "500px", "500px", "700px"]}
           mb="20px"
+          draggable={false}
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
         />
 
         <Text
