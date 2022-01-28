@@ -7,7 +7,6 @@ export const Phrases = () => {
   return (
     <>
       <Header />
-      <Text>Phrases</Text>
     </>
   );
 };
