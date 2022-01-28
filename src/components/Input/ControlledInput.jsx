@@ -36,11 +36,12 @@ const ControlledInput = ({ error, name, ...rest }, ref) => {
         <Input
           name={name}
           onChangeCapture={(event) => setValue(event.target.value)}
-          h={["50px", "50px", "50px", "60px"]}
+          h="30px"
           pr="4.5rem"
           bg="yellow.200"
-          border="none"
-          borderRadius="30px"
+          border="solid 2px"
+          borderColor="yellow.200"
+          borderRadius="12px"
           focusBorderColor="orange.500"
           ref={ref}
           {...rest}

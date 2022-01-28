@@ -5,12 +5,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../provider/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const signInSchema = yup.object().shape({
   email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup.string().required("Senha obrigatória"),
 });
 export const Login = () => {
+  const history = useHistory()
   const { signIn } = useAuth();
   const {
     formState: { errors },
@@ -30,23 +32,39 @@ export const Login = () => {
       h={["100vh"]}
       margin="auto"
       flexDirection={["column"]}
+      alignItems="center"
     >
-      <Flex h={["150px"]} justifyContent={["center"]} align={["center"]}>
+      <Flex 
+        onClick={() => history.push("/")}
+        cursor="pointer"
+        h={["150px"]} 
+        justifyContent={["center"]} 
+        alignItems={["flex-end"]} 
+        pb="28px" 
+        pr="15px"
+      >
         <Text
           color="orange.500"
-          fontSize={["6xl", "6xl", "7xl", "8xl"]}
-          textAlign="center"
+          fontSize={["4xl", "4xl", "4xl", "5xl"]}
+          fontWeight="medium"
         >
           feeling.
         </Text>
       </Flex>
-      <Flex h="100%" justifyContent={["space-between"]} align={["center"]}>
-        <LoginImage />
-        <LoginForm
-          sender={handleSubmit(Sender)}
-          register={register}
-          error={errors}
-        />
+      <Flex 
+        mt="20px" 
+        justifyContent={["space-between"]} 
+        align={["center"]}>
+        <Flex>
+          <LoginImage />
+        </Flex>
+        <Flex w={["300px", "300px", "350px", "400px"]}>
+          <LoginForm
+            sender={handleSubmit(Sender)}
+            register={register}
+            error={errors}
+          />
+        </Flex>
       </Flex>
     </Flex>
   );
