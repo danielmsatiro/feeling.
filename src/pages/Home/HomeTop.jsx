@@ -2,7 +2,7 @@ import { Flex, Heading, Text, Image, Button } from "@chakra-ui/react";
 import {
   MdOutlineKeyboardArrowRight,
   MdOutlineKeyboardArrowLeft,
-  MdOutlineKeyboardArrowDown
+  MdOutlineKeyboardArrowDown,
 } from "react-icons/md";
 
 import loving from "../../assets/loving.svg";
@@ -22,8 +22,7 @@ const squareVariants = {
 };
 
 export const HomeTop = () => {
-
-  const history = useHistory()
+  const history = useHistory();
 
   const controls1 = useAnimation();
   const controls2 = useAnimation();
@@ -82,6 +81,7 @@ export const HomeTop = () => {
           alt="loving guy"
           w={["300px", "300px", "300px", "400px"]}
           m="10px 0"
+          draggable={false}
         />
 
         <Heading
@@ -146,9 +146,14 @@ export const HomeTop = () => {
           cadastro
         </Button>
 
-          <Flex color="orange.500" fontSize="2rem">
-              <MdOutlineKeyboardArrowDown/>
-          </Flex>
+        <FlexMotion
+          color="orange.500"
+          mt="40px"
+          animate={{ y: [0, -5, 0] }}
+          transition={{ repeat: Infinity }}
+        >
+          <MdOutlineKeyboardArrowDown size={60} />
+        </FlexMotion>
       </FlexMotion>
 
       <FlexMotion
@@ -168,6 +173,7 @@ export const HomeTop = () => {
           alt="clumsy guy"
           w={["300px", "300px", "300px", "400px"]}
           mb="20px"
+          draggable={false}
         />
 
         <Flex
@@ -262,6 +268,7 @@ export const HomeTop = () => {
           src={coffee}
           alt="man coffee"
           w={["300px", "300px", "300px", "450px"]}
+          draggable={false}
         />
       </FlexMotion>
     </Flex>
