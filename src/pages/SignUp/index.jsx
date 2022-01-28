@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../provider/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const signInSchema = yup.object().shape({
   name: yup.string().required("E-mail obrigatório"),
@@ -13,6 +14,7 @@ const signInSchema = yup.object().shape({
   confirm_password: yup.string().required("Senha obrigatória"),
 });
 export const SignUp = () => {
+  const history = useHistory()
   const { signUp } = useAuth();
   const {
     formState: { errors },
@@ -27,21 +29,32 @@ export const SignUp = () => {
   return (
     <Flex
       maxW="1000px"
-      w={["300px", "400px", "95%", "90%"]}
+      w={["250px", "300px", "95%", "90%"]}
       h={["100vh"]}
       margin="auto"
       flexDirection={["column"]}
     >
-      <Flex h={["150px"]} justifyContent={["center"]} align={["center"]}>
+      <Flex 
+        onClick={() => history.push("/")}
+        cursor="pointer"
+        h={["150px"]} 
+        justifyContent={["center"]} 
+        alignItems="flex-end" 
+        pb="28px" 
+        pr="15px"
+      >
         <Text
           color="orange.500"
-          fontSize={["6xl", "6xl", "7xl", "8xl"]}
+          fontSize={["4xl", "4xl", "4xl", "5xl"]}
           textAlign="center"
+          fontWeight="medium"
         >
           feeling.
         </Text>
       </Flex>
-      <Flex h="100%" justifyContent={["space-between"]} align={["center"]}>
+      <Flex 
+        justifyContent={["center"]} 
+        align={["center"]}>
         <SignupForm
           sender={handleSubmit(Sender)}
           register={register}

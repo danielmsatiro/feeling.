@@ -7,12 +7,19 @@ export const LoginForm = ({ sender, register, error }) => {
 
   return (
     <>
-      <Box as="form" w={["300px", "300px", "350px", "400px"]} onSubmit={sender}>
+      <Flex 
+        as="form" 
+        onSubmit={sender} 
+        flexDirection="column"
+        h="300px"
+        justifyContent="space-between"
+      >
         <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
-          <Text fontSize={["3xl", "3xl", "4xl", "5xl"]}>login.</Text>
+          <Text fontSize="4xl" fontWeight="light">login.</Text>
         </Flex>
 
         <Entrada
+          w="300px"
           placeholder="Email"
           name="email"
           errors={error}
@@ -21,6 +28,7 @@ export const LoginForm = ({ sender, register, error }) => {
 
         <Entrada
           type="password"
+          w="300px"
           placeholder="Senha"
           name="password"
           errors={error}
@@ -29,13 +37,22 @@ export const LoginForm = ({ sender, register, error }) => {
         <Flex h={["80px"]} alignItems={["center"]}>
           <Button
             type="submit"
-            w={["100%"]}
-            h={["50px", "50px", "50px", "60px"]}
-            pr="4.5rem"
+            display="flex"
+            justifyContent="center"
+            padding="0px 25px"
             bg="orange.500"
-            color="yellow.50"
-            borderRadius="30px"
-            padding="0"
+            color="white"
+            borderRadius="12px"
+            border="solid"
+            borderColor="orange.500"
+            h="30px"
+            w="300px"
+            fontWeight="medium"
+            _hover={{
+              background: "yellow.50",
+              color: "orange.500",
+              border: "solid orange.500",
+            }}
           >
             entrar
           </Button>
@@ -54,7 +71,7 @@ export const LoginForm = ({ sender, register, error }) => {
             Cadastre-se
           </Text>
         </Flex>
-      </Box>
+      </Flex>
     </>
   );
 };
