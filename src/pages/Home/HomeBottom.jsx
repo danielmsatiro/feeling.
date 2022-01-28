@@ -5,7 +5,7 @@ import selfie from "../../assets/selfie.svg";
 import levitate from "../../assets/levitate.svg";
 import heart from "../../assets/Loves.svg";
 
-import { motion, useAnimation, useViewportScroll } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
