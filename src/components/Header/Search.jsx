@@ -1,14 +1,19 @@
 import { Input, InputGroup, InputLeftElement, theme } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineSearch } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
 
 export const Search = () => {
-  const { searchPhrase } = usePhrases();
+  const { searchPhrase, loadPhrases } = usePhrases();
+
+  /* Ciclo de vida de desmontagem ao sair da página de pesquisa */
+  useEffect(() => {
+    return () => loadPhrases();
+  }, []);
 
   const handleSearch = ({ content }) => {
-    console.log(content);
-    searchPhrase();
+    searchPhrase(content);
   };
 
   const { register, handleSubmit } = useForm();

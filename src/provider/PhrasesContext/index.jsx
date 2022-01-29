@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { api } from "../../services/api";
 
 const PhraseContext = createContext({});
@@ -16,6 +22,10 @@ const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [contentNotFound, setcontentNotFound] = useState("");
+
+  useEffect(() => {
+    loadPhrases();
+  }, []);
 
   const loadPhrases = useCallback(async () => {
     try {
