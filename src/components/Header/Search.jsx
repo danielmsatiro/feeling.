@@ -1,10 +1,14 @@
 import { Input, InputGroup, InputLeftElement, theme } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { MdOutlineSearch } from "react-icons/md";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const Search = () => {
-  const handleSearch = (data) => {
-    console.log(data);
+  const { searchPhrase } = usePhrases();
+
+  const handleSearch = ({ content }) => {
+    console.log(content);
+    searchPhrase();
   };
 
   const { register, handleSubmit } = useForm();
@@ -24,7 +28,7 @@ export const Search = () => {
           focusBorderColor={theme.colors.orange[500]}
           borderRadius="10px"
           h="30px"
-          {...register("name")}
+          {...register("content")}
         />
       </InputGroup>
     </>
