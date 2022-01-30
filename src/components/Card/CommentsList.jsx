@@ -3,7 +3,7 @@ import { CommentCard } from "./CommentCard";
 
 export const CommentsList = ({ array }) => {
   return (
-    <Flex>
+    <Flex pb={["50px"]}>
       <List>
         {array.map((item) => {
           return (

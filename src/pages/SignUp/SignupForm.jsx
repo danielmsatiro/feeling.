@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
 
@@ -14,13 +14,17 @@ export const SignupForm = ({ sender, register, error }) => {
         flexDirection="column"
         h="400px"
         justifyContent="space-between"
-        // paddingLeft={["", "", "50px", ""]}
+        align={["center"]}
       >
-        <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
-          <Text  
-            fontSize="4xl"
-            fontWeight="light"
-          >sign up.</Text>
+        <Flex
+          w={["100%"]}
+          h={["80px"]}
+          justifyContent={["flex-start"]}
+          align={["center"]}
+        >
+          <Text fontSize="4xl" fontWeight="light">
+            sign up.
+          </Text>
         </Flex>
 
         <Entrada
@@ -54,11 +58,9 @@ export const SignupForm = ({ sender, register, error }) => {
           errors={error}
           {...register("confirm_password")}
         />
-        <Flex h={["80px"]} alignItems={["center"]}>
+        <Flex h={["80px"]} justify={["center"]} align={["center"]}>
           <Button
             type="submit"
-            display="flex"
-            justifyContent="center"
             padding="0px 25px"
             bg="orange.500"
             color="white"
@@ -78,7 +80,8 @@ export const SignupForm = ({ sender, register, error }) => {
           </Button>
         </Flex>
         <Flex
-          justifyContent={["center"]}
+          justify={["center"]}
+          align={["center"]}
           fontSize={["14px", "14px", "13px", "16px"]}
           w="300px"
         >
