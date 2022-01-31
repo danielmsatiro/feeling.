@@ -28,7 +28,10 @@ export const Header = () => {
     <>
       <Flex
         position={"fixed"}
-        overflow={"visible"}
+        top={0}
+        left={0}
+        zIndex={2}
+        // overflow={"visible"}
         w={"100%"}
         paddingX="8"
         h="60px"
