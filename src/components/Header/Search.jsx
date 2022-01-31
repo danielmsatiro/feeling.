@@ -1,4 +1,4 @@
-import { Input, InputGroup, InputLeftElement, theme } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { MdOutlineSearch } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
@@ -21,11 +21,11 @@ export const Search = () => {
         alignItems={"center"}
         onSubmit={handleSubmit(handleSearch)}
       >
-        <InputLeftElement color={theme.colors.yellow[500]} h="30px">
+        <InputLeftElement color="yellow.500" h="30px">
           <MdOutlineSearch size={25} />
         </InputLeftElement>
         <Input
-          focusBorderColor={theme.colors.orange[500]}
+          focusBorderColor="orange.500"
           borderRadius="10px"
           h="30px"
           {...register("content")}

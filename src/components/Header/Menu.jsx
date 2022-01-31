@@ -9,7 +9,6 @@ import {
   Flex,
   Heading,
   Text,
-  theme,
   VStack,
 } from "@chakra-ui/react";
 import { useAuth } from "../../provider/AuthContext";
@@ -26,7 +25,7 @@ import { useLocation } from "react-router-dom";
 
 export const Menu = ({ isOpen, onClose }) => {
   const sizeIcon = 25;
-  const colorIcon = theme.colors.yellow[500];
+  const colorIcon = "yellow.500";
   const { user, signOut } = useAuth();
   const history = useHistory();
 
@@ -35,7 +34,7 @@ export const Menu = ({ isOpen, onClose }) => {
   return (
     <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
       <DrawerContent
-        background={theme.colors.yellow[200]}
+        background="yellow.200"
         ml="auto"
         mr="20px"
         mt="80px"
@@ -46,7 +45,7 @@ export const Menu = ({ isOpen, onClose }) => {
             <Center
               color={colorIcon}
               _hover={{
-                color: theme.colors.orange[500],
+                color: "orange.500",
               }}
               onClick={() => history.push("/dashboard")}
               as="button"
@@ -56,7 +55,7 @@ export const Menu = ({ isOpen, onClose }) => {
             <Center
               color={colorIcon}
               _hover={{
-                color: theme.colors.orange[500],
+                color: "orange.500",
               }}
               onClick={() => history.push("/favorites")}
               as="button"
@@ -66,7 +65,7 @@ export const Menu = ({ isOpen, onClose }) => {
             <Center
               color={colorIcon}
               _hover={{
-                color: theme.colors.orange[500],
+                color: "orange.500",
               }}
               onClick={() => history.push("/comments")}
               as="button"
@@ -80,7 +79,7 @@ export const Menu = ({ isOpen, onClose }) => {
                 as="button"
                 color={colorIcon}
                 _hover={{
-                  color: theme.colors.orange[500],
+                  color: "orange.500",
                 }}
               >
                 <MdOutlineSearch size={sizeIcon} />
@@ -89,7 +88,7 @@ export const Menu = ({ isOpen, onClose }) => {
             <Center
               color={colorIcon}
               _hover={{
-                color: theme.colors.orange[500],
+                color: "orange.500",
               }}
               ml="auto"
               onClick={signOut}
