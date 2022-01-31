@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 import swing from "../../assets/swing.svg";
 import meditating from "../../assets/meditating.svg";
