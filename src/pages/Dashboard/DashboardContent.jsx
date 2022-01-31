@@ -34,6 +34,7 @@ export const DashboardContent = ({ name, frase, author }) => {
 
       <Flex justifyContent="center" alignItems="center" w="100%" mb="40px">
         <Flex
+          as="button"
           w={["320px", "350px", "450px", "450px"]}
           bg="yellow.200"
           borderRadius="20px"
@@ -41,7 +42,7 @@ export const DashboardContent = ({ name, frase, author }) => {
           flexDirection="column"
           minH="400px"
           justifyContent="space-between"
-          border="2px solid"
+          onClick={() => history.push("/comments")}
         >
           <Flex
             w="100%"
@@ -87,7 +88,7 @@ export const DashboardContent = ({ name, frase, author }) => {
               flexDirection="column"
               alignItems="center"
               justifyContent="center"
-              onClick={() => history.push("/comments")}
+              onClick={() => {}}
             >
               <Flex
                 display={["block", "none", "none", "none"]}

@@ -1,4 +1,4 @@
-import { Center, Flex, theme, useDisclosure } from "@chakra-ui/react";
+import { Center, Flex, useDisclosure } from "@chakra-ui/react";
 import {
   MdComment,
   MdHomeFilled,
@@ -18,7 +18,7 @@ export const Header = () => {
   const { signOut } = useAuth();
 
   const sizeIcon = 25;
-  const colorIcon = theme.colors.yellow[500];
+  const colorIcon = "yellow.500";
 
   const history = useHistory();
 
@@ -28,11 +28,14 @@ export const Header = () => {
     <>
       <Flex
         position={"fixed"}
-        overflow={"visible"}
+        top={0}
+        left={0}
+        zIndex={2}
+        // overflow={"visible"}
         w={"100%"}
         paddingX="8"
         h="60px"
-        background={theme.colors.yellow[200]}
+        background="yellow.200"
       >
         <Flex display={["none", "flex"]} gap={3}>
           <Center
@@ -40,7 +43,7 @@ export const Header = () => {
             onClick={() => history.push("/dashboard")}
             as="button"
             _hover={{
-              color: theme.colors.orange[500],
+              color: "orange.500",
             }}
           >
             <MdHomeFilled size={sizeIcon} />
@@ -50,7 +53,7 @@ export const Header = () => {
             onClick={() => history.push("/favorites")}
             as="button"
             _hover={{
-              color: theme.colors.orange[500],
+              color: "orange.500",
             }}
           >
             <MdOutlineFavorite size={sizeIcon} />
@@ -60,7 +63,7 @@ export const Header = () => {
             onClick={() => history.push("/comments")}
             as="button"
             _hover={{
-              color: theme.colors.orange[500],
+              color: "orange.500",
             }}
           >
             <MdComment size={sizeIcon} />
@@ -76,7 +79,7 @@ export const Header = () => {
               as="button"
               color={colorIcon}
               _hover={{
-                color: theme.colors.orange[500],
+                color: "orange.500",
               }}
             >
               <MdOutlineSearch size={sizeIcon} />
@@ -94,7 +97,7 @@ export const Header = () => {
           display={["none", "flex"]}
           color={colorIcon}
           _hover={{
-            color: theme.colors.orange[500],
+            color: "orange.500",
           }}
         >
           <MdOutlinePowerSettingsNew size={sizeIcon} />
@@ -107,7 +110,7 @@ export const Header = () => {
           display={["flex", "none"]}
           color={colorIcon}
           _hover={{
-            color: theme.colors.orange[500],
+            color: "orange.500",
           }}
         >
           <MdOutlineMenu size={sizeIcon} />
