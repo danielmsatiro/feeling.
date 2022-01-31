@@ -9,6 +9,8 @@ import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
+import { Link as HDLink } from "react-router-dom";
+
 const FlexMotion = motion(Flex);
 const ImageMotion = motion(Image);
 
@@ -167,14 +169,22 @@ export const HomeBottom = () => {
         </Text>
       </FlexMotion>
       <Flex
+        flexDirection={["column", "column", "column", "row"]}
+        alignItems="center"
         justifyContent="center"
         bgColor="yellow.50"
         color="orange.500"
         padding="20px 0"
         fontSize="sm"
       >
-        <Link href="#top">voltar ao topo</Link>
-        <Link m="0 20px">criadores</Link>
+        <Link href="#">voltar ao topo</Link>
+        <Link
+          as={HDLink}
+          to={"/creators"}
+          m={["10px 0", "10px 0", "10px 0", "0 20px"]}
+        >
+          creators
+        </Link>
         <Link>repositório</Link>
       </Flex>
     </>
