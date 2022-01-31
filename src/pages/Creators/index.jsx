@@ -13,12 +13,15 @@ import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
 
 import { useState } from "react";
 
+import { Link as HDLink } from "react-router-dom";
+
 import { motion } from "framer-motion";
 
 import guilherme from "../../assets/guilherme.svg";
 import guilhermepic from "../../assets/guilherme-pic.jpg";
 
 const ImageMotion = motion(Image);
+const FlexMotion = motion(Flex);
 
 export const Creators = () => {
   const [init, setInit] = useState(true);
@@ -30,7 +33,7 @@ export const Creators = () => {
   };
 
   return (
-    <Flex
+    <FlexMotion
       flexDirection={["column", "column", "column", "row"]}
       alignItems="center"
       justifyContent={[
@@ -40,6 +43,10 @@ export const Creators = () => {
         "space-evenly",
       ]}
       h="100vh"
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 2 }}
+      variants={variants}
     >
       <Flex alignItems="flex-start" flexDirection="column" m="20px 0">
         <Flex
@@ -63,7 +70,7 @@ export const Creators = () => {
             creators
           </Text>
         </Flex>
-        <Flex w="300px" m="10px 0">
+        <Flex w="300px" m="10px 0" flexDirection="column">
           <Text>
             Por trás de uma boa ideia, existem seus{" "}
             <Text as="span" fontWeight="semibold" color="orange.500">
@@ -75,6 +82,9 @@ export const Creators = () => {
               feeling.
             </Text>
           </Text>
+          <Link as={HDLink} to="/" fontSize="sm" color="orange.500">
+            voltar
+          </Link>
         </Flex>
       </Flex>
 
@@ -136,23 +146,18 @@ export const Creators = () => {
                 projetos que fazem a diferença.
               </Text>
               <Flex flexDirection="row">
-                <Link
-                  href="https://github.com/GuiCoutoSt"
-                  target="_blank"
-                  mr="5px"
-                >
+                <Link href="https://github.com/GuiCoutoSt" target="_blank">
                   <Icon
                     as={FaGithubSquare}
                     boxSize={7}
                     opacity="0.5"
                     _hover={{
                       opacity: "1",
-                      transition: "0.5s",
+                      transition: "1s",
                     }}
                     _active={{ boxShadow: "none" }}
                   />
                 </Link>
-
                 <Link
                   href="https://www.linkedin.com/in/guilhermecoutodev"
                   target="_blank"
@@ -163,7 +168,7 @@ export const Creators = () => {
                     opacity="0.5"
                     _hover={{
                       opacity: "1",
-                      transition: "0.5s",
+                      transition: "1s",
                     }}
                     _active={{ boxShadow: "none" }}
                   />
@@ -173,6 +178,6 @@ export const Creators = () => {
           </Collapse>
         </Flex>
       </Flex>
-    </Flex>
+    </FlexMotion>
   );
 };
