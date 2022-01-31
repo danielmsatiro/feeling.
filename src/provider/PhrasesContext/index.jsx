@@ -40,7 +40,9 @@ const PhraseProvider = ({ children }) => {
   }, []);
 
   const searchPhrase = useCallback(async (textOrAuthor) => {
-    const responseText = await api.get(`phrases?text_like=${textOrAuthor}`);
+    const responseText = await api.get(
+      `phrases?phraseText_like=${textOrAuthor}`
+    );
 
     if (!responseText.data.length) {
       setcontentNotFound(textOrAuthor);
@@ -50,7 +52,9 @@ const PhraseProvider = ({ children }) => {
       return setPhrases(responseText.data);
     }
 
-    const responseAuthor = await api.get(`phrases?author_like=${textOrAuthor}`);
+    const responseAuthor = await api.get(
+      `phrases?phraseAuthor_like=${textOrAuthor}`
+    );
 
     if (!!responseAuthor.data.length) {
       setNotFound(false);
