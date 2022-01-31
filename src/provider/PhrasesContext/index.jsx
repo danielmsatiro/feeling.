@@ -29,7 +29,9 @@ const PhraseProvider = ({ children }) => {
 
   const loadPhrases = useCallback(async () => {
     try {
-      const response = await api.get(`phrases`);
+      const response = await api.get(
+        `phrases?_embed=comments&_embed=users_who_like`
+      );
 
       setPhrases(response.data);
     } catch (err) {

@@ -1,8 +1,9 @@
-import { Input, InputGroup, InputLeftElement, theme } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineSearch } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
+import { theme } from "../../styles/theme";
 
 export const Search = () => {
   const { searchPhrase, loadPhrases } = usePhrases();
