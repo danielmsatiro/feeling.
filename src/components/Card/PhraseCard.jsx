@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 
-export const PhraseCard = ({ frase, author }) => {
+export const PhraseCard = ({ frase, author, onOpen }) => {
   return (
     <Flex
       w={["300px", "320px", "350px", "450px"]}
@@ -9,6 +9,8 @@ export const PhraseCard = ({ frase, author }) => {
       padding="20px"
       margin={["0 0 50px"]}
       flexDirection="column"
+      as="button"
+      onClick={onOpen}
     >
       <Flex
         w="100%"

@@ -1,9 +1,11 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { PhraseCard } from "../../components/Card/PhraseCard";
 import { CommentsList } from "../../components/Card/CommentsList";
+
 import jumping from "../../assets/jumping.svg";
 
-export const FellasComments = () => {
+
+export const FellasComments = ({ onOpen }) => {
   const frases = [
     {
       id: "0",
@@ -36,6 +38,7 @@ export const FellasComments = () => {
   ];
 
   return (
+
     <Flex flexDirection="column" alignItems="center">
       <Flex
         w={["300px", "320px", "600px", "750px"]}
@@ -46,17 +49,27 @@ export const FellasComments = () => {
         <Flex
           w={["300px", "320px", "450px", "450px"]}
           fontSize={["3xl", "3xl", "4xl", "5xl"]}
+
           fontWeight="medium"
-          flexWrap={["wrap"]}
           justifyContent={["flex-start"]}
           alignItems={["center"]}
         >
-          <Text pr={["7px"]} color="orange.500">
-            Comentários
-          </Text>
-          <Text>da Galera</Text>
-          <Text color="orange.500">!</Text>
+          <Flex
+            w={["300px", "320px", "450px", "450px"]}
+            fontSize={["3xl"]}
+            fontWeight="medium"
+            flexWrap={["wrap"]}
+            justifyContent={["flex-start"]}
+            alignItems={["center"]}
+          >
+            <Text pr={["7px"]} color="orange.500">
+              Comentários
+            </Text>
+            <Text>da Galera</Text>
+            <Text color="orange.500">!</Text>
+          </Flex>
         </Flex>
+
       </Flex>
       <Flex
         w={["0", "0", "600px", "750px"]}
@@ -92,5 +105,6 @@ export const FellasComments = () => {
 
       <CommentsList array={frases} />
     </Flex>
+
   );
 };
