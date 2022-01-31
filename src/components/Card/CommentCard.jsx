@@ -1,12 +1,14 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { MdQuestionAnswer } from "react-icons/md";
 
 export const CommentCard = ({ comment, autor }) => {
   return (
     <Flex
-      w={["300px", "320px", "450px", "450px"]}
+      w={["300px", "320px", "600px", "750px"]}
       bg="yellow.200"
       borderRadius="20px"
+      transition={["500ms"]}
+      _hover={{ border: "2px", borderColor: "orange.500" }}
       padding="20px"
       mt={["30px"]}
       flexDirection="column"
@@ -16,7 +18,7 @@ export const CommentCard = ({ comment, autor }) => {
         flexDirection={["row", "row", "row"]}
         alignItems="center"
         justifyContent="flex-start"
-        minH="100px"
+        minH="50px"
       >
         <Flex
           as="button"
@@ -25,7 +27,7 @@ export const CommentCard = ({ comment, autor }) => {
           w={["50px"]}
           justifyContent={["center"]}
           alignItems={["center"]}
-          // onClick={salir}
+          // onClick={}
         >
           <MdQuestionAnswer />
         </Flex>
@@ -35,7 +37,7 @@ export const CommentCard = ({ comment, autor }) => {
       </Flex>
       <Flex
         w="100%"
-        minH="150px"
+        minH="80px"
         flexDirection={["column", "row", "row", "row"]}
         alignItems={["center"]}
         justifyContent={["flex-start"]}

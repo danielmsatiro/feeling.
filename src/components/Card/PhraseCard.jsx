@@ -3,7 +3,7 @@ import { Flex, Heading, Text } from "@chakra-ui/react";
 export const PhraseCard = ({ frase, author, onOpen }) => {
   return (
     <Flex
-      w={["300px", "320px", "450px", "450px"]}
+      w={["300px", "320px", "350px", "450px"]}
       bg="yellow.200"
       borderRadius="20px"
       padding="20px"
@@ -17,12 +17,13 @@ export const PhraseCard = ({ frase, author, onOpen }) => {
         minH="150px"
         flexDirection={["column", "row", "row", "row"]}
         alignItems={["center"]}
-        justifyContent={["flex-start"]}
+        justifyContent={["flex-start", "flex-start", "flex-end", "flex-end"]}
       >
         <Text
           fontSize={["xl", "2xl", "2xl", "2xl"]}
           fontWeight="light"
           w={["100%", "75%", "75%", "75%"]}
+          textAlign={["left", "left", "right", "right"]}
         >
           {frase}
         </Text>
