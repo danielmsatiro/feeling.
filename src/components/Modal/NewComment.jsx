@@ -42,8 +42,9 @@ export const NewComment = ({ isOpen, onClose }) => {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
+          pt={50}
         >
-          <Text w="100%" textAlign="left" fontWeight="bold">
+          <Text w="100%" textAlign="left" fontWeight="bold" pb={2}>
             Entre no debate:
           </Text>
           <Textarea
@@ -54,6 +55,7 @@ export const NewComment = ({ isOpen, onClose }) => {
             _focus={{ border: "2px", borderColor: "orange.500" }}
             onChange={(event) => setValue(event.target.value)}
             defaultValue={value}
+            minH={150}
           />
         </ModalBody>
         <ModalFooter h={["100px"]} justifyContent="center">
