@@ -25,6 +25,7 @@ const PhraseProvider = ({ children }) => {
 
   useEffect(() => {
     loadPhrases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadPhrases = useCallback(async () => {

@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { MdOutlineSearch } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
-import { theme } from "../../styles/theme";
 
 export const Search = () => {
   const { searchPhrase, loadPhrases } = usePhrases();
@@ -11,6 +10,7 @@ export const Search = () => {
   /* Ciclo de vida de desmontagem ao sair da página de pesquisa */
   useEffect(() => {
     return () => loadPhrases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearch = ({ content }) => {
