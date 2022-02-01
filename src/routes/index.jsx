@@ -8,6 +8,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { Favorites } from "../pages/Favorites";
 import { Phrases } from "../pages/Phrases";
 import { Comments } from "../pages/Comments";
+import { MyComments } from "../pages/MyComments";
 import { Creators } from "../pages/Creators";
 
 export const Routes = () => (
@@ -19,6 +20,7 @@ export const Routes = () => (
     <Route path="/phrases" component={Phrases} isPrivate />
     <Route path="/favorites" component={Favorites} isPrivate />
     <Route path="/comments" component={Comments} isPrivate />
+    <Route path="/mycomments" component={MyComments} isPrivate />
     <Route path="/creators" component={Creators} />
   </Switch>
 );

@@ -60,7 +60,7 @@ export const Header = () => {
           </Center>
           <Center
             color={colorIcon}
-            onClick={() => history.push("/comments")}
+            onClick={() => history.push("/mycomments")}
             as="button"
             _hover={{
               color: "orange.500",
