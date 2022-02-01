@@ -3,27 +3,18 @@ import { useState, useEffect } from "react"
 import { MyCommentCard } from "../../components/Card/MyCommentCard"
 import { Header } from "../../components/Header"
 import { api } from "../../services/api"
-import { useAuth } from "../../provider/AuthContext"
+import { useComments } from "../../provider/CommentsProvider"
 import { ModalCard } from "../../components/Modal/ModalCard"
+import { useAuth } from "../../provider/AuthContext"
 
 export const MyComments = () => {
-
-    const {user} = useAuth()
-    const [myComments, setMyComments] = useState([])
+    const { myComments } = useComments()
 
     const {
         isOpen, 
         onOpen,
         onClose, 
     } = useDisclosure()
-
-    const getMyComments = () => {
-        api.get(`comments?userId=${user.id}&_expand=phrase`).then((res) => setMyComments(res.data))
-    }
-
-    useEffect(() => {
-        getMyComments()
-    }, [])
 
     return (
         <Box>
