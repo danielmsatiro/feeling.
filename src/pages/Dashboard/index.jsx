@@ -5,12 +5,14 @@ import { useAuth } from "../../provider/AuthContext"
 export const Dashboard = () => {
 
   const {user} = useAuth()
-  console.log(user.name)
+  const myName = user.name
+  const splitName = myName.split(" ")
+  const firstName = splitName[0]
 
   return (
     <>
       <Header />
-      <DashboardContent name={user.name}/>
+      <DashboardContent name={firstName}/>
     </>
   );
 };
