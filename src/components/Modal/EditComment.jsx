@@ -10,9 +10,13 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useComments } from "../../provider/CommentsProvider"
 
-export const EditComment = ({ isOpen, onClose, comment }) => {
-  const [value, setValue] = useState("");
+export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
+  
+  const [editedComment, setEditedComment] = useState({commentphraseText: ""})
+  const {UpdateComment} = useComments()
+
   return (
     <Modal isOpen={isOpen}>
       <ModalOverlay />
@@ -53,7 +57,7 @@ export const EditComment = ({ isOpen, onClose, comment }) => {
             _placeholder={{ color: "orange.500" }}
             bg="yellow.200"
             _focus={{ border: "2px", borderColor: "orange.500" }}
-            onChange={(event) => setValue(event.target.value)}
+            onChange={(event) => setEditedComment({commentphraseText: event.target.value})}
             defaultValue={comment}
             minH={150}
           />
@@ -65,6 +69,7 @@ export const EditComment = ({ isOpen, onClose, comment }) => {
             h="30px"
             w="200px"
             borderRadius="30px"
+            onClick={() => {UpdateComment(commentId, editedComment, onClose)}}
           >
             Postar
           </Button>

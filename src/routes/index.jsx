@@ -8,7 +8,7 @@ import { Dashboard } from "../pages/Dashboard";
 import { Favorites } from "../pages/Favorites";
 import { Phrases } from "../pages/Phrases";
 import { Comments } from "../pages/Comments";
-import { MyComments } from "../pages/MyComments";
+import {MyComments} from "../pages/MyComments"
 import { Creators } from "../pages/Creators";
 
 export const Routes = () => (
