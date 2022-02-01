@@ -1,13 +1,33 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 
 import swing from "../../assets/swing.svg";
 import meditating from "../../assets/meditating.svg";
 
 import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
 import { useHistory } from "react-router-dom";
+import { usePhrases } from "../../provider/PhrasesContext";
+import { useState } from "react";
+import { useAuth } from "../../provider/AuthContext";
+import { useComments } from "../../provider/CommentsContext";
 
-export const DashboardContent = ({ name, frase, author }) => {
+export const DashboardContent = ({ name }) => {
+  const { user } = useAuth();
+  const { phrases } = usePhrases();
+  const { PhraseComments } = useComments();
+  const [frase, setFrase] = useState({});
   const history = useHistory();
+
+  const RandomPhrase = () => {
+    const randomId = Math.floor(Math.random() * 10);
+    const phrase = phrases.find((item) => item.id === randomId);
+    setFrase(phrase);
+  };
+
+  const handleClick = () => {
+    PhraseComments(frase.id);
+    history.push("/comments");
+  };
+
   return (
     <Flex flexDirection="column" alignItems="center">
       <Flex
@@ -28,7 +48,7 @@ export const DashboardContent = ({ name, frase, author }) => {
             Olá,
           </Text>{" "}
           <br />
-          {name}
+          {user.name}
         </Heading>
       </Flex>
 
@@ -42,7 +62,7 @@ export const DashboardContent = ({ name, frase, author }) => {
           flexDirection="column"
           minH="400px"
           justifyContent="space-between"
-          onClick={() => history.push("/comments")}
+          onClick={() => handleClick()}
         >
           <Flex
             w="100%"
@@ -63,7 +83,7 @@ export const DashboardContent = ({ name, frase, author }) => {
               w={["100%", "75%", "75%", "75%"]}
               lineHeight="50px"
             >
-              {frase}
+              {frase.phraseText}
             </Heading>
             <Flex
               color="orange.500"
@@ -111,7 +131,7 @@ export const DashboardContent = ({ name, frase, author }) => {
             </Flex>
 
             <Heading size="lg" fontWeight="medium" mt="30px">
-              {author}
+              {frase.phraseAuthor}
             </Heading>
           </Flex>
         </Flex>
@@ -141,6 +161,7 @@ export const DashboardContent = ({ name, frase, author }) => {
           color: "orange.500",
           border: "solid orange.500",
         }}
+        onClick={() => RandomPhrase()}
       >
         Quero outra!
       </Button>

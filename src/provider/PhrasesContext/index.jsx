@@ -30,7 +30,6 @@ const PhraseProvider = ({ children }) => {
   const loadPhrases = useCallback(async () => {
     try {
       const response = await api.get(`phrases`);
-
       setPhrases(response.data);
     } catch (err) {
       console.log(err);
