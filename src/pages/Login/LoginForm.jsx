@@ -2,16 +2,39 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
 
-export const LoginForm = ({ sender, register, error }) => {
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useAuth } from "../../provider/AuthContext";
+
+export const LoginForm = () => {
   const history = useHistory();
+
+  const signInSchema = yup.object().shape({
+    email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
+    password: yup.string().required("Senha obrigatória"),
+  });
+
+  const { signIn } = useAuth();
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({ resolver: yupResolver(signInSchema) });
+
+  const sender = (data) => {
+    signIn(data);
+  };
+
+  console.log(errors.email?.message);
+  console.log(errors.password?.message);
 
   return (
     <>
       <Flex
         as="form"
-        onSubmit={sender}
+        onSubmit={handleSubmit(sender)}
         flexDirection="column"
-        h="300px"
         justifyContent="space-between"
       >
         <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
@@ -24,49 +47,52 @@ export const LoginForm = ({ sender, register, error }) => {
           w="300px"
           placeholder="Email"
           name="email"
-          errors={error}
-          {...register("email")}
+          error={errors.email?.message}
+          register={register}
         />
 
         <Entrada
-          type="password"
           w="300px"
+          type="password"
           placeholder="Senha"
           name="password"
-          errors={error}
-          {...register("password")}
+          error={errors.password?.message}
+          register={register}
         />
-        <Flex h={["80px"]} alignItems={["center"]}>
-          <Button
-            type="submit"
-            display="flex"
-            justifyContent="center"
-            padding="0px 25px"
-            bg="orange.500"
-            color="white"
-            borderRadius="12px"
-            border="solid"
-            borderColor="orange.500"
-            h="30px"
-            w="300px"
-            fontWeight="medium"
-            _hover={{
-              background: "yellow.50",
-              color: "orange.500",
-              border: "solid orange.500",
-            }}
-          >
-            entrar
-          </Button>
-        </Flex>
+
+        <Button
+          type="submit"
+          alignSelf="center"
+          padding="0px 25px"
+          bg="orange.500"
+          color="white"
+          borderRadius="12px"
+          border="solid"
+          borderColor="orange.500"
+          h="30px"
+          w="fit-content"
+          m="10px"
+          fontWeight="medium"
+          _hover={{
+            background: "yellow.50",
+            color: "orange.500",
+            border: "solid orange.500",
+          }}
+        >
+          entrar
+        </Button>
+
         <Flex
           justifyContent={["center"]}
           fontSize={["14px", "14px", "13px", "16px"]}
         >
-          <Text paddingRight="5px">Não tem uma conta?</Text>
+          <Text paddingRight="5px" fontSize="sm">
+            Não tem uma conta?
+          </Text>
           <Text
             as="button"
             color="orange.500"
+            fontSize="sm"
             fontWeight="bold"
             onClick={() => history.push("/signup")}
           >

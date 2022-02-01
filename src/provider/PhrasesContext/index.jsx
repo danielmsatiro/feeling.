@@ -21,7 +21,7 @@ const usePhrases = () => {
 const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const [contentNotFound, setcontentNotFound] = useState("");
+  const [contentSearch, setContentSearch] = useState("");
 
   useEffect(() => {
     loadPhrases();
@@ -44,9 +44,9 @@ const PhraseProvider = ({ children }) => {
     const responseText = await api.get(
       `phrases?phraseText_like=${textOrAuthor}`
     );
+    setContentSearch(textOrAuthor);
 
     if (!responseText.data.length) {
-      setcontentNotFound(textOrAuthor);
       setNotFound(true);
     } else {
       setNotFound(false);
@@ -70,7 +70,7 @@ const PhraseProvider = ({ children }) => {
         loadPhrases,
         searchPhrase,
         notFound,
-        contentNotFound,
+        contentSearch,
       }}
     >
       {children}
