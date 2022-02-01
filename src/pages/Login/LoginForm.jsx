@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
 
@@ -7,15 +7,17 @@ export const LoginForm = ({ sender, register, error }) => {
 
   return (
     <>
-      <Flex 
-        as="form" 
-        onSubmit={sender} 
+      <Flex
+        as="form"
+        onSubmit={sender}
         flexDirection="column"
         h="300px"
         justifyContent="space-between"
       >
         <Flex h={["80px"]} justifyContent={["flex-start"]} align={["center"]}>
-          <Text fontSize="4xl" fontWeight="light">login.</Text>
+          <Text fontSize="4xl" fontWeight="light">
+            login.
+          </Text>
         </Flex>
 
         <Entrada

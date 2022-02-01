@@ -25,11 +25,14 @@ const PhraseProvider = ({ children }) => {
 
   useEffect(() => {
     loadPhrases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadPhrases = useCallback(async () => {
     try {
-      const response = await api.get(`phrases`);
+      const response = await api.get(
+        `phrases?_embed=comments&_embed=users_who_like`
+      );
 
       setPhrases(response.data);
     } catch (err) {
@@ -39,7 +42,7 @@ const PhraseProvider = ({ children }) => {
 
   const searchPhrase = useCallback(async (textOrAuthor) => {
     const responseText = await api.get(
-      `phrases?phrase_text_like=${textOrAuthor}`
+      `phrases?phraseText_like=${textOrAuthor}`
     );
 
     if (!responseText.data.length) {
@@ -51,7 +54,7 @@ const PhraseProvider = ({ children }) => {
     }
 
     const responseAuthor = await api.get(
-      `phrases?phrase_author_like=${textOrAuthor}`
+      `phrases?phraseAuthor_like=${textOrAuthor}`
     );
 
     if (!!responseAuthor.data.length) {

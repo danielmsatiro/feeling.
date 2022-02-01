@@ -1,16 +1,28 @@
 import { Flex, Text, Box } from "@chakra-ui/react"
 import {MdModeEdit, MdRestoreFromTrash } from "react-icons/md"
 import { api } from "../../services/api"
+import { useDisclosure } from "@chakra-ui/react"
 
-export const MyCommentCard = ({phrase, date, commentId, onOpen}) => {
+import {EditComment} from "../../components/Modal/EditComment"
+
+export const MyCommentCard = ({phrase, date, commentId, onOpenPhrase, comment}) => {
 
     const deleteMyComments = () => {
         api.delete(`comments/${commentId}`)
     }
 
+    const {
+        isOpen, 
+        onOpen,
+        onClose, 
+    } = useDisclosure()
+
+
     return (
         <Flex 
-            w="100%"
+            w="90vw"
+            maxW="700px"
+            minW="320px"
             m="5px 0"
             bg="yellow.200"
             padding="10px 20px"
@@ -34,6 +46,7 @@ export const MyCommentCard = ({phrase, date, commentId, onOpen}) => {
                 <Box>
                     <Text 
                         maxW="550px"
+                        minW="220px"
                         w="100%"
                         whiteSpace="nowrap" 
                         overflow="hidden"   
@@ -49,13 +62,19 @@ export const MyCommentCard = ({phrase, date, commentId, onOpen}) => {
 
             <Flex flexDirection="column" justifyContent="space-between" minW="65px">
                 <Flex justifyContent="space-between" >
-                    <MdModeEdit size="1.3rem"/>
+                    <MdModeEdit size="1.3rem" onClick={onOpen}/>
 
                     <MdRestoreFromTrash size="1.3rem" onClick={() => deleteMyComments()}/>
                 </Flex>
 
-                <Text fontSize="xs" onClick={onOpen}>Ver a frase</Text>
+                <Text fontSize="xs" onClick={onOpenPhrase}>Ver a frase</Text>
             </Flex>
+
+            <EditComment
+                isOpen={isOpen}
+                onClose={onClose}
+                comment={phrase}
+            />
         </Flex>
     )
 }
