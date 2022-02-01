@@ -40,12 +40,12 @@ const CommentsProvider = ({children}) => {
         }).then((_) => {getMyComments()})
     }    
 
-    const UpdateComment = (commentId, value) => {
+    const UpdateComment = (commentId, value, onClose) => {
         api.patch(`comments/${commentId}`, value, {
             headers: {
                 authorization: `Bearer ${accessToken}`
             }
-        }).then((_) => {getMyComments()})
+        }).then((_) => {getMyComments()}).then(onClose)
     }
 
     return (
