@@ -1,20 +1,39 @@
 import { Button, Flex, Text } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
 import { useHistory } from "react-router-dom";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../../provider/AuthContext";
 
-export const SignupForm = ({ sender, register, error }) => {
+export const SignupForm = () => {
   const history = useHistory();
+
+  const signInSchema = yup.object().shape({
+    email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
+    name: yup.string().required("Escreva seu nome"),
+    password: yup.string().required("Senha obrigatória"),
+    confirm_password: yup.string().required("Confirme sua senha"),
+  });
+
+  const { signUp } = useAuth();
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm({ resolver: yupResolver(signInSchema) });
+
+  const sender = (data) => {
+    signUp(data);
+  };
 
   return (
     <>
       <Flex
         as="form"
-        w={["300px", "300px", "350px", "400px"]}
-        onSubmit={sender}
+        onSubmit={handleSubmit(sender)}
         flexDirection="column"
-        h="400px"
         justifyContent="space-between"
-        align={["center"]}
       >
         <Flex
           w={["100%"]}
@@ -31,15 +50,15 @@ export const SignupForm = ({ sender, register, error }) => {
           w="300px"
           placeholder="Email"
           name="email"
-          errors={error}
-          {...register("email")}
+          error={errors.email?.message}
+          register={register}
         />
         <Entrada
           w="300px"
           placeholder="Nome"
           name="name"
-          errors={error}
-          {...register("name")}
+          error={errors.name?.message}
+          register={register}
         />
 
         <Entrada
@@ -47,47 +66,52 @@ export const SignupForm = ({ sender, register, error }) => {
           type="password"
           placeholder="Senha"
           name="password"
-          errors={error}
-          {...register("password")}
+          error={errors.password?.message}
+          register={register}
         />
         <Entrada
           w="300px"
           type="password"
           placeholder="Confirme sua Senha"
           name="confirm_password"
-          errors={error}
-          {...register("confirm_password")}
+          error={errors.confirm_password?.message}
+          register={register}
         />
-        <Flex h={["80px"]} justify={["center"]} align={["center"]}>
-          <Button
-            type="submit"
-            padding="0px 25px"
-            bg="orange.500"
-            color="white"
-            borderRadius="12px"
-            border="solid"
-            borderColor="orange.500"
-            h="30px"
-            w="300px"
-            fontWeight="medium"
-            _hover={{
-              background: "yellow.50",
-              color: "orange.500",
-              border: "solid orange.500",
-            }}
-          >
-            cadastrar
-          </Button>
-        </Flex>
+
+        <Button
+          type="submit"
+          alignSelf="center"
+          padding="15px"
+          bg="orange.500"
+          color="white"
+          borderRadius="12px"
+          border="solid"
+          borderColor="orange.500"
+          h="30px"
+          w="fit-content"
+          m="10px"
+          fontWeight="medium"
+          _hover={{
+            background: "yellow.50",
+            color: "orange.500",
+            border: "solid orange.500",
+          }}
+        >
+          cadastrar
+        </Button>
+
         <Flex
           justify={["center"]}
           align={["center"]}
           fontSize={["14px", "14px", "13px", "16px"]}
           w="300px"
         >
-          <Text paddingRight="5px">Já possui uma conta? Faça</Text>
+          <Text paddingRight="5px" fontSize="sm">
+            Já possui uma conta? Faça
+          </Text>
           <Text
             as="button"
+            fontSize="sm"
             color="orange.500"
             fontWeight="bold"
             onClick={() => history.push("/login")}
