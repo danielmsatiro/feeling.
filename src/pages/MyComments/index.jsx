@@ -1,27 +1,25 @@
-import { Flex, Text, Heading } from "@chakra-ui/react"
+import { Flex, Text, Heading, useDisclosure, Box } from "@chakra-ui/react"
 import { useState, useEffect } from "react"
 import { MyCommentCard } from "../../components/Card/MyCommentCard"
 import { Header } from "../../components/Header"
 import { api } from "../../services/api"
 import { useAuth } from "../../provider/AuthContext"
+import { ModalCard } from "../../components/Card/ModalCard"
 
 export const MyComments = () => {
 
     const {user} = useAuth()
-    const commentId = 1
-
-    const userId = 1
     const [myComments, setMyComments] = useState([])
 
+    const {isOpen, onOpen, onClose} = useDisclosure()
+
     const getMyComments = () => {
-        api.get(`comments?userId=${userId}&_expand=phrase`).then((res) => setMyComments(res.data))
+        api.get(`comments?userId=${user.id}&_expand=phrase`).then((res) => setMyComments(res.data))
     }
 
     useEffect(() => {
         getMyComments()
     }, [])
-
-    console.log(myComments)
 
     return (
         <>
@@ -37,20 +35,28 @@ export const MyComments = () => {
                 <Flex flexDirection="column" alignItems="center">
                     {   myComments.length > 0 ? (
                         myComments.map((comment) => (
+                            <Box 
+                            key={comment.id} w="100%">
                             <MyCommentCard 
-                                key={comment.id}
-                                phrase={comment.commentText}
+                                phrase={comment.commentphraseText}
                                 date={comment.date}
                                 commentId={comment.id}
+                                onOpen={onOpen}
                             />
+                            <ModalCard 
+                                isOpen={isOpen} 
+                                onClose={onClose} 
+                                phrase={comment.phrase.phraseText}
+                                author={comment.phrase.phraseAuthor}
+                            />
+                            </Box>
                         ))) :
                         (
-                        <Heading>Você não possui comentários</Heading>
+                        <Heading fontSize="xl" fontWeight="light">Você não possui comentários</Heading>
                         )
                     }
                 </Flex>
-            </Flex>
-
+            </Flex>   
         </>
     )
 } 

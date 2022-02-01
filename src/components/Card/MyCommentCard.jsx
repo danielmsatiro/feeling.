@@ -2,7 +2,7 @@ import { Flex, Text, Box } from "@chakra-ui/react"
 import {MdModeEdit, MdRestoreFromTrash } from "react-icons/md"
 import { api } from "../../services/api"
 
-export const MyCommentCard = ({phrase, date, commentId}) => {
+export const MyCommentCard = ({phrase, date, commentId, onOpen}) => {
 
     const deleteMyComments = () => {
         api.delete(`comments/${commentId}`)
@@ -54,7 +54,7 @@ export const MyCommentCard = ({phrase, date, commentId}) => {
                     <MdRestoreFromTrash size="1.3rem" onClick={() => deleteMyComments()}/>
                 </Flex>
 
-                <Text fontSize="xs">Ver a frase</Text>
+                <Text fontSize="xs" onClick={onOpen}>Ver a frase</Text>
             </Flex>
         </Flex>
     )
