@@ -1,16 +1,16 @@
 import { Text, Box, IconButton, Flex } from "@chakra-ui/react";
 import { Header } from "../../components/Header";
 import { MdQuestionAnswer } from "react-icons/md";
-import { api } from "../../services/api";
-import { useState } from "react";
+import { usePhrases } from "../../provider/PhrasesContext";
+import { useAuth } from "../../provider/AuthContext";
 
 export const Favorites = () => {
-  const [favorites, setFavorites] = useState(async () => {
-    const response = await api.get(`/favorite`).then;
-    setFavorites(response.data);
-    console.log(favorites);
-  }, []);
+  const { phrases } = usePhrases();
+  const { user } = useAuth();
 
+  const myFavorites = phrases.filter((phrase) =>
+    phrase.users_who_like.some((item) => item.userId === user.id)
+  );
 
   return (
     <>
@@ -22,10 +22,14 @@ export const Favorites = () => {
         fontWeight={"500"}
         fontSize={"6xl"}
         lineHeight={"96px"}
+        padding={"70px"}
       >
-        Frases Favoritas.
+        Frases{" "}
+        <Text as="abbr" color="orange.500">
+          Favoritas.
+        </Text>
       </Text>
-      <Flex>
+      <Flex paddingLeft={"80px"}>
         <Box
           w="401px"
           h="595px"
@@ -58,13 +62,9 @@ export const Favorites = () => {
             fontStyle={"normal"}
             padding={"30px"}
           >
-            {/* {favorites.map((el) => {
-              {
-                el.phrase_text;
-              }
-            })} */}
-            Suba o primeiro degrau com fé. Não é necessário que você veja a
-            escada toda. Apenas dê o primeiro passo.
+            {myFavorites.map((phrase) => (
+              <Box key={phrase.id}>{phrase.phraseText}</Box>
+            ))}
           </Text>
           <Text
             color="orange.500"
@@ -73,12 +73,9 @@ export const Favorites = () => {
             lineHeight={"54px"}
             textAlign={"center"}
           >
-            {/* {favorites.map((el) => {
-              {
-                el.phrase_author;
-              }
-            })} */}
-            Martin Luther King
+            {myFavorites.map((phrase) => (
+              <Box key={phrase.id}>{phrase.phraseAuthor}</Box>
+            ))}
           </Text>
         </Box>
       </Flex>
