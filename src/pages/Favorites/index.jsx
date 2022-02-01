@@ -20,65 +20,81 @@ export const Favorites = () => {
         textShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
         fontFamily={"Poppins"}
         fontWeight={"500"}
-        fontSize={"6xl"}
-        lineHeight={"96px"}
-        padding={"70px"}
+        fontSize={["3xl", "4xl", "5xl", "6xl"]}
+        lineHeight={["32px", "32px", "64px", "96px"]}
+        padding={["35px", "40px", "50px", "50px"]}
+        textAlign={"center"}
       >
         Frases{" "}
         <Text as="abbr" color="orange.500">
           Favoritas.
         </Text>
       </Text>
-      <Flex paddingLeft={"80px"}>
-        <Box
-          w="401px"
-          h="595px"
-          bg="yellow.200"
-          direction={"column"}
-          align={"center"}
-          boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
-          borderRadius={"20px"}
+
+      {/* {myFavorites.lenght > 0 ? ( */}
+      {myFavorites.map((phrase) => (
+        <Flex
+          key={phrase.id}
+          justifyContent={"center"}
+          gap={["40px", "60px", "60px", "60px"]}
         >
-          <Flex justify={"flex-end"}>
-            <IconButton
-              bg={"transparent"}
-              w={"40px"}
-              h={"40px"}
+          <Box
+            w={["85%", "400px", "401px", "504px"]}
+            h={["100%", "100%", "100%", "100%"]}
+            bg="yellow.200"
+            direction={"column"}
+            align={"center"}
+            boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
+            borderRadius={"20px"}
+          >
+            <Flex justify={"flex-end"} margin={"10px 10px 0 0"}>
+              <IconButton
+                bg={"transparent"}
+                w={["30px", "35px", "40px", "40px"]}
+                h={["30px", "35px", "40px", "40px"]}
+                color="orange.500"
+                icon={<MdQuestionAnswer size="100%" />}
+                aria-label="Ver Comentários"
+                onClick={() => {
+                  /*abre os comentários*/
+                }}
+              />
+            </Flex>
+            <Text
+              colorScheme={""}
+              fontSize={["2xl", "3xl", "3xl", "4xl"]}
+              fontWeight={"300"}
+              fontFamily={"Poppins"}
+              lineHeight={["40px", "40px", "40px", "54px"]}
+              textAlign={"center"}
+              fontStyle={"normal"}
+              padding={["10%", "7%", "7%", "6%"]}
+            >
+              <Box>{phrase.phraseText}</Box>
+            </Text>
+            <Text
               color="orange.500"
-              icon={<MdQuestionAnswer size="100%" />}
-              aria-label="Ver Comentários"
-              onClick={() => {
-                /*abre os comentários*/
-              }}
-            />
-          </Flex>
-          <Text
-            colorScheme={""}
-            fontSize={"4xl"}
-            fontWeight={"300"}
-            fontFamily={"Poppins"}
-            lineHeight={"54px"}
-            textAlign={"center"}
-            fontStyle={"normal"}
-            padding={"30px"}
-          >
-            {myFavorites.map((phrase) => (
-              <Box key={phrase.id}>{phrase.phraseText}</Box>
-            ))}
-          </Text>
-          <Text
-            color="orange.500"
-            fontWeight={"500"}
-            fontSize={"4xl"}
-            lineHeight={"54px"}
-            textAlign={"center"}
-          >
-            {myFavorites.map((phrase) => (
-              <Box key={phrase.id}>{phrase.phraseAuthor}</Box>
-            ))}
-          </Text>
-        </Box>
-      </Flex>
+              fontWeight={"500"}
+              fontSize={["2xl", "3xl", "3xl", "4xl"]}
+              lineHeight={["40px", "40px", "40px", "54px"]}
+              textAlign={"center"}
+              paddingBottom={"7%"}
+            >
+              <Box>{phrase.phraseAuthor}</Box>
+            </Text>
+          </Box>
+        </Flex>
+      ))}
+      {/* ) : (
+<Text
+fontSize="xl"
+fontWeight="light"
+textAlign={"center"}
+padding={"0 5%"}
+>
+Você ainda não favoritou nenhuma frase.
+</Text>
+)} */}
     </>
   );
 };
