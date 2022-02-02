@@ -1,7 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
-import { useToast } from "@chakra-ui/react";
-import { Box } from "@chakra-ui/react";
+import { toast, useToast } from "@chakra-ui/react";
 
 const AuthContext = createContext({});
 

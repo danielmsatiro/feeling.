@@ -31,10 +31,15 @@ const CommentsProvider = ({ children }) => {
   const toast = useToast()
 
   const getMyComments = useCallback(async () => {
+    try{
     const response = await api.get(
         `comments?userId=${user && user.id}&_expand=phrase`
         )
         setMyComments(response)
+    }
+    catch (err) {
+    console.log(err);
+  }
   }, [])
 
   useEffect(() => {

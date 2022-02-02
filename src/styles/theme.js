@@ -52,5 +52,8 @@ export const theme = extendTheme({
       },
       placement: "bottom",
     },
+    Toast: {
+      duration: 3000,
+    }
   },
 });
