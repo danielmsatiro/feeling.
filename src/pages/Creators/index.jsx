@@ -1,36 +1,28 @@
-import {
-  Box,
-  Flex,
-  Image,
-  Text,
-  Collapse,
-  useDisclosure,
-  Link,
-  Icon,
-} from "@chakra-ui/react";
+import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 
-import { FaGithubSquare, FaLinkedin } from "react-icons/fa";
+import { CreatorsCard } from "./CreatorsCard";
 
 import { useState } from "react";
 
-import { Link as HDLink } from "react-router-dom";
-
 import { motion } from "framer-motion";
+
+import { creatorsInfo } from "../../utils/creatorsInfo";
 
 import guilherme from "../../assets/guilherme.svg";
 import guilhermepic from "../../assets/guilherme-pic.jpg";
 
-const ImageMotion = motion(Image);
 const FlexMotion = motion(Flex);
 
 export const Creators = () => {
-  const [init, setInit] = useState(true);
+  const [img, setImg] = useState(true);
   const { isOpen, onToggle } = useDisclosure();
 
   const variants = {
     visible: { opacity: 1 },
     hidden: { opacity: 0 },
   };
+
+  // Props {picture, avatar, name, role, description, github, linkedin}
 
   return (
     <FlexMotion
@@ -82,101 +74,16 @@ export const Creators = () => {
               feeling.
             </Text>
           </Text>
-          <Link as={HDLink} to="/" fontSize="sm" color="orange.500">
-            voltar
-          </Link>
         </Flex>
       </Flex>
-
-      <Flex
-        flexDirection="column"
-        alignItems="flex-start"
-        w="fit-content"
-        padding="10px"
-        borderRadius="10px"
-        bgColor="white"
-      >
-        <Flex flexDirection="column" w={["300px", "340px", "340px", "550px"]}>
-          <Flex alignItems="center">
-            {init ? (
-              <Image src={guilherme} w="99.83px" h="100px" borderRadius="50%" />
-            ) : (
-              <ImageMotion
-                src={guilhermepic}
-                w="100px"
-                h="100px"
-                borderRadius="50%"
-                initial="hidden"
-                animate="visible"
-                variants={variants}
-              />
-            )}
-
-            <Flex flexDirection="column" alignItems="center" mb="10px">
-              <Box padding="0 25px">
-                <Text fontSize="lg" fontWeight="semibold">
-                  Guilherme Couto
-                </Text>
-                <Text fontSize="sm" fontStyle="italic">
-                  Tech Leader
-                </Text>
-                <Link
-                  fontSize="sm"
-                  color="orange.500"
-                  onClick={() => {
-                    setInit(!init);
-                    onToggle();
-                  }}
-                >
-                  ver {isOpen ? "menos" : "mais"}
-                </Link>
-              </Box>
-            </Flex>
-          </Flex>
-          <Collapse in={isOpen}>
-            <Flex
-              justifyContent="space-between"
-              bgColor="yellow.200"
-              padding="10px"
-              borderRadius="10px"
-              mt="10px"
-            >
-              <Text w={["70%", "75%", "80%", "80%"]} fontSize="xs">
-                Tenho 26 anos, gosto de café expresso, dias ensolarados e de
-                projetos que fazem a diferença.
-              </Text>
-              <Flex flexDirection="row">
-                <Link href="https://github.com/GuiCoutoSt" target="_blank">
-                  <Icon
-                    as={FaGithubSquare}
-                    boxSize={7}
-                    opacity="0.5"
-                    _hover={{
-                      opacity: "1",
-                      transition: "1s",
-                    }}
-                    _active={{ boxShadow: "none" }}
-                  />
-                </Link>
-                <Link
-                  href="https://www.linkedin.com/in/guilhermecoutodev"
-                  target="_blank"
-                >
-                  <Icon
-                    as={FaLinkedin}
-                    boxSize={7}
-                    opacity="0.5"
-                    _hover={{
-                      opacity: "1",
-                      transition: "1s",
-                    }}
-                    _active={{ boxShadow: "none" }}
-                  />
-                </Link>
-              </Flex>
-            </Flex>
-          </Collapse>
-        </Flex>
+      <Flex flexDirection="column">
+        <CreatorsCard
+          info={creatorsInfo[0]}
+          state={img}
+          isOpen={isOpen}
+          onToggle={onToggle}
+          setState={setImg}
+        />
       </Flex>
     </FlexMotion>
   );
