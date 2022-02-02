@@ -23,29 +23,29 @@ const CommentsProvider = ({ children }) => {
   const { user, accessToken } = useAuth();
   const [myComments, setMyComments] = useState([]);
 
-  const getMyComments = () => {
-    api
-      .get(`comments?userId=${user.id}&_expand=phrase`)
-      .then((res) => setMyComments(res.data));
-  };
+    useEffect(() => {
+        getMyComments()
+    }, [])
 
-  useEffect(() => {
-    getMyComments();
+    const getMyComments = useCallback(async () => {
+        try{
+        const response = await api.get(
+            `comments?userId=${user.id}&_expand=phrase`
+            )
+            setMyComments(response)
+        }
+        catch (err) {
+        console.log(err);
+    }
+    }, [])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const deleteMyComments = (commentId) => {
-    api
-      .delete(`comments/${commentId}`, {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((_) => {
-        getMyComments();
-      });
-  };
+    const deleteMyComments = (commentId) => {
+        api.delete(`comments/${commentId}`, {
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            }
+        }).then((_) => {getMyComments()})
+    }    
 
   const UpdateComment = (commentId, value, onClose) => {
     api
