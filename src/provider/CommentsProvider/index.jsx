@@ -24,12 +24,20 @@ const CommentsProvider = ({children}) => {
     const {user, accessToken} = useAuth()
     const [myComments, setMyComments] = useState([])
 
-    const getMyComments = () => {
-        api.get(`comments?userId=${user.id}&_expand=phrase`).then((res) => setMyComments(res.data))
-    } 
-
     useEffect(() => {
         getMyComments()
+    }, [])
+
+    const getMyComments = useCallback(async () => {
+        try{
+        const response = await api.get(
+            `comments?userId=${user.id}&_expand=phrase`
+            )
+            setMyComments(response)
+        }
+        catch (err) {
+        console.log(err);
+    }
     }, [])
 
     const deleteMyComments = (commentId) => {
