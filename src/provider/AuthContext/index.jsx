@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
+import { toast, useToast } from "@chakra-ui/react";
 
 const AuthContext = createContext({});
 
@@ -42,6 +43,11 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("@Feeling: user", JSON.stringify(user));
 
     setData({ accessToken, user });
+    toast({
+      title: "Conta Criada", 
+      description: "Você está pronto para se inspirar",
+      status: "success"
+    })
   }, []);
 
   const signOut = useCallback(() => {
