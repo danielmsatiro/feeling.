@@ -21,15 +21,19 @@ const usePhrases = () => {
 const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
-  const [contentNotFound, setcontentNotFound] = useState("");
+  const [contentSearch, setContentSearch] = useState("");
 
   useEffect(() => {
     loadPhrases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadPhrases = useCallback(async () => {
     try {
-      const response = await api.get(`phrases`);
+      const response = await api.get(
+        `phrases?_embed=comments&_embed=users_who_like`
+      );
+
       setPhrases(response.data);
     } catch (err) {
       console.log(err);
@@ -37,17 +41,21 @@ const PhraseProvider = ({ children }) => {
   }, []);
 
   const searchPhrase = useCallback(async (textOrAuthor) => {
-    const responseText = await api.get(`phrases?text_like=${textOrAuthor}`);
+    const responseText = await api.get(
+      `phrases?phraseText_like=${textOrAuthor}`
+    );
+    setContentSearch(textOrAuthor);
 
     if (!responseText.data.length) {
-      setcontentNotFound(textOrAuthor);
       setNotFound(true);
     } else {
       setNotFound(false);
       return setPhrases(responseText.data);
     }
 
-    const responseAuthor = await api.get(`phrases?author_like=${textOrAuthor}`);
+    const responseAuthor = await api.get(
+      `phrases?phraseAuthor_like=${textOrAuthor}`
+    );
 
     if (!!responseAuthor.data.length) {
       setNotFound(false);
@@ -62,7 +70,7 @@ const PhraseProvider = ({ children }) => {
         loadPhrases,
         searchPhrase,
         notFound,
-        contentNotFound,
+        contentSearch,
       }}
     >
       {children}

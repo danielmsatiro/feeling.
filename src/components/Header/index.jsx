@@ -1,4 +1,4 @@
-import { Center, Flex, theme, useDisclosure } from "@chakra-ui/react";
+import { Center, Flex, Tooltip, useDisclosure } from "@chakra-ui/react";
 import {
   MdComment,
   MdHomeFilled,
@@ -18,7 +18,7 @@ export const Header = () => {
   const { signOut } = useAuth();
 
   const sizeIcon = 25;
-  const colorIcon = theme.colors.yellow[500];
+  const colorIcon = "yellow.500";
 
   const history = useHistory();
 
@@ -35,73 +35,83 @@ export const Header = () => {
         w={"100%"}
         paddingX="8"
         h="60px"
-        background={theme.colors.yellow[200]}
+        background="yellow.200"
       >
         <Flex display={["none", "flex"]} gap={3}>
-          <Center
-            color={colorIcon}
-            onClick={() => history.push("/dashboard")}
-            as="button"
-            _hover={{
-              color: theme.colors.orange[500],
-            }}
-          >
-            <MdHomeFilled size={sizeIcon} />
-          </Center>
-          <Center
-            color={colorIcon}
-            onClick={() => history.push("/favorites")}
-            as="button"
-            _hover={{
-              color: theme.colors.orange[500],
-            }}
-          >
-            <MdOutlineFavorite size={sizeIcon} />
-          </Center>
-          <Center
-            color={colorIcon}
-            onClick={() => history.push("/comments")}
-            as="button"
-            _hover={{
-              color: theme.colors.orange[500],
-            }}
-          >
-            <MdComment size={sizeIcon} />
-          </Center>
+          <Tooltip label="Motive-se com esta frase...">
+            <Center
+              color={colorIcon}
+              onClick={() => history.push("/dashboard")}
+              as="button"
+              _hover={{
+                color: "orange.500",
+              }}
+            >
+              <MdHomeFilled size={sizeIcon} />
+            </Center>
+          </Tooltip>
+          <Tooltip label="Suas favoritas">
+            <Center
+              color={colorIcon}
+              onClick={() => history.push("/favorites")}
+              as="button"
+              _hover={{
+                color: "orange.500",
+              }}
+            >
+              <MdOutlineFavorite size={sizeIcon} />
+            </Center>
+          </Tooltip>
+          <Tooltip label="Seus comentários">
+            <Center
+              color={colorIcon}
+              onClick={() => history.push("/mycomments")}
+              as="button"
+              _hover={{
+                color: "orange.500",
+              }}
+            >
+              <MdComment size={sizeIcon} />
+            </Center>
+          </Tooltip>
           {location.pathname === "/phrases" ? (
             <Center>
               <Search />
             </Center>
           ) : (
-            <Center
-              display={location.pathname === "/phrases" && "none"}
-              onClick={() => history.push("/phrases")}
-              as="button"
-              color={colorIcon}
-              _hover={{
-                color: theme.colors.orange[500],
-              }}
-            >
-              <MdOutlineSearch size={sizeIcon} />
-            </Center>
+            <Tooltip label="Pesquise por frase ou autor">
+              <Center
+                display={location.pathname === "/phrases" && "none"}
+                onClick={() => history.push("/phrases")}
+                as="button"
+                color={colorIcon}
+                _hover={{
+                  color: "orange.500",
+                }}
+              >
+                <MdOutlineSearch size={sizeIcon} />
+              </Center>
+            </Tooltip>
           )}
         </Flex>
         <Center display={["flex", "none"]} gap={3}>
           {location.pathname === "/phrases" && <Search />}
         </Center>
-        <Center
-          ml="auto"
-          onClick={signOut}
-          as="button"
-          fontSize="2rem"
-          display={["none", "flex"]}
-          color={colorIcon}
-          _hover={{
-            color: theme.colors.orange[500],
-          }}
-        >
-          <MdOutlinePowerSettingsNew size={sizeIcon} />
-        </Center>
+        <Tooltip label="Sair">
+          <Center
+            ml="auto"
+            onClick={signOut}
+            as="button"
+            fontSize="2rem"
+            display={["none", "flex"]}
+            color={colorIcon}
+            _hover={{
+              color: "orange.500",
+            }}
+          >
+            <MdOutlinePowerSettingsNew size={sizeIcon} />
+          </Center>
+        </Tooltip>
         <Center
           ml="auto"
           onClick={onToggle}
@@ -110,7 +120,10 @@ export const Header = () => {
           display={["flex", "none"]}
           color={colorIcon}
           _hover={{
-            color: theme.colors.orange[500],
+            color: "orange.500",
+          }}
+          sx={{
+            zindex: 5,
           }}
         >
           <MdOutlineMenu size={sizeIcon} />

@@ -15,17 +15,53 @@ const useComments = () => {
   const context = useContext(CommentsContext);
 
   if (!context) {
-    throw new Error("useComments must be used within an CommentsProvider");
+    throw new Error("usePhrases must be used within an CommentsProvider");
   }
   return context;
 };
 
-const Comments2Provider = ({ children }) => {
-  const { accessToken } = useAuth();
+const CommentsProvider = ({ children }) => {
+  const { user, accessToken } = useAuth();
+  const [myComments, setMyComments] = useState([]);
   const { phrases } = usePhrases([]);
   const [frase, setFrase] = useState({});
   const [comments, setComments] = useState([]);
   const [fraseComments, setFraseComments] = useState([]);
+
+  const getMyComments = () => {
+    api
+      .get(`comments?userId=${user.id}&_expand=phrase`)
+      .then((res) => setMyComments(res.data));
+  };
+
+  useEffect(() => {
+    getMyComments();
+  }, []);
+
+  const deleteMyComments = (commentId) => {
+    api
+      .delete(`comments/${commentId}`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((_) => {
+        getMyComments();
+      });
+  };
+
+  const UpdateComment = (commentId, value, onClose) => {
+    api
+      .patch(`comments/${commentId}`, value, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((_) => {
+        getMyComments();
+      })
+      .then(onClose);
+  };
 
   const RandomPhrase = () => {
     const randomId = Math.floor(Math.random() * 97 + 1);
@@ -80,11 +116,13 @@ const Comments2Provider = ({ children }) => {
     <CommentsContext.Provider
       value={{
         frase,
-        comments,
+        myComments,
         fraseComments,
-        GetComments,
-        PhraseComments,
+        deleteMyComments,
+        UpdateComment,
         AddComment,
+        PhraseComments,
+        GetComments,
         RandomPhrase,
       }}
     >
@@ -93,4 +131,4 @@ const Comments2Provider = ({ children }) => {
   );
 };
 
-export { useComments, Comments2Provider };
+export { useComments, CommentsProvider };

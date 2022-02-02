@@ -9,7 +9,7 @@ import {
   Flex,
   Heading,
   Text,
-  theme,
+  Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import { useAuth } from "../../provider/AuthContext";
@@ -26,7 +26,7 @@ import { useLocation } from "react-router-dom";
 
 export const Menu = ({ isOpen, onClose }) => {
   const sizeIcon = 25;
-  const colorIcon = theme.colors.yellow[500];
+  const colorIcon = "yellow.500";
   const { user, signOut } = useAuth();
   const history = useHistory();
 
@@ -35,7 +35,7 @@ export const Menu = ({ isOpen, onClose }) => {
   return (
     <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
       <DrawerContent
-        background={theme.colors.yellow[200]}
+        background="yellow.200"
         ml="auto"
         mr="20px"
         mt="80px"
@@ -43,61 +43,71 @@ export const Menu = ({ isOpen, onClose }) => {
       >
         <DrawerBody>
           <VStack>
-            <Center
-              color={colorIcon}
-              _hover={{
-                color: theme.colors.orange[500],
-              }}
-              onClick={() => history.push("/dashboard")}
-              as="button"
-            >
-              <MdHomeFilled size={sizeIcon} />
-            </Center>
-            <Center
-              color={colorIcon}
-              _hover={{
-                color: theme.colors.orange[500],
-              }}
-              onClick={() => history.push("/favorites")}
-              as="button"
-            >
-              <MdOutlineFavorite size={sizeIcon} />
-            </Center>
-            <Center
-              color={colorIcon}
-              _hover={{
-                color: theme.colors.orange[500],
-              }}
-              onClick={() => history.push("/comments")}
-              as="button"
-            >
-              <MdComment size={sizeIcon} />
-            </Center>
-            {location.pathname !== "/phrases" && (
+            <Tooltip label="Motive-se com esta frase">
               <Center
-                display={location.pathname === "/phrases" && "none"}
-                onClick={() => history.push("/phrases")}
-                as="button"
                 color={colorIcon}
                 _hover={{
-                  color: theme.colors.orange[500],
+                  color: "orange.500",
                 }}
+                onClick={() => history.push("/dashboard")}
+                as="button"
               >
-                <MdOutlineSearch size={sizeIcon} />
+                <MdHomeFilled size={sizeIcon} />
               </Center>
+            </Tooltip>
+            <Tooltip label="Suas favoritas">
+              <Center
+                color={colorIcon}
+                _hover={{
+                  color: "orange.500",
+                }}
+                onClick={() => history.push("/favorites")}
+                as="button"
+              >
+                <MdOutlineFavorite size={sizeIcon} />
+              </Center>
+            </Tooltip>
+            <Tooltip label="Seus comentários">
+              <Center
+                color={colorIcon}
+                _hover={{
+                  color: "orange.500",
+                }}
+                onClick={() => history.push("/comments")}
+                as="button"
+              >
+                <MdComment size={sizeIcon} />
+              </Center>
+            </Tooltip>
+            {location.pathname !== "/phrases" && (
+              <Tooltip label="Pesquise por uma frase ou autor">
+                <Center
+                  display={location.pathname === "/phrases" && "none"}
+                  onClick={() => history.push("/phrases")}
+                  as="button"
+                  color={colorIcon}
+                  _hover={{
+                    color: "orange.500",
+                  }}
+                >
+                  <MdOutlineSearch size={sizeIcon} />
+                </Center>
+              </Tooltip>
             )}
-            <Center
-              color={colorIcon}
-              _hover={{
-                color: theme.colors.orange[500],
-              }}
-              ml="auto"
-              onClick={signOut}
-              as="button"
-              fontSize="2rem"
-            >
-              <MdOutlinePowerSettingsNew size={sizeIcon} />
-            </Center>
+            <Tooltip label="Suas favoritas">
+              <Center
+                color={colorIcon}
+                _hover={{
+                  color: "orange.500",
+                }}
+                ml="auto"
+                onClick={signOut}
+                as="button"
+                fontSize="2rem"
+              >
+                <MdOutlinePowerSettingsNew size={sizeIcon} />
+              </Center>
+            </Tooltip>
           </VStack>
         </DrawerBody>
       </DrawerContent>

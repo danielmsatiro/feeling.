@@ -31,6 +31,7 @@ export const DashboardContent = ({ name }) => {
           alt="swing"
           display={["none", "block", "block", "block"]}
           boxSize={["300px", "300px", "450px", "550px"]}
+          draggable="false"
         />
 
         <Heading size="3xl" fontWeight="medium" lineHeight="60px">
@@ -132,6 +133,7 @@ export const DashboardContent = ({ name }) => {
           ml="-120px"
           display={["none", "block", "block", "block"]}
           boxSize={["300px", "200px", "250px", "350px"]}
+          draggable="false"
         />
       </Flex>
 

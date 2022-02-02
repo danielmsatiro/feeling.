@@ -8,6 +8,7 @@ export const LoginImage = () => {
         alt="dancing"
         h="auto"
         w={["0", "0", "350px", "400px"]}
+        draggable="false"
       />
     </Box>
   );
