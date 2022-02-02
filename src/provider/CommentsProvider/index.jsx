@@ -40,8 +40,6 @@ const CommentsProvider = ({children}) => {
     }
     }, [])
 
-    
-
     const deleteMyComments = (commentId) => {
         api.delete(`comments/${commentId}`, {
             headers: {
