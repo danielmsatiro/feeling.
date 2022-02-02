@@ -28,11 +28,17 @@ const CommentsProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const [fraseComments, setFraseComments] = useState([]);
 
-  const getMyComments = () => {
-    api
-      .get(`comments?userId=${user.id}&_expand=phrase`)
-      .then((res) => setMyComments(res.data));
-  };
+  const getMyComments = useCallback(async () => {
+    try{
+    const response = await api.get(
+        `comments?userId=${user.id}&_expand=phrase`
+        )
+        setMyComments(response)
+    }
+    catch (err) {
+    console.log(err);
+}
+}, [])
 
   useEffect(() => {
     getMyComments();
