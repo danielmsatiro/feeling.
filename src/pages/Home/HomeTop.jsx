@@ -94,8 +94,8 @@ export const HomeTop = () => {
         </Heading>
 
         <Text m="10px" textAlign="center" fontWeight="thin">
-          Lorem ipsulum dolum met isse <br />
-          aham dat mar
+          A motivação necessária começa <br />
+          com uma palavra
         </Text>
 
         <Button

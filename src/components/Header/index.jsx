@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { Menu } from "./Menu";
 import { Search } from "./Search";
+import {FaSearch, FaPowerOff} from "react-icons/fa"
 
 export const Header = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
@@ -89,7 +90,7 @@ export const Header = () => {
                   color: "orange.500",
                 }}
               >
-                <MdOutlineSearch size={sizeIcon} />
+                <FaSearch size={20} />
               </Center>
             </Tooltip>
           )}
@@ -109,7 +110,7 @@ export const Header = () => {
               color: "orange.500",
             }}
           >
-            <MdOutlinePowerSettingsNew size={sizeIcon} />
+            <FaPowerOff size={20} />
           </Center>
         </Tooltip>
         <Center
