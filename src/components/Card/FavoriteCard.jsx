@@ -1,23 +1,38 @@
-import { Box, Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
-import { MdQuestionAnswer } from "react-icons/md";
+import { Box, Flex, IconButton, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
+import { MdOutlineFavorite, MdQuestionAnswer } from "react-icons/md";
+import { ModalCard } from "../../components/Modal/ModalCard";
 
 export const FavoriteCard = ({ phrase }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box
       key={phrase.id}
-      w={["85%", "400px", "401px", "504px"]}
-      h={["100%", "100%", "100%", "100%"]}
+      w={["300px", "300px", "300px", "300px"]}
+      h="100%"
+      maxH="400px"
       bg="yellow.200"
       direction={"row"}
-      boxShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
       borderRadius={"20px"}
     >
-      <Flex justify={"flex-end"} margin={"10px 10px 0 0"}>
+      <Flex justify={"flex-end"} margin={"10px 10px 0px 10px"}>
+      <Tooltip label="Curta esse comentário" placement="bottom">
+          <IconButton
+            bg={"transparent"}
+            w={["20px", "30px", "30px", "30px"]}
+            h={["20px", "30px", "30px", "30px"]}
+            color="orange.500"
+            icon={<MdOutlineFavorite size="100%" />}
+            aria-label="Ver Comentários"
+            onClick={() => {
+              /*abre os comentários*/
+            }}
+          />
+        </Tooltip>
         <Tooltip label="Comentários da galera" placement="bottom">
           <IconButton
             bg={"transparent"}
-            w={["30px", "35px", "40px", "40px"]}
-            h={["30px", "35px", "40px", "40px"]}
+            w={["20px", "30px", "30px", "30px"]}
+            h={["20px", "30px", "30px", "30px"]}
             color="orange.500"
             icon={<MdQuestionAnswer size="100%" />}
             aria-label="Ver Comentários"
@@ -29,26 +44,43 @@ export const FavoriteCard = ({ phrase }) => {
       </Flex>
       <Text
         colorScheme={""}
-        fontSize={["2xl", "3xl", "3xl", "4xl"]}
+        fontSize={["md", "lg", "lg", "xl"]}
         fontWeight={"300"}
-        fontFamily={"Poppins"}
-        lineHeight={["40px", "40px", "40px", "54px"]}
-        textAlign={"center"}
+        lineHeight={["30px", "30px", "30px", "30px"]}
+        textAlign={"left"}
         fontStyle={"normal"}
         padding={["10%", "7%", "7%", "6%"]}
+        h="200px"
+        minH="200px"
+        whiteSpace="wrap" 
+        overflow="hidden"   
+        textOverflow="ellipsis"
+        onClick={onOpen}
+        cursor="pointer"
+        _hover={{
+          color:"orange.500"
+        }}
       >
         <Box>{phrase.phraseText}</Box>
       </Text>
       <Text
         color="orange.500"
         fontWeight={"500"}
-        fontSize={["2xl", "3xl", "3xl", "4xl"]}
+        fontSize={["md", "lg", "lg", "xl"]}
         lineHeight={["40px", "40px", "40px", "54px"]}
-        textAlign={"center"}
+        textAlign={"left"}
         paddingBottom={"7%"}
+        ml="15px"
       >
         <Box>{phrase.phraseAuthor}</Box>
       </Text>
+
+      <ModalCard
+        isOpen= {isOpen}
+        onClose={onClose}
+        phrase= {phrase.phraseText}
+        author= {phrase.phraseAuthor}
+      />
     </Box>
   );
 };

@@ -23,6 +23,7 @@ import {
 } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import {FaSearch, FaPowerOff} from "react-icons/fa"
 
 export const Menu = ({ isOpen, onClose }) => {
   const sizeIcon = 25;
@@ -90,11 +91,11 @@ export const Menu = ({ isOpen, onClose }) => {
                     color: "orange.500",
                   }}
                 >
-                  <MdOutlineSearch size={sizeIcon} />
+                  <FaSearch size={sizeIcon} />
                 </Center>
               </Tooltip>
             )}
-            <Tooltip label="Suas favoritas">
+            <Tooltip label="Sair">
               <Center
                 color={colorIcon}
                 _hover={{
@@ -105,7 +106,7 @@ export const Menu = ({ isOpen, onClose }) => {
                 as="button"
                 fontSize="2rem"
               >
-                <MdOutlinePowerSettingsNew size={sizeIcon} />
+                <FaPowerOff size={sizeIcon} />
               </Center>
             </Tooltip>
           </VStack>
