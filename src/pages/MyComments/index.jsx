@@ -45,7 +45,7 @@ export const MyComments = () => {
               </Box>
             ))
           ) : (
-            <Heading fontSize="xl" fontWeight="light">
+            <Heading fontSize="xl" fontWeight="light" alignSelf="flex-start">
               Você não possui comentários
             </Heading>
           )}
