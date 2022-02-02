@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
-import { useComments } from "../../provider/CommentsContext";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const NewComment = ({ isOpen, onClose }) => {
   const { user } = useAuth();

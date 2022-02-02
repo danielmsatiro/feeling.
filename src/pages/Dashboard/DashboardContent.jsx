@@ -6,7 +6,7 @@ import meditating from "../../assets/meditating.svg";
 import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
-import { useComments } from "../../provider/CommentsContext";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
@@ -14,8 +14,8 @@ export const DashboardContent = ({ name }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    PhraseComments();
-    history.push("/comments");
+    PhraseComments(frase.id);
+    history.push(`/comments/${frase.id}`);
   };
 
   return (
@@ -74,7 +74,7 @@ export const DashboardContent = ({ name }) => {
               w={["100%", "75%", "75%", "75%"]}
               lineHeight="50px"
             >
-              {frase.phraseText}
+              {frase?.phraseText}
             </Heading>
             <Flex
               color="orange.500"
@@ -122,7 +122,7 @@ export const DashboardContent = ({ name }) => {
             </Flex>
 
             <Heading size="lg" fontWeight="medium" mt="30px">
-              {frase.phraseAuthor}
+              {frase?.phraseAuthor}
             </Heading>
           </Flex>
         </Flex>

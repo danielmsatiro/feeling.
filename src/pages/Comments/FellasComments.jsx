@@ -4,7 +4,7 @@ import { CommentsList } from "../../components/Card/CommentsList";
 import { Header } from "../../components/Header";
 import jumping from "../../assets/jumping.svg";
 import { MdDataSaverOn } from "react-icons/md";
-import { useComments } from "../../provider/CommentsContext";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const FellasComments = ({ onOpen }) => {
   const { frase, fraseComments } = useComments();
