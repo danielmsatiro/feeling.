@@ -5,9 +5,19 @@ import { Header } from "../../components/Header";
 import jumping from "../../assets/jumping.svg";
 import { MdDataSaverOn } from "react-icons/md";
 import { useComments } from "../../provider/CommentsProvider";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const FellasComments = ({ onOpen }) => {
-  const { frase, fraseComments } = useComments();
+  const { frase, fraseComments, PhraseComments } = useComments();
+  const { phrases } = usePhrases();
+  const parametro = useParams();
+  console.log(parametro.id);
+
+  useEffect(() => {
+    PhraseComments(parametro.id);
+  }, []);
 
   return (
     <>

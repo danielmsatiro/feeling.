@@ -11,13 +11,12 @@ export const GridSearch = () => {
     <>
       <Text
         as="h1"
-        textShadow={"0px 4px 4px rgba(0, 0, 0, 0.25)"}
         fontFamily={"Poppins"}
         fontWeight={"500"}
-        fontSize={["3xl", "4xl", "5xl", "6xl"]}
+        fontSize={["2xl", "3xl", "4xl", "5xl"]}
         lineHeight={["32px", "32px", "64px", "96px"]}
         padding={["35px", "40px", "50px", "50px"]}
-        textAlign={"center"}
+        textAlign={"left"}
       >
         Pesquisando por:{" "}
         {!contentSearch ? (
@@ -42,7 +41,7 @@ export const GridSearch = () => {
       >
         {/* {myFavorites.lenght > 0 ? ( */}
         {phrases.map((phrase) => (
-          <FavoriteCard phrase={phrase} />
+          <FavoriteCard key={phrase.id} phrase={phrase} />
         ))}
       </Flex>
     </>
