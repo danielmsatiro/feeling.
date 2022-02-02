@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
+import { useToast } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 const AuthContext = createContext({});
 
@@ -12,6 +14,8 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
+  const toast = useToast()
+  
   const [data, setData] = useState(() => {
     const accessToken = localStorage.getItem("@Feeling: accessToken");
     const user = localStorage.getItem("@Feeling: user");
@@ -23,25 +27,59 @@ const AuthProvider = ({ children }) => {
     return {};
   });
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("login", { email, password });
+    try{
+      const response = await api.post("login", { email, password });
 
-    const { accessToken, user } = response.data;
+      const { accessToken, user } = response.data;
 
-    localStorage.setItem("@Feeling: accessToken", accessToken);
-    localStorage.setItem("@Feeling: user", JSON.stringify(user));
+      localStorage.setItem("@Feeling: accessToken", accessToken);
+      localStorage.setItem("@Feeling: user", JSON.stringify(user));
 
-    setData({ accessToken, user });
+      setData({ accessToken, user });
+      toast({
+        title: 'Login Feito!',
+        description: "Se motive a cada dia!",
+        status: 'success',
+        duration: 3000,
+        position: 'top-right'
+      })
+    }catch(err){
+      toast({
+        title: 'Algo deu errado',
+        description: `${err}`,
+        status: 'error',
+        duration: 3000,
+        position: 'top-right'
+      })
+    }
   }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
-    const response = await api.post("register", { name, email, password });
+    try{
+      const response = await api.post("register", { name, email, password });
 
-    const { accessToken, user } = response.data;
+      const { accessToken, user } = response.data;
 
-    localStorage.setItem("@Feeling: accessToken", accessToken);
-    localStorage.setItem("@Feeling: user", JSON.stringify(user));
+      localStorage.setItem("@Feeling: accessToken", accessToken);
+      localStorage.setItem("@Feeling: user", JSON.stringify(user));
 
-    setData({ accessToken, user });
+      setData({ accessToken, user });
+      toast({
+        title: 'Conta Criada',
+        description: "Tudo pronto para você se inspirar!",
+        status: 'success',
+        duration: 3000,
+        position: 'top-right'
+      })
+    } catch(err) {
+      toast({
+        title: 'Algo deu errado',
+        description: `${err}`,
+        status: 'error',
+        duration: 3000,
+        position: 'top-right'
+      })
+    }
   }, []);
 
   const signOut = useCallback(() => {

@@ -6,14 +6,14 @@ import { CommentsProvider } from "./CommentsProvider";
 
 export const Provider = ({ children }) => {
   return (
-    <AuthProvider>
-      <PhraseProvider>
-        <CommentsProvider>
-          <ChakraProvider resetCSS theme={theme}>
-            {children}
-          </ChakraProvider>
-        </CommentsProvider>
-      </PhraseProvider>
-    </AuthProvider>
+    <ChakraProvider resetCSS theme={theme}>
+      <AuthProvider>
+        <PhraseProvider>
+          <CommentsProvider>
+              {children}
+          </CommentsProvider>
+        </PhraseProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 };
