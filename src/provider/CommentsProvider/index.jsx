@@ -8,6 +8,7 @@ import {
 import { api } from "../../services/api";
 import { useAuth } from "../AuthContext";
 import { usePhrases } from "../PhrasesContext";
+import { useToast } from "@chakra-ui/react";
 
 const CommentsContext = createContext({});
 
@@ -27,18 +28,19 @@ const CommentsProvider = ({ children }) => {
   const [frase, setFrase] = useState({});
   const [comments, setComments] = useState([]);
   const [fraseComments, setFraseComments] = useState([]);
+  const toast = useToast()
 
   const getMyComments = useCallback(async () => {
     try{
     const response = await api.get(
-        `comments?userId=${user.id}&_expand=phrase`
+        `comments?userId=${user && user.id}&_expand=phrase`
         )
         setMyComments(response)
     }
     catch (err) {
     console.log(err);
-}
-}, [])
+  }
+  }, [])
 
   useEffect(() => {
     getMyComments();
@@ -53,7 +55,15 @@ const CommentsProvider = ({ children }) => {
       })
       .then((_) => {
         getMyComments();
-      });
+      }).then(
+        toast({
+          title: 'Comentário deletado',
+          description: "Fica ranquilo! Você apagou o que queria",
+          status: 'info',
+          duration: 3000,
+          position: 'top-right'
+        })
+      )
   };
 
   const UpdateComment = (commentId, value, onClose) => {
@@ -66,7 +76,15 @@ const CommentsProvider = ({ children }) => {
       .then((_) => {
         getMyComments();
       })
-      .then(onClose);
+      .then(onClose).then(
+        toast({
+          title: 'Comentário alterado',
+          description: "Fica ranquilo! Agora você disse o que queria.",
+          status: 'success',
+          duration: 3000,
+          position: 'top-right'
+        })
+      )
   };
 
   const RandomPhrase = () => {
