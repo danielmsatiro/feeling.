@@ -2,41 +2,12 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { PhraseCard } from "../../components/Card/PhraseCard";
 import { CommentsList } from "../../components/Card/CommentsList";
 import { Header } from "../../components/Header";
-
 import jumping from "../../assets/jumping.svg";
 import { MdDataSaverOn } from "react-icons/md";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const FellasComments = ({ onOpen }) => {
-  const frases = [
-    {
-      id: "0",
-      text: "Be kind whenever possible. It is always possible.",
-      author: "Dalai Lama",
-      comments: [],
-      users_who_like: [],
-    },
-    {
-      id: "1",
-      text: "Talk doesn't cook rice.",
-      author: "Chinese proverb",
-      comments: [],
-      users_who_like: [],
-    },
-    {
-      id: "2",
-      text: "He is able who thinks he is able.",
-      author: "Buddha",
-      comments: [],
-      users_who_like: [],
-    },
-    {
-      id: "3",
-      text: "A goal without a plan is just a wish.",
-      author: "Larry Elder",
-      comments: [],
-      users_who_like: [],
-    },
-  ];
+  const { frase, fraseComments } = useComments();
 
   return (
     <>
@@ -100,9 +71,8 @@ export const FellasComments = ({ onOpen }) => {
           </Flex>
           <Box>
             <PhraseCard
-              frase="Suba o primeiro degrau com fé. Não é necessário que você veja a
-            escada toda. Apenas dê o primeiro passo."
-              author="Martin Luther King"
+              author={frase.phraseAuthor}
+              frase={frase.phraseText}
               pos="absolute"
               top={0}
               right="0"
@@ -111,7 +81,7 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        <CommentsList array={frases} />
+        <CommentsList array={fraseComments} />
       </Flex>
     </>
   );

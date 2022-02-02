@@ -8,7 +8,10 @@ export const CommentsList = ({ array }) => {
         {array.map((item) => {
           return (
             <ListItem key={item.id}>
-              <CommentCard comment={item.text} autor={item.author} />
+              <CommentCard
+                comment={item.commentphraseText}
+                autor={item.user.name}
+              />
             </ListItem>
           );
         })}

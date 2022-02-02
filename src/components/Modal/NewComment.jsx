@@ -10,9 +10,19 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useAuth } from "../../provider/AuthContext";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const NewComment = ({ isOpen, onClose }) => {
-  const [value, setValue] = useState("");
+  const { user } = useAuth();
+  const { frase, AddComment } = useComments();
+  const [value, setValue] = useState({});
+
+  const handleClick = () => {
+    AddComment(value);
+    onClose();
+  };
+
   return (
     <Modal isOpen={isOpen}>
       <ModalOverlay />
@@ -23,7 +33,6 @@ export const NewComment = ({ isOpen, onClose }) => {
           alignItems="center"
           h="50px"
           bg="yellow.200"
-          // color="orange.500"
           borderTopRadius="lg"
         >
           <Text>Novo comentário</Text>
@@ -53,18 +62,25 @@ export const NewComment = ({ isOpen, onClose }) => {
             _placeholder={{ color: "orange.500" }}
             bg="yellow.200"
             _focus={{ border: "2px", borderColor: "orange.500" }}
-            onChange={(event) => setValue(event.target.value)}
-            defaultValue={value}
+            onChange={(event) =>
+              setValue({
+                phraseId: `${frase.id}`,
+                userId: `${user.id}`,
+                commentText: event.target.value,
+              })
+            }
             minH={150}
           />
         </ModalBody>
         <ModalFooter h={["100px"]} justifyContent="center">
           <Button
+            type="submit"
             bg="orange.500"
             color="yellow.50"
             h="30px"
             w="200px"
             borderRadius="30px"
+            onClick={() => handleClick()}
           >
             Postar
           </Button>
