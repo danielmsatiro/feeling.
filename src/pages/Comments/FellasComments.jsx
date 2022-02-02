@@ -2,21 +2,12 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { PhraseCard } from "../../components/Card/PhraseCard";
 import { CommentsList } from "../../components/Card/CommentsList";
 import { Header } from "../../components/Header";
-
 import jumping from "../../assets/jumping.svg";
 import { MdDataSaverOn } from "react-icons/md";
 import { useComments } from "../../provider/CommentsContext";
-import { usePhrases } from "../../provider/PhrasesContext";
-import { useState } from "react";
 
 export const FellasComments = ({ onOpen }) => {
-  const { fraseComments } = useComments();
-  const { phrases } = usePhrases();
-  const [selection, setSelection] = useState({});
-  const otraFrase = (id) => {
-    const selected = phrases.find((item) => item.id === id);
-    setSelection(selected);
-  };
+  const { frase, fraseComments } = useComments();
 
   return (
     <>
@@ -80,10 +71,8 @@ export const FellasComments = ({ onOpen }) => {
           </Flex>
           <Box>
             <PhraseCard
-              //   frase="Suba o primeiro degrau com fé. Não é necessário que você veja a
-              // escada toda. Apenas dê o primeiro passo."
-              author="Martin Luther King"
-              frase={selection.phraseText}
+              author={frase.phraseAuthor}
+              frase={frase.phraseText}
               pos="absolute"
               top={0}
               right="0"

@@ -5,26 +5,16 @@ import meditating from "../../assets/meditating.svg";
 
 import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
 import { useHistory } from "react-router-dom";
-import { usePhrases } from "../../provider/PhrasesContext";
-import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsContext";
 
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
-  const { phrases } = usePhrases();
-  const { PhraseComments } = useComments();
-  const [frase, setFrase] = useState({});
+  const { frase, PhraseComments, RandomPhrase } = useComments();
   const history = useHistory();
 
-  const RandomPhrase = () => {
-    const randomId = Math.floor(Math.random() * 10);
-    const phrase = phrases.find((item) => item.id === randomId);
-    setFrase(phrase);
-  };
-
   const handleClick = () => {
-    PhraseComments(frase.id);
+    PhraseComments();
     history.push("/comments");
   };
 
