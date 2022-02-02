@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Text } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import { MdQuestionAnswer } from "react-icons/md";
 
 export const FavoriteCard = ({ phrase }) => {
@@ -13,17 +13,19 @@ export const FavoriteCard = ({ phrase }) => {
       borderRadius={"20px"}
     >
       <Flex justify={"flex-end"} margin={"10px 10px 0 0"}>
-        <IconButton
-          bg={"transparent"}
-          w={["30px", "35px", "40px", "40px"]}
-          h={["30px", "35px", "40px", "40px"]}
-          color="orange.500"
-          icon={<MdQuestionAnswer size="100%" />}
-          aria-label="Ver Comentários"
-          onClick={() => {
-            /*abre os comentários*/
-          }}
-        />
+        <Tooltip label="Comentários da galera" placement="bottom">
+          <IconButton
+            bg={"transparent"}
+            w={["30px", "35px", "40px", "40px"]}
+            h={["30px", "35px", "40px", "40px"]}
+            color="orange.500"
+            icon={<MdQuestionAnswer size="100%" />}
+            aria-label="Ver Comentários"
+            onClick={() => {
+              /*abre os comentários*/
+            }}
+          />
+        </Tooltip>
       </Flex>
       <Text
         colorScheme={""}

@@ -45,4 +45,12 @@ export const theme = extendTheme({
       },
     },
   },
+  components: {
+    Tooltip: {
+      baseStyle: {
+        bg: "orange.500",
+      },
+      placement: "bottom",
+    },
+  },
 });
