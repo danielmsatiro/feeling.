@@ -14,8 +14,8 @@ export const DashboardContent = ({ name }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    PhraseComments(frase.id);
     history.push(`/comments/${frase.id}`);
+    // PhraseComments(frase.id);
   };
 
   return (
@@ -39,7 +39,7 @@ export const DashboardContent = ({ name }) => {
             Olá,
           </Text>{" "}
           <br />
-          {name}
+          {user.name}
         </Heading>
       </Flex>
 

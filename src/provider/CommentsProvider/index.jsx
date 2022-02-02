@@ -9,6 +9,7 @@ import { api } from "../../services/api";
 import { useAuth } from "../AuthContext";
 import { usePhrases } from "../PhrasesContext";
 import { useToast } from "@chakra-ui/react";
+import { useParams } from "react-router-dom";
 
 const CommentsContext = createContext({});
 
@@ -24,23 +25,22 @@ const useComments = () => {
 const CommentsProvider = ({ children }) => {
   const { user, accessToken } = useAuth();
   const [myComments, setMyComments] = useState([]);
-  const { phrases } = usePhrases([]);
+  const { phrases, loadPhrases } = usePhrases([]);
   const [frase, setFrase] = useState({});
   const [comments, setComments] = useState([]);
   const [fraseComments, setFraseComments] = useState([]);
-  const toast = useToast()
+  const toast = useToast();
 
   const getMyComments = useCallback(async () => {
-    try{
-    const response = await api.get(
+    try {
+      const response = await api.get(
         `comments?userId=${user && user.id}&_expand=phrase`
-        )
-        setMyComments(response)
+      );
+      setMyComments(response);
+    } catch (err) {
+      console.log(err);
     }
-    catch (err) {
-    console.log(err);
-  }
-  }, [])
+  }, []);
 
   useEffect(() => {
     getMyComments();
@@ -55,15 +55,16 @@ const CommentsProvider = ({ children }) => {
       })
       .then((_) => {
         getMyComments();
-      }).then(
+      })
+      .then(
         toast({
-          title: 'Comentário deletado',
+          title: "Comentário deletado",
           description: "Fica ranquilo! Você apagou o que queria",
-          status: 'info',
+          status: "info",
           duration: 3000,
-          position: 'top-right'
+          position: "top-right",
         })
-      )
+      );
   };
 
   const UpdateComment = (commentId, value, onClose) => {
@@ -76,19 +77,20 @@ const CommentsProvider = ({ children }) => {
       .then((_) => {
         getMyComments();
       })
-      .then(onClose).then(
+      .then(onClose)
+      .then(
         toast({
-          title: 'Comentário alterado',
+          title: "Comentário alterado",
           description: "Fica ranquilo! Agora você disse o que queria.",
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right'
+          position: "top-right",
         })
-      )
+      );
   };
 
   const RandomPhrase = () => {
-    const randomId = Math.floor(Math.random() * 97 + 1);
+    const randomId = Math.floor(Math.random() * 10 + 1);
     const phrase = phrases.find((item) => item.id === randomId);
     if (phrase) {
       setFrase(phrase);
@@ -129,7 +131,8 @@ const CommentsProvider = ({ children }) => {
           authorization: `Bearer ${accessToken}`,
         },
       });
-      PhraseComments(id);
+      // PhraseComments(id);
+      loadPhrases();
       console.log(response.data);
     } catch (err) {
       console.log(err);
