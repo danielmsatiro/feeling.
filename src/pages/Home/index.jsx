@@ -1,12 +1,23 @@
-import { Grid } from "@chakra-ui/react";
-import { HomeBottom } from "./HomeBottom";
-import { HomeTop } from "./HomeTop";
+import { Flex } from "@chakra-ui/react";
+
+import { HomeWelcome } from "./HomeWelcome";
+import { HomeHardTimes } from "./HomeHardTimes";
+import { HomeAbout } from "./HomeAbout";
+import { HomeYourSpace } from "./HomeYourSpace";
+import { HomeFindPeople } from "./HomeFindPeople";
+import { HomeCreators } from "./HomeCreators";
+import { HomeSlogan } from "./HomeSlogan";
 
 export const Home = () => {
   return (
-    <Grid>
-      <HomeTop />
-      <HomeBottom />
-    </Grid>
+    <Flex flexDirection="column">
+      <HomeWelcome />
+      <HomeHardTimes />
+      <HomeAbout />
+      <HomeYourSpace />
+      <HomeFindPeople />
+      <HomeCreators />
+      <HomeSlogan />
+    </Flex>
   );
 };

@@ -11,37 +11,42 @@ const variants = {
 
 const ImageMotion = motion(Image);
 
-export const CreatorsCard = ({ info, state, setState, isOpen, onToggle }) => (
+export const CreatorsCard = ({ info, isOpen, onToggle }) => (
   <Flex
     flexDirection="column"
     alignItems="flex-start"
     w="fit-content"
-    m="10px 0"
+    m="5px 0"
     padding="10px"
     borderRadius="10px"
     bgColor="white"
   >
-    <Box w={["300px", "340px", "340px", "550px"]}>
+    <Box w={["320px", "340px", "340px", "550px"]}>
       <Flex alignItems="center">
-        {state ? (
-          <Image src={info.avatar} w="99.83px" h="100px" borderRadius="50%" />
+        {!isOpen ? (
+          <Image
+            src={info.avatar}
+            w="99.83px"
+            h="100px"
+            borderRadius="50%"
+            draggable={false}
+          />
         ) : (
           <ImageMotion
+            initial="hidden"
+            animate="visible"
+            variants={variants}
             src={info.picture}
             w="100px"
             h="100px"
             borderRadius="50%"
-            initial="hidden"
-            animate="visible"
-            variants={variants}
+            draggable={false}
           />
         )}
 
         <Flex w="100%" justifyContent="space-between" mb="10px">
           <Box padding="0 25px">
-            <Text fontSize="lg" fontWeight="semibold">
-              {info.name}
-            </Text>
+            <Text fontWeight="semibold">{info.name}</Text>
             <Text fontSize="sm" fontStyle="italic">
               {info.role}
             </Text>
@@ -49,7 +54,6 @@ export const CreatorsCard = ({ info, state, setState, isOpen, onToggle }) => (
               fontSize="sm"
               color="orange.500"
               onClick={() => {
-                setState(!state);
                 onToggle();
               }}
             >
