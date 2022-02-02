@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
 
     return {};
   });
-
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post("login", { email, password });
 
@@ -35,7 +34,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
-    const response = await api.post("register/", { name, email, password });
+    const response = await api.post("register", { name, email, password });
 
     const { accessToken, user } = response.data;
 
