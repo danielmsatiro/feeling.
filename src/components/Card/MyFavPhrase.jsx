@@ -3,11 +3,18 @@ import { MdRestoreFromTrash, MdQuestionAnswer } from "react-icons/md";
 import { ModalCard } from "../../components/Modal/ModalCard";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
+import { useHistory } from "react-router-dom";
 
 export const MyFavPhrase = ({ phrase }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {deleteMyFavorite} = usePhrases()
+  const history = useHistory()
 //   const { user } = useAuth()
+
+  const handleClick = () => {
+    history.push(`/comments/${phrase.id}`);
+    // PhraseComments(frase.id);
+  };
 
   return (
     <Flex
@@ -77,7 +84,11 @@ export const MyFavPhrase = ({ phrase }) => {
                   }}
             />
             
-            <MdQuestionAnswer size="1.7rem"/>
+            <MdQuestionAnswer 
+              size="1.7rem" 
+              cursor="pointer"
+              onClick={() => handleClick()}
+            />
         </Flex>
 
         <ModalCard
