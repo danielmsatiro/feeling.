@@ -7,7 +7,7 @@ import { MyFavPhrase } from "../../components/Card/MyFavPhrase"
 import { FavoriteCard } from "../../components/Card/FavoriteCard";
 
 export const Favorites = () => {
-  const { phrases } = usePhrases();
+  const { phrases} = usePhrases();
   const { user } = useAuth();
 
   const myFavorites = phrases.filter((phrase) =>
@@ -40,7 +40,7 @@ export const Favorites = () => {
       </Text>
 
       <Flex
-        justifyContent={""}
+        justifyContent={"center"}
         flexWrap={"wrap"}
         gap={["40px", "60px", "60px", "60px"]}
       >
