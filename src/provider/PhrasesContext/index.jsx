@@ -71,10 +71,10 @@ const PhraseProvider = ({ children }) => {
 
     const findPhrase = (phrases[phraseIdGet - 1]
       .users_who_like
-      .some(({userId}) => userId === user.id ) )
-    console.log(findPhrase)
+      .find(({userId}) => userId === user.id ) )
+    console.log(phrases[phraseIdGet - 1])
 
-    if(!findPhrase){
+    if(findPhrase === undefined){
       api
         .post(`users_who_like`, {
           userId: userIdGet,

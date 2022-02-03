@@ -92,7 +92,7 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        {frase?.comments.length > 0 && <CommentsList array={frase?.comments} />}
+        {frase?.comments?.length > 0 && <CommentsList array={frase?.comments} />}
       </Flex>
     </>
   );
