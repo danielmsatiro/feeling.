@@ -5,7 +5,7 @@ import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
 
 export const Favorites = () => {
-  const { phrases } = usePhrases();
+  const { phrases, deleteMyFavorite } = usePhrases();
   const { user } = useAuth();
 
   const myFavorites = phrases.filter((phrase) =>
@@ -62,7 +62,8 @@ export const Favorites = () => {
                 icon={<MdQuestionAnswer size="100%" />}
                 aria-label="Ver Comentários"
                 onClick={() => {
-                  /*abre os comentários*/
+                  //Abre aba de comentários
+                  deleteMyFavorite(phrase.id)
                 }}
               />
             </Flex>

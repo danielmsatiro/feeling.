@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
 import { toast, useToast } from "@chakra-ui/react";
+import { useComments } from "../CommentsProvider";
 
 const AuthContext = createContext({});
 
@@ -14,6 +15,7 @@ const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const toast = useToast()
+  const {RandomPhrase} = useComments()
   
   const [data, setData] = useState(() => {
     const accessToken = localStorage.getItem("@Feeling: accessToken");
@@ -35,6 +37,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem("@Feeling: user", JSON.stringify(user));
 
       setData({ accessToken, user });
+      RandomPhrase()
       toast({
         title: 'Login Feito!',
         description: "Se motive a cada dia!",
