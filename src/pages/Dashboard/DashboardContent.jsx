@@ -7,14 +7,19 @@ import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
+import { usePhrases } from "../../provider/PhrasesContext";
+import { useState } from "react";
 
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
-  const { frase, PhraseComments, RandomPhrase } = useComments();
+  const { phrases } = usePhrases();
+  const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
   const history = useHistory();
 
+  const frase = phrases.find(({ id }) => id === Number(randomId));
+
   const handleClick = () => {
-    history.push(`/comments/${frase.id}`);
+    history.push(`/comments/${randomId}`);
     // PhraseComments(frase.id);
   };
 
@@ -39,7 +44,7 @@ export const DashboardContent = ({ name }) => {
             Olá,
           </Text>{" "}
           <br />
-          {user.name}
+          {name}
         </Heading>
       </Flex>
 

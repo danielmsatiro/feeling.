@@ -6,7 +6,11 @@ import { api } from "../../services/api"
 export const ModalCard = ({phrase, author, isOpen, onClose, phraseId}) => {
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal 
+            isOpen={isOpen} 
+            onClose={onClose}
+            isCentered={true}
+        >
             <ModalOverlay/>
             <ModalContent 
                 display="flex"

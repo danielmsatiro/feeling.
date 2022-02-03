@@ -9,7 +9,7 @@ import { api } from "../../services/api";
 import { useAuth } from "../AuthContext";
 import { usePhrases } from "../PhrasesContext";
 import { useToast } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+/* import { useParams } from "react-router-dom"; */
 
 const CommentsContext = createContext({});
 
@@ -26,17 +26,29 @@ const CommentsProvider = ({ children }) => {
   const { user, accessToken } = useAuth();
   const [myComments, setMyComments] = useState([]);
   const { phrases, loadPhrases } = usePhrases([]);
-  const [frase, setFrase] = useState({});
-  const [comments, setComments] = useState([]);
+  /* const [comments, setComments] = useState([]); */
   const [fraseComments, setFraseComments] = useState([]);
   const toast = useToast();
+
+  const [randomId, setRandomId] = useState(() => {
+    const randomId = localStorage.getItem("@Feeling: randomId");
+    if (randomId) {
+      return randomId;
+    }
+    return "";
+  });
 
   const getMyComments = useCallback(async () => {
     try {
       const response = await api.get(
-        `comments?userId=${user && user.id}&_expand=phrase`
+        `comments?userId=${user.id}&_expand=phrase`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      setMyComments(response);
+      setMyComments(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -44,7 +56,7 @@ const CommentsProvider = ({ children }) => {
 
   useEffect(() => {
     getMyComments();
-  }, []);
+  }, [phrases]);
 
   const deleteMyComments = (commentId) => {
     api
@@ -54,7 +66,7 @@ const CommentsProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        getMyComments();
+        loadPhrases();
       })
       .then(
         toast({
@@ -75,7 +87,7 @@ const CommentsProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        getMyComments();
+        loadPhrases();
       })
       .then(onClose)
       .then(
@@ -90,14 +102,21 @@ const CommentsProvider = ({ children }) => {
   };
 
   const RandomPhrase = () => {
-    const randomId = Math.floor(Math.random() * 10 + 1);
-    const phrase = phrases.find((item) => item.id === randomId);
+    const random = Math.floor(Math.random() * phrases.length + 1);
+    setRandomId(random);
+    localStorage.setItem("@Feeling: randomId", random);
+
+    /* const phrase = phrases.find((item) => item.id === randomId);
     if (phrase) {
       setFrase(phrase);
-    }
+    } */
   };
 
-  const GetComments = useCallback(async () => {
+  if (!randomId) {
+    RandomPhrase();
+  }
+
+  /* const GetComments = useCallback(async () => {
     try {
       const response = await api.get(`comments?_expand=phrase&_expand=user`);
       setComments(response.data);
@@ -105,14 +124,14 @@ const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }, []);
-
-  useEffect(() => {
+ */
+  /* useEffect(() => {
     GetComments();
-    RandomPhrase();
+    // RandomPhrase();
     PhraseComments();
   }, [phrases]);
-
-  const PhraseComments = (id) => {
+ */
+  /* const PhraseComments = (id) => {
     try {
       const comentario = comments.filter((item) => item.phraseId === id);
       console.log(comentario);
@@ -121,10 +140,9 @@ const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   };
-
+ */
   const AddComment = useCallback(async (data) => {
     const id = data.phraseId;
-    console.log(data.phraseId);
     try {
       const response = await api.post(`comments/`, data, {
         headers: {
@@ -133,7 +151,6 @@ const CommentsProvider = ({ children }) => {
       });
       // PhraseComments(id);
       loadPhrases();
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -142,15 +159,15 @@ const CommentsProvider = ({ children }) => {
   return (
     <CommentsContext.Provider
       value={{
-        frase,
         myComments,
         fraseComments,
         deleteMyComments,
         UpdateComment,
         AddComment,
-        PhraseComments,
-        GetComments,
+        /* PhraseComments, */
+        /*  GetComments, */
         RandomPhrase,
+        randomId,
       }}
     >
       {children}

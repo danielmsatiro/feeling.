@@ -13,9 +13,9 @@ import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
 
-export const NewComment = ({ isOpen, onClose }) => {
+export const NewComment = ({ isOpen, onClose, id }) => {
   const { user } = useAuth();
-  const { frase, AddComment } = useComments();
+  const { /* frase, */ AddComment } = useComments();
   const [value, setValue] = useState({});
 
   const handleClick = () => {
@@ -64,8 +64,8 @@ export const NewComment = ({ isOpen, onClose }) => {
             _focus={{ border: "2px", borderColor: "orange.500" }}
             onChange={(event) =>
               setValue({
-                phraseId: `${frase.id}`,
-                userId: `${user.id}`,
+                phraseId: id,
+                userId: user.id,
                 commentText: event.target.value,
               })
             }

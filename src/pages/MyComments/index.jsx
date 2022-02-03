@@ -31,7 +31,7 @@ export const MyComments = () => {
             myComments.map((comment) => (
               <Box key={comment.id} w="100%">
                 <MyCommentCard
-                  phrase={comment.commentphraseText}
+                  phrase={comment.commentText}
                   date={comment.date}
                   commentId={comment.id}
                   onOpenPhrase={onOpen}

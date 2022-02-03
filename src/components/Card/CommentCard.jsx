@@ -1,7 +1,10 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { MdQuestionAnswer } from "react-icons/md";
+import { useAuth } from "../../provider/AuthContext";
 
-export const CommentCard = ({ comment, autor }) => {
+export const CommentCard = ({ comment, userId }) => {
+  const { users } = useAuth();
+
   return (
     <Flex
       w={["300px", "320px", "600px", "750px"]}
@@ -32,7 +35,7 @@ export const CommentCard = ({ comment, autor }) => {
           <MdQuestionAnswer />
         </Flex>
         <Heading size="md" fontWeight="medium" textAlign="left">
-          {autor}
+          {users.find(({ id }) => id === userId).name}
         </Heading>
       </Flex>
       <Flex
