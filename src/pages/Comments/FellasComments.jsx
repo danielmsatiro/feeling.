@@ -20,8 +20,6 @@ export const FellasComments = ({ onOpen }) => {
     setFrase(phrases.find(({ id }) => id === Number(params.id)));
   }, [phrases]);
 
-  console.log(frase?.comments);
-
   return (
     <>
       <Header />

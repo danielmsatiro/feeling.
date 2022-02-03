@@ -12,8 +12,6 @@ export const MyComments = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  console.log(myComments);
-
   return (
     <Box>
       <Header />

@@ -13,8 +13,6 @@ export const Favorites = () => {
     phrase.users_who_like.some((item) => item.userId === user.id)
   );
 
-  console.log(myFavorites);
-
   return (
     <Box
       padding={[

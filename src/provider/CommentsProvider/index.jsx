@@ -143,7 +143,6 @@ const CommentsProvider = ({ children }) => {
  */
   const AddComment = useCallback(async (data) => {
     const id = data.phraseId;
-    console.log(data.phraseId);
     try {
       const response = await api.post(`comments/`, data, {
         headers: {
@@ -152,7 +151,6 @@ const CommentsProvider = ({ children }) => {
       });
       // PhraseComments(id);
       loadPhrases();
-      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
