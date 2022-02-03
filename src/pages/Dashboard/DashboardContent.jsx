@@ -1,18 +1,20 @@
-import { Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Button, Flex, Image, Text, Icon, Skeleton } from "@chakra-ui/react";
 
 import swing from "../../assets/swing.svg";
-import meditating from "../../assets/meditating.svg";
 
-import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
+import { FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useState } from "react";
 
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
+
+const FlexMotion = motion(Flex);
+const TextMotion = motion(Text);
+
 export const DashboardContent = ({ name }) => {
-  const { user } = useAuth();
-  const { phrases } = usePhrases();
+  const { phrases, loading } = usePhrases();
   const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
   const history = useHistory();
 
@@ -23,8 +25,18 @@ export const DashboardContent = ({ name }) => {
     // PhraseComments(frase.id);
   };
 
+  const controls = useAnimation();
+
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <FlexMotion
+      animate={{ scale: [0, 1], opacity: [0, 1] }}
+      transition={{ duration: 1 }}
+      exit={{ opacity: 0, y: 50 }}
+      flexDirection="column"
+      alignItems="center"
+      position="relative"
+      h="100%"
+    >
       <Flex
         alignItems="center"
         justifyContent={["flex-start", "center", "center", "center"]}
@@ -35,133 +47,131 @@ export const DashboardContent = ({ name }) => {
           src={swing}
           alt="swing"
           display={["none", "block", "block", "block"]}
-          boxSize={["300px", "300px", "450px", "550px"]}
+          boxSize={["250px", "250px", "250px", "300px"]}
+          mr="50px"
           draggable="false"
         />
 
-        <Heading size="3xl" fontWeight="medium" lineHeight="60px">
-          <Text as="abbr" color="orange.500">
-            Olá,
-          </Text>{" "}
-          <br />
-          {name}
-        </Heading>
-      </Flex>
-
-      <Flex justifyContent="center" alignItems="center" w="100%" mb="40px">
-        <Flex
-          as="button"
-          w={["320px", "350px", "450px", "450px"]}
-          bg="yellow.200"
-          borderRadius="20px"
-          padding="20px"
-          flexDirection="column"
-          minH="400px"
-          justifyContent="space-between"
-          onClick={() => handleClick()}
+        <Text
+          fontSize={["3xl", "3xl", "4xl", "5xl"]}
+          fontWeight="medium"
+          color="orange.500"
         >
-          <Flex
-            w="100%"
-            minH="250px"
-            alignItems={["center", "flex-start", "flex-start", "flex-start"]}
-            justifyContent={[
-              "center",
-              "space-between",
-              "space-between",
-              "space-between",
-            ]}
-            flexDirection={["column", "row", "row", "row"]}
-            mb="20px"
-          >
-            <Heading
-              fontSize={["xl", "2xl", "2xl", "2xl"]}
-              fontWeight="light"
-              w={["100%", "75%", "75%", "75%"]}
-              lineHeight="50px"
-            >
-              {frase?.phraseText}
-            </Heading>
-            <Flex
-              color="orange.500"
-              display={["none", "block", "block", "block"]}
-              cursor="pointer"
-              _hover={{
-                color: "yellow.500",
-              }}
-            >
-              <MdOutlineFavorite size="30px" />
-            </Flex>
-          </Flex>
-
-          <Flex
-            color="orange.500"
-            alignItems="center"
-            justifyContent="space-between"
-            flexDirection={["column-reverse", "row", "row", "row"]}
-          >
-            <Flex
-              mt="40px"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-              onClick={() => {}}
-            >
-              <Flex
-                display={["block", "none", "none", "none"]}
-                cursor="pointer"
-                _hover={{
-                  color: "yellow.500",
-                }}
-              >
-                <MdOutlineFavorite size="30px" />
-              </Flex>
-              <Flex
-                mt={["20px", "-5px", "-5px", "-5px"]}
-                cursor="pointer"
-                _hover={{
-                  color: "yellow.500",
-                }}
-              >
-                <MdOutlineFilterNone size="20px" />
-              </Flex>
-            </Flex>
-
-            <Heading size="lg" fontWeight="medium" mt="30px">
-              {frase?.phraseAuthor}
-            </Heading>
-          </Flex>
-        </Flex>
-
-        <Image
-          src={meditating}
-          alt="swing"
-          ml="-120px"
-          display={["none", "block", "block", "block"]}
-          boxSize={["300px", "200px", "250px", "350px"]}
-          draggable="false"
-        />
+          Olá,
+          <Text as="span" display={["inline", "block"]} color="black">
+            {" "}
+            {name}
+          </Text>
+        </Text>
+      </Flex>
+      <Flex>
+        <Text
+          w="fit-content"
+          padding="3px"
+          borderRadius="4px"
+          fontSize="xs"
+          textAlign="center"
+          fontStyle="italic"
+          bgColor="yellow.200"
+        >
+          Quer uma frase diferente? É pra já!
+        </Text>
       </Flex>
 
       <Button
-        m="10px"
-        padding="0px 25px"
+        m="20px 0"
         bg="orange.500"
         color="white"
         borderRadius="12px"
         border="solid"
         borderColor="orange.500"
-        h="30px"
-        w="200px"
         fontWeight="medium"
         _hover={{
           background: "yellow.50",
           color: "orange.500",
           border: "solid orange.500",
         }}
-        onClick={() => RandomPhrase()}
+        onClick={() => {
+          RandomPhrase();
+          controls.start((i) => ({
+            opacity: [0, 1],
+            y: [15, 0],
+            transition: {
+              duration: 0.5,
+            },
+          }));
+        }}
       >
         Quero outra!
       </Button>
-    </Flex>
+
+      <Flex justifyContent="center" alignItems="center">
+        <FlexMotion
+          cunstom={0}
+          animate={controls}
+          w={["320px", "400px", "500px", "600px"]}
+          bg="white"
+          borderRadius="10px"
+          flexDirection="column"
+          justifyContent="space-between"
+        >
+          <Flex
+            borderRadius="10px 10px 0 0 "
+            bgColor="yellow.200"
+            flexDirection="row"
+            alignItems="center"
+            justifyContent="space-between"
+            padding="10px 15px"
+          >
+            <Flex h="fit-content">
+              <Icon
+                as={FaHeart}
+                fontSize="2xl"
+                color="gray.300"
+                _hover={{
+                  color: "gray.500",
+                  cursor: "pointer",
+                  transition: "0.3s",
+                }}
+                css={{ "&:not(:hover)": { transition: "0.3s" } }}
+              />
+            </Flex>
+
+            <Button
+              onClick={handleClick}
+              h="30px"
+              fontSize="sm"
+              fontWeight="medium"
+              bg="white"
+              color="yellow.500"
+              border="solid 2px"
+              borderRadius="12px"
+              borderColor="yellow.500"
+              _hover={{
+                background: "yellow.500",
+                color: "white",
+              }}
+            >
+              comentar
+            </Button>
+          </Flex>
+          <Skeleton isLoaded={!loading}>
+            <FlexMotion padding="20px" flexDirection="column">
+              <AnimatePresence exitBeforeEnter>
+                <TextMotion fontSize="lg">{frase?.phraseText}</TextMotion>
+              </AnimatePresence>
+              <Text
+                fontSize="2xl"
+                fontWeight="medium"
+                mt="30px"
+                color="orange.500"
+              >
+                {frase?.phraseAuthor}
+              </Text>
+            </FlexMotion>
+          </Skeleton>
+        </FlexMotion>
+      </Flex>
+    </FlexMotion>
   );
 };
