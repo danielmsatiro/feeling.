@@ -61,11 +61,12 @@ export const HomeAbout = () => {
             borderRadius="15px"
           >
             <Text mb="15px" fontStyle="italic">
-              Patience and perseverance have a magical effect before which
-              difficulties disappear and obstacles vanish.
+              Eu aprendi que as pessoas vão esquecer o que você disse, 
+              as pessoas vão esquecer o que você fez, 
+              mas as pessoas nunca esquecerão como você as fez sentir
             </Text>
             <Text color="orange.500" fontWeight="medium">
-              John Adams
+              Maya Angelou
             </Text>
           </Flex>
         </Flex>
