@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       toast({
         title: "Algo deu errado",
-        description: `${err}`,
+        description: `Opa, algo de errado não está certo`,
         status: "error",
         duration: 3000,
         position: "top-right",
@@ -83,7 +83,7 @@ const AuthProvider = ({ children }) => {
     } catch (err) {
       toast({
         title: "Algo deu errado",
-        description: `${err}`,
+        description: `Opa, algo de errado não está certo`,
         status: "error",
         duration: 3000,
         position: "top-right",
