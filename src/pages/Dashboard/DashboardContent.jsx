@@ -8,12 +8,15 @@ import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
+import { useState } from "react";
 
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
   const { phrases } = usePhrases();
-  const { /* frase, PhraseComments, */ RandomPhrase, randomId } = useComments();
+  const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
   const history = useHistory();
+
+  const frase = phrases.find(({ id }) => id === Number(randomId));
 
   const handleClick = () => {
     history.push(`/comments/${randomId}`);
@@ -76,7 +79,7 @@ export const DashboardContent = ({ name }) => {
               w={["100%", "75%", "75%", "75%"]}
               lineHeight="50px"
             >
-              {phrases[randomId]?.phraseText}
+              {frase?.phraseText}
             </Heading>
             <Flex
               color="orange.500"
@@ -124,7 +127,7 @@ export const DashboardContent = ({ name }) => {
             </Flex>
 
             <Heading size="lg" fontWeight="medium" mt="30px">
-              {phrases[randomId]?.phraseAuthor}
+              {frase?.phraseAuthor}
             </Heading>
           </Flex>
         </Flex>

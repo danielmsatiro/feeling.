@@ -26,7 +26,6 @@ const CommentsProvider = ({ children }) => {
   const { user, accessToken } = useAuth();
   const [myComments, setMyComments] = useState([]);
   const { phrases, loadPhrases } = usePhrases([]);
-  /* const [frase, setFrase] = useState({}); */
   /* const [comments, setComments] = useState([]); */
   const [fraseComments, setFraseComments] = useState([]);
   const toast = useToast();
@@ -98,9 +97,9 @@ const CommentsProvider = ({ children }) => {
   };
 
   const RandomPhrase = () => {
-    const randomId = Math.floor(Math.random() * phrases.length);
-    setRandomId(randomId);
-    localStorage.setItem("@Feeling: randomId", randomId);
+    const random = Math.floor(Math.random() * phrases.length + 1);
+    setRandomId(random);
+    localStorage.setItem("@Feeling: randomId", random);
 
     /* const phrase = phrases.find((item) => item.id === randomId);
     if (phrase) {
@@ -157,7 +156,6 @@ const CommentsProvider = ({ children }) => {
   return (
     <CommentsContext.Provider
       value={{
-        /* frase, */
         myComments,
         fraseComments,
         deleteMyComments,

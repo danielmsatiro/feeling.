@@ -8,15 +8,19 @@ import { useComments } from "../../provider/CommentsProvider";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { usePhrases } from "../../provider/PhrasesContext";
+import { useState } from "react";
 
 export const FellasComments = ({ onOpen }) => {
-  const { frase, fraseComments, PhraseComments } = useComments();
+  /* const { fraseComments, PhraseComments, randomId } = useComments(); */
   const { phrases } = usePhrases();
   const params = useParams();
+  const [frase, setFrase] = useState();
 
-  /* useEffect(() => {
-    PhraseComments(params.id);
-  }, []); */
+  useEffect(() => {
+    setFrase(phrases.find(({ id }) => id === Number(params.id)));
+  }, [phrases]);
+
+  console.log(frase);
 
   return (
     <>
@@ -80,8 +84,8 @@ export const FellasComments = ({ onOpen }) => {
           </Flex>
           <Box>
             <PhraseCard
-              author={phrases[params.id].phraseAuthor}
-              frase={phrases[params.id].phraseText}
+              author={frase?.phraseAuthor}
+              frase={frase?.phraseText}
               pos="absolute"
               top={0}
               right="0"
@@ -90,7 +94,7 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        <CommentsList array={phrases[params.id].comments} />
+        {frase && <CommentsList array={[]} />}
       </Flex>
     </>
   );
