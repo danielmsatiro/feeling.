@@ -66,7 +66,7 @@ const CommentsProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        getMyComments();
+        loadPhrases();
       })
       .then(
         toast({
@@ -87,7 +87,7 @@ const CommentsProvider = ({ children }) => {
         },
       })
       .then((_) => {
-        getMyComments();
+        loadPhrases();
       })
       .then(onClose)
       .then(

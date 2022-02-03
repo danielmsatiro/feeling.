@@ -12,6 +12,8 @@ export const MyComments = () => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  console.log(myComments);
+
   return (
     <Box>
       <Header />
@@ -31,7 +33,7 @@ export const MyComments = () => {
             myComments.map((comment) => (
               <Box key={comment.id} w="100%">
                 <MyCommentCard
-                  phrase={comment.commentphraseText}
+                  phrase={comment.commentText}
                   date={comment.date}
                   commentId={comment.id}
                   onOpenPhrase={onOpen}
