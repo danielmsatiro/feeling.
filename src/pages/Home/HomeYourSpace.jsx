@@ -27,6 +27,8 @@ export const HomeYourSpace = () => {
       bgColor="yellow.50"
     >
       <ImageMotion
+        animate={{ scale: [1.1, 1, 1.1] }}
+        transition={{ duration: 1, repeat: Infinity }}
         src={heart}
         w="80px"
         position="absolute"
