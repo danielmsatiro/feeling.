@@ -12,12 +12,11 @@ import { usePhrases } from "../../provider/PhrasesContext";
 export const FellasComments = ({ onOpen }) => {
   const { frase, fraseComments, PhraseComments } = useComments();
   const { phrases } = usePhrases();
-  const parametro = useParams();
-  console.log(parametro.id);
+  const params = useParams();
 
-  useEffect(() => {
-    PhraseComments(parametro.id);
-  }, []);
+  /* useEffect(() => {
+    PhraseComments(params.id);
+  }, []); */
 
   return (
     <>
@@ -81,8 +80,8 @@ export const FellasComments = ({ onOpen }) => {
           </Flex>
           <Box>
             <PhraseCard
-              author={frase.phraseAuthor}
-              frase={frase.phraseText}
+              author={phrases[params.id].phraseAuthor}
+              frase={phrases[params.id].phraseText}
               pos="absolute"
               top={0}
               right="0"
@@ -91,7 +90,7 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        <CommentsList array={fraseComments} />
+        <CommentsList array={phrases[params.id].comments} />
       </Flex>
     </>
   );

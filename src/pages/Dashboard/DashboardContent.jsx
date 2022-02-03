@@ -7,14 +7,16 @@ import { MdOutlineFavorite, MdOutlineFilterNone } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
-  const { frase, PhraseComments, RandomPhrase } = useComments();
+  const { phrases } = usePhrases();
+  const { /* frase, PhraseComments, */ RandomPhrase, randomId } = useComments();
   const history = useHistory();
 
   const handleClick = () => {
-    history.push(`/comments/${frase.id}`);
+    history.push(`/comments/${randomId}`);
     // PhraseComments(frase.id);
   };
 
@@ -74,7 +76,7 @@ export const DashboardContent = ({ name }) => {
               w={["100%", "75%", "75%", "75%"]}
               lineHeight="50px"
             >
-              {frase?.phraseText}
+              {phrases[randomId]?.phraseText}
             </Heading>
             <Flex
               color="orange.500"
@@ -122,7 +124,7 @@ export const DashboardContent = ({ name }) => {
             </Flex>
 
             <Heading size="lg" fontWeight="medium" mt="30px">
-              {frase?.phraseAuthor}
+              {phrases[randomId]?.phraseAuthor}
             </Heading>
           </Flex>
         </Flex>

@@ -9,7 +9,7 @@ import { api } from "../../services/api";
 import { useAuth } from "../AuthContext";
 import { usePhrases } from "../PhrasesContext";
 import { useToast } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+/* import { useParams } from "react-router-dom"; */
 
 const CommentsContext = createContext({});
 
@@ -26,10 +26,18 @@ const CommentsProvider = ({ children }) => {
   const { user, accessToken } = useAuth();
   const [myComments, setMyComments] = useState([]);
   const { phrases, loadPhrases } = usePhrases([]);
-  const [frase, setFrase] = useState({});
-  const [comments, setComments] = useState([]);
+  /* const [frase, setFrase] = useState({}); */
+  /* const [comments, setComments] = useState([]); */
   const [fraseComments, setFraseComments] = useState([]);
   const toast = useToast();
+
+  const [randomId, setRandomId] = useState(() => {
+    const randomId = localStorage.getItem("@Feeling: randomId");
+    if (randomId) {
+      return randomId;
+    }
+    return "";
+  });
 
   const getMyComments = useCallback(async () => {
     try {
@@ -90,14 +98,21 @@ const CommentsProvider = ({ children }) => {
   };
 
   const RandomPhrase = () => {
-    const randomId = Math.floor(Math.random() * 10 + 1);
-    const phrase = phrases.find((item) => item.id === randomId);
+    const randomId = Math.floor(Math.random() * phrases.length);
+    setRandomId(randomId);
+    localStorage.setItem("@Feeling: randomId", randomId);
+
+    /* const phrase = phrases.find((item) => item.id === randomId);
     if (phrase) {
       setFrase(phrase);
-    }
+    } */
   };
 
-  const GetComments = useCallback(async () => {
+  if (!randomId) {
+    RandomPhrase();
+  }
+
+  /* const GetComments = useCallback(async () => {
     try {
       const response = await api.get(`comments?_expand=phrase&_expand=user`);
       setComments(response.data);
@@ -105,14 +120,14 @@ const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   }, []);
-
-  useEffect(() => {
+ */
+  /* useEffect(() => {
     GetComments();
     RandomPhrase();
     PhraseComments();
   }, [phrases]);
-
-  const PhraseComments = (id) => {
+ */
+  /* const PhraseComments = (id) => {
     try {
       const comentario = comments.filter((item) => item.phraseId === id);
       console.log(comentario);
@@ -121,7 +136,7 @@ const CommentsProvider = ({ children }) => {
       console.log(err);
     }
   };
-
+ */
   const AddComment = useCallback(async (data) => {
     const id = data.phraseId;
     console.log(data.phraseId);
@@ -142,15 +157,16 @@ const CommentsProvider = ({ children }) => {
   return (
     <CommentsContext.Provider
       value={{
-        frase,
+        /* frase, */
         myComments,
         fraseComments,
         deleteMyComments,
         UpdateComment,
         AddComment,
-        PhraseComments,
-        GetComments,
+        /* PhraseComments, */
+        /*  GetComments, */
         RandomPhrase,
+        randomId,
       }}
     >
       {children}

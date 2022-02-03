@@ -33,7 +33,6 @@ const PhraseProvider = ({ children }) => {
       const response = await api.get(
         `phrases?_embed=comments&_embed=users_who_like`
       );
-      console.log(response.data);
 
       setPhrases(response.data);
     } catch (err) {
