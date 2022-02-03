@@ -71,7 +71,7 @@ const CommentsProvider = ({ children }) => {
       .then(
         toast({
           title: "Comentário deletado",
-          description: "Fica ranquilo! Você apagou o que queria",
+          description: "Fica tranquilo! Você apagou o que queria",
           status: "info",
           duration: 3000,
           position: "top-right",
@@ -93,7 +93,7 @@ const CommentsProvider = ({ children }) => {
       .then(
         toast({
           title: "Comentário alterado",
-          description: "Fica ranquilo! Agora você disse o que queria.",
+          description: "Fica tranquilo! Agora você disse o que queria.",
           status: "success",
           duration: 3000,
           position: "top-right",
