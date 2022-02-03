@@ -145,7 +145,3 @@ const PhraseProvider = ({ children }) => {
 };
 
 export { usePhrases, PhraseProvider };
-
-// const findPhrase = (phrases[phraseIdGet - 1]
-    //   .users_who_like
-    //   .find(({userId}) => userId === user.id ) )
