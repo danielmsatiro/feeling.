@@ -19,6 +19,5 @@ context("NavigationAPP", () => {
     cy.contains("voltar ao topo").click();
     cy.viewport("iphone-5");
     cy.scrollTo("bottom", { duration: 5000 });
-    cy.contains("voltar ao topo").click();
   });
 });
