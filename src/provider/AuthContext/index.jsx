@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { api } from "../../services/api";
 import { toast, useToast } from "@chakra-ui/react";
 import { useComments } from "../CommentsProvider";
@@ -14,6 +20,8 @@ const useAuth = () => {
 };
 
 const AuthProvider = ({ children }) => {
+  const [users, setUsers] = useState([]);
+
   const toast = useToast()
   
   const [data, setData] = useState(() => {
@@ -26,8 +34,9 @@ const AuthProvider = ({ children }) => {
 
     return {};
   });
+
   const signIn = useCallback(async ({ email, password }) => {
-    try{
+    try {
       const response = await api.post("login", { email, password });
 
       const { accessToken, user } = response.data;
@@ -37,25 +46,25 @@ const AuthProvider = ({ children }) => {
 
       setData({ accessToken, user });
       toast({
-        title: 'Login Feito!',
+        title: "Login Feito!",
         description: "Se motive a cada dia!",
-        status: 'success',
+        status: "success",
         duration: 3000,
-        position: 'top-right'
-      })
-    }catch(err){
+        position: "top-right",
+      });
+    } catch (err) {
       toast({
-        title: 'Algo deu errado',
+        title: "Algo deu errado",
         description: `${err}`,
-        status: 'error',
+        status: "error",
         duration: 3000,
-        position: 'top-right'
-      })
+        position: "top-right",
+      });
     }
   }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
-    try{
+    try {
       const response = await api.post("register", { name, email, password });
 
       const { accessToken, user } = response.data;
@@ -65,28 +74,42 @@ const AuthProvider = ({ children }) => {
 
       setData({ accessToken, user });
       toast({
-        title: 'Conta Criada',
+        title: "Conta Criada",
         description: "Tudo pronto para você se inspirar!",
-        status: 'success',
+        status: "success",
         duration: 3000,
-        position: 'top-right'
-      })
-    } catch(err) {
+        position: "top-right",
+      });
+    } catch (err) {
       toast({
-        title: 'Algo deu errado',
+        title: "Algo deu errado",
         description: `${err}`,
-        status: 'error',
+        status: "error",
         duration: 3000,
-        position: 'top-right'
-      })
+        position: "top-right",
+      });
     }
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem("@Feeling: accessToken");
     localStorage.removeItem("@Feeling: user");
+    localStorage.removeItem("@Feeling: randomId");
 
     setData({});
+  }, []);
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = useCallback(async () => {
+    try {
+      const response = await api.get(`users`);
+      setUsers(response.data);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
@@ -97,6 +120,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         signUp,
         signOut,
+        users,
       }}
     >
       {children}

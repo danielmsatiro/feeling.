@@ -4,9 +4,10 @@ import { MdQuestionAnswer } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
 import { MyFavPhrase } from "../../components/Card/MyFavPhrase"
+import { FavoriteCard } from "../../components/Card/FavoriteCard";
 
 export const Favorites = () => {
-  const { phrases, deleteMyFavorite } = usePhrases();
+  const { phrases } = usePhrases();
   const { user } = useAuth();
 
   const myFavorites = phrases.filter((phrase) =>
@@ -14,7 +15,7 @@ export const Favorites = () => {
   );
 
   return (
-    <Box 
+    <Box
       padding={[
         "0px 20px 40px 20px",
         "0px 40px 40px 40px",
