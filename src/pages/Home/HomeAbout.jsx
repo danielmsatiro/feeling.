@@ -23,7 +23,7 @@ export const HomeAbout = () => {
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        h="100vh"
+        h="140vh"
       >
         <Flex
           justifyContent="center"
@@ -74,7 +74,7 @@ export const HomeAbout = () => {
         <Image
           src={coffee}
           alt="man coffee"
-          w={["300px", "300px", "300px", "450px"]}
+          w={["250px", "250px", "250px", "400px"]}
           draggable={false}
         />
       </FlexMotion>

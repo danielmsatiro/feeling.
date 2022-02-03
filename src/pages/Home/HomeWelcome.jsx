@@ -116,7 +116,7 @@ export const HomeWelcome = () => {
 
       <FlexMotion
         color="orange.500"
-        mt="40px"
+        mt="20px"
         animate={{ y: [0, -5, 0] }}
         transition={{ repeat: Infinity }}
       >
