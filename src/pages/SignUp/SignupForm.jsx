@@ -1,14 +1,12 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Text, Link } from "@chakra-ui/react";
 import { Entrada } from "../../components/Input/ControlledInput";
-import { useHistory } from "react-router-dom";
+import { Link as HDLink } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../provider/AuthContext";
 
 export const SignupForm = () => {
-  const history = useHistory();
-
   const signInSchema = yup.object().shape({
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
     name: yup.string().required("Escreva seu nome"),
@@ -106,17 +104,16 @@ export const SignupForm = () => {
           fontSize={["14px", "14px", "13px", "16px"]}
           w="300px"
         >
-          <Text paddingRight="5px" fontSize="sm">
-            Já possui uma conta? Faça
-          </Text>
-          <Text
-            as="button"
-            fontSize="sm"
-            color="orange.500"
-            fontWeight="bold"
-            onClick={() => history.push("/login")}
-          >
-            Login
+          <Text fontSize="sm">
+            Já possui uma conta? Faça{" "}
+            <Link
+              as={HDLink}
+              to="/login"
+              color="orange.500"
+              fontWeight="semibold"
+            >
+              Login
+            </Link>
           </Text>
         </Flex>
       </Flex>
