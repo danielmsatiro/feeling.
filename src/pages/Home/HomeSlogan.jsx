@@ -5,6 +5,7 @@ import levitate from "../../assets/levitate.svg";
 import { motion } from "framer-motion";
 
 const FlexMotion = motion(Flex);
+const ImageMotion = motion(Image);
 
 export const HomeSlogan = () => {
   return (
@@ -24,18 +25,18 @@ export const HomeSlogan = () => {
         alignItems="center"
         bgColor="white"
       >
-        <Image
+        <ImageMotion
+          animate={{ y: [0, -10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
           src={levitate}
           w={["300px", "300px", "500px", "500px", "700px"]}
           mb="20px"
           draggable={false}
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
         />
 
         <Text
           w={["290px", "290px", "fit-content", "fit-content"]}
-          fontSize={["2xl", "2xl", "2xl", "3xl"]}
+          fontSize={["2xl", "3xl", "3xl", "4xl"]}
           fontWeight="semibold"
         >
           A{" "}

@@ -35,7 +35,7 @@ export const HomeAbout = () => {
             <Text
               w="300px"
               mb="15px"
-              fontSize={["3xl", "3xl", "3xl", "4xl"]}
+              fontSize={["2xl", "3xl", "3xl", "4xl"]}
               fontWeight="semibold"
             >
               Quem Somos?
@@ -61,9 +61,9 @@ export const HomeAbout = () => {
             borderRadius="15px"
           >
             <Text mb="15px" fontStyle="italic">
-              Eu aprendi que as pessoas vão esquecer o que você disse, 
-              as pessoas vão esquecer o que você fez, 
-              mas as pessoas nunca esquecerão como você as fez sentir
+              Eu aprendi que as pessoas vão esquecer o que você disse, as
+              pessoas vão esquecer o que você fez, mas as pessoas nunca
+              esquecerão como você as fez sentir
             </Text>
             <Text color="orange.500" fontWeight="medium">
               Maya Angelou
