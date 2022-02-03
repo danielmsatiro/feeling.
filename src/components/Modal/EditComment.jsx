@@ -14,7 +14,7 @@ import { useComments } from "../../provider/CommentsProvider"
 
 export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
   
-  const [editedComment, setEditedComment] = useState({commentphraseText: ""})
+  const [editedComment, setEditedComment] = useState({commentText: ""})
   const {UpdateComment} = useComments()
 
   return (
@@ -57,7 +57,7 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             _placeholder={{ color: "orange.500" }}
             bg="yellow.200"
             _focus={{ border: "2px", borderColor: "orange.500" }}
-            onChange={(event) => setEditedComment({commentphraseText: event.target.value})}
+            onChange={(event) => setEditedComment({commentText: event.target.value})}
             defaultValue={comment}
             minH={150}
           />
