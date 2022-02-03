@@ -8,9 +8,14 @@ import {
 } from "@chakra-ui/react";
 import { MdOutlineFavorite, MdQuestionAnswer } from "react-icons/md";
 import { ModalCard } from "../../components/Modal/ModalCard";
+import { usePhrases } from "../../provider/PhrasesContext";
+import { useAuth } from "../../provider/AuthContext";
 
 export const FavoriteCard = ({ phrase }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {addMyFavorite}= usePhrases()
+  const { user } = useAuth()
+
   return (
     <Box
       w={["300px", "300px", "300px", "300px"]}
@@ -30,7 +35,10 @@ export const FavoriteCard = ({ phrase }) => {
             icon={<MdOutlineFavorite size="100%" />}
             aria-label="Ver Comentários"
             onClick={() => {
-              /*abre os comentários*/
+              addMyFavorite(
+                phrase.id,
+                user.id
+              )
             }}
           />
         </Tooltip>

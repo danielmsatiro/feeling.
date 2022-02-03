@@ -6,6 +6,8 @@ import {
   useState,
 } from "react";
 import { api } from "../../services/api";
+import { useAuth } from "../AuthContext";
+import { useToast } from "@chakra-ui/react";
 
 const PhraseContext = createContext({});
 
@@ -22,6 +24,8 @@ const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [contentSearch, setContentSearch] = useState("");
+  const {accessToken, user} = useAuth()
+  const toast = useToast()
 
   useEffect(() => {
     loadPhrases();
@@ -63,16 +67,74 @@ const PhraseProvider = ({ children }) => {
     }
   }, []);
 
-  return (
-    <PhraseContext.Provider
+  const addMyFavorite = (phraseIdGet, userIdGet) => {
+
+    const findPhrase = (phrases[phraseIdGet - 1]
+      .users_who_like
+      .some(({userId}) => userId === user.id ) )
+    console.log(findPhrase)
+
+    if(!findPhrase){
+      api
+        .post(`users_who_like`, {
+          userId: userIdGet,
+          phraseId: phraseIdGet
+        }, {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((_) => {
+          loadPhrases();
+        }).then(
+          toast({
+            title: 'Adicionou aos meus favoritos',
+            description: "Agora você tem mais uma frase no seu acervo",
+            status: 'info',
+            duration: 3000,
+            position: 'top-right'
+          })
+        )
+      }
+  };
+
+    const deleteMyFavorite = (phraseIdCard) => {
+      const IdFavorite = phrases[phraseIdCard - 1]
+        .users_who_like
+        .find(({userId}) => userId === user.id )?.id        
+      
+      api
+        .delete(`users_who_like/${IdFavorite}`, {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((_) => {
+          loadPhrases();
+        })
+        .then(
+          toast({
+            title: 'Excluido dos meus favoritos',
+            description: "Agora você tem menos uma frase no seu acervo",
+            status: 'info',
+            duration: 3000,
+            position: 'top-right'
+          })
+        )
+    }  
+
+    return (
+      <PhraseContext.Provider
       value={{
         phrases,
         loadPhrases,
         searchPhrase,
         notFound,
         contentSearch,
+        addMyFavorite,
+        deleteMyFavorite
       }}
-    >
+      >
       {children}
     </PhraseContext.Provider>
   );

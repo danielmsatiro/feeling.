@@ -127,7 +127,7 @@ const CommentsProvider = ({ children }) => {
  */
   /* useEffect(() => {
     GetComments();
-    RandomPhrase();
+    // RandomPhrase();
     PhraseComments();
   }, [phrases]);
  */

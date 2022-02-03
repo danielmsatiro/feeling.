@@ -6,7 +6,7 @@ import { useAuth } from "../../provider/AuthContext";
 import { FavoriteCard } from "../../components/Card/FavoriteCard";
 
 export const Favorites = () => {
-  const { phrases } = usePhrases();
+  const { phrases, deleteMyFavorite } = usePhrases();
   const { user } = useAuth();
 
   const myFavorites = phrases.filter((phrase) =>
