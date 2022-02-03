@@ -26,7 +26,7 @@ export const HomeHardTimes = () => {
       <Image
         src={clumsy}
         alt="clumsy guy"
-        w={["300px", "300px", "300px", "400px"]}
+        w={["250px", "300px", "300px", "400px"]}
         mb="20px"
         draggable={false}
       />
@@ -40,7 +40,7 @@ export const HomeHardTimes = () => {
           w={["300px", "300px", "300px", "400px"]}
           mr={["", "", "", "15px"]}
           mb={["15px", "15px", "15px", ""]}
-          fontSize={["3xl", "3xl", "3xl", "4xl"]}
+          fontSize={["2xl", "3xl", "3xl", "4xl"]}
           fontWeight="semibold"
         >
           A vida <br />

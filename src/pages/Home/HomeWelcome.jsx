@@ -22,7 +22,7 @@ export const HomeWelcome = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 2 }}
       variants={{
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
@@ -32,7 +32,7 @@ export const HomeWelcome = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      minH="101vh"
+      minH="105vh"
     >
       <Text
         color="orange.500"
@@ -52,7 +52,7 @@ export const HomeWelcome = () => {
       <Heading
         color="orange.500"
         as="h2"
-        fontSize={["3xl", "3xl", "3xl", "4xl"]}
+        fontSize={["2xl", "3xl", "3xl", "4xl"]}
         fontWeight="medium"
       >
         Bem Vindo(a)!

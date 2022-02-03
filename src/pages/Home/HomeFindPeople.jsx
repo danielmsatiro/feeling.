@@ -37,7 +37,7 @@ export const HomeFindPeople = () => {
       <Box padding={[null, null, null, "50px"]}>
         <Text
           w={["290px", "290px", "290px", "400px"]}
-          fontSize={["2xl", "2xl", "2xl", "3xl"]}
+          fontSize={["2xl", "3xl", "3xl", "4xl"]}
           fontWeight="semibold"
         >
           <Text as="abbr" color="orange.500">
