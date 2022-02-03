@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { api } from "../../services/api";
 import { toast, useToast } from "@chakra-ui/react";
 
@@ -14,6 +20,7 @@ const useAuth = () => {
 
 const AuthProvider = ({ children }) => {
   const toast = useToast();
+  const [users, setUsers] = useState([]);
 
   const [data, setData] = useState(() => {
     const accessToken = localStorage.getItem("@Feeling: accessToken");
@@ -25,6 +32,7 @@ const AuthProvider = ({ children }) => {
 
     return {};
   });
+
   const signIn = useCallback(async ({ email, password }) => {
     try {
       const response = await api.post("login", { email, password });
@@ -89,6 +97,19 @@ const AuthProvider = ({ children }) => {
     setData({});
   }, []);
 
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = useCallback(async () => {
+    try {
+      const response = await api.get(`users`);
+      setUsers(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -97,6 +118,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         signUp,
         signOut,
+        users,
       }}
     >
       {children}

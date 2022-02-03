@@ -41,9 +41,14 @@ const CommentsProvider = ({ children }) => {
   const getMyComments = useCallback(async () => {
     try {
       const response = await api.get(
-        `comments?userId=${user && user.id}&_expand=phrase`
+        `comments?userId=${user.id}&_expand=phrase`,
+        {
+          headers: {
+            authorization: `Bearer ${accessToken}`,
+          },
+        }
       );
-      setMyComments(response);
+      setMyComments(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -51,7 +56,7 @@ const CommentsProvider = ({ children }) => {
 
   useEffect(() => {
     getMyComments();
-  }, []);
+  }, [phrases]);
 
   const deleteMyComments = (commentId) => {
     api

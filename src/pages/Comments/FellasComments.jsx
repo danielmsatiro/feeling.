@@ -20,7 +20,7 @@ export const FellasComments = ({ onOpen }) => {
     setFrase(phrases.find(({ id }) => id === Number(params.id)));
   }, [phrases]);
 
-  console.log(frase);
+  console.log(frase?.comments);
 
   return (
     <>
@@ -94,7 +94,7 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        {frase && <CommentsList array={[]} />}
+        {frase?.comments.length > 0 && <CommentsList array={frase?.comments} />}
       </Flex>
     </>
   );
