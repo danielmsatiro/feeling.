@@ -4,17 +4,28 @@ import { ModalCard } from "../../components/Modal/ModalCard";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 export const SearchCard = ({ phrase }) => {
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const {addMyFavorite} = usePhrases()
+  const {addMyFavorite, phrases, searchPhrase, contentSearch} = usePhrases()
   const { user } = useAuth()
 
   const handleClick = () => {
     history.push(`/comments/${phrase.id}`);
     // PhraseComments(frase.id);
   };
+
+  const addFav = () => {
+    console.log(phrase.id, user.id)
+    addMyFavorite(
+      phrase.id,
+      user.id
+    )
+  }
+
+  
 
   return (
     <Flex
@@ -79,12 +90,7 @@ export const SearchCard = ({ phrase }) => {
             <MdOutlineFavorite 
                 size="1.7rem" 
                 cursor="pointer"
-                onClick={() => {
-                    addMyFavorite(
-                      phrase.id,
-                      user.id
-                    )
-                  }}
+                onClick={() => addFav()}
             />
             
             <MdQuestionAnswer 
