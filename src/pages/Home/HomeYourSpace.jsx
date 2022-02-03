@@ -6,6 +6,7 @@ import heart from "../../assets/Loves.svg";
 import { motion } from "framer-motion";
 
 const FlexMotion = motion(Flex);
+const ImageMotion = motion(Image);
 
 export const HomeYourSpace = () => {
   return (
@@ -25,7 +26,7 @@ export const HomeYourSpace = () => {
       alignItems="center"
       bgColor="yellow.50"
     >
-      <Image
+      <ImageMotion
         src={heart}
         w="80px"
         position="absolute"

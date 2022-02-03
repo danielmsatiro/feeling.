@@ -4,15 +4,13 @@ import {
   MdHomeFilled,
   MdOutlineFavorite,
   MdOutlineMenu,
-  MdOutlinePowerSettingsNew,
-  MdOutlineSearch,
 } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../provider/AuthContext";
 import { Menu } from "./Menu";
 import { Search } from "./Search";
-import {FaSearch, FaPowerOff} from "react-icons/fa"
+import { FaSearch, FaPowerOff } from "react-icons/fa";
 
 export const Header = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();

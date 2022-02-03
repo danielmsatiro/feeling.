@@ -5,7 +5,6 @@ import levitate from "../../assets/levitate.svg";
 import { motion } from "framer-motion";
 
 const FlexMotion = motion(Flex);
-const ImageMotion = motion(Image);
 
 export const HomeSlogan = () => {
   return (
@@ -25,7 +24,7 @@ export const HomeSlogan = () => {
         alignItems="center"
         bgColor="white"
       >
-        <ImageMotion
+        <Image
           src={levitate}
           w={["300px", "300px", "500px", "500px", "700px"]}
           mb="20px"
@@ -49,7 +48,7 @@ export const HomeSlogan = () => {
           </Text>
         </Text>
         <Flex
-          flexDirection={["column", "column", "column", "row"]}
+          flexDirection="column"
           alignItems="center"
           justifyContent="center"
           bgColor="white"
@@ -57,9 +56,7 @@ export const HomeSlogan = () => {
           padding="20px 0"
           fontSize="sm"
         >
-          <Link href="#" mr={["none", "20px", "20px", "20px"]}>
-            voltar ao topo
-          </Link>
+          <Link href="#">voltar ao topo</Link>
 
           <Link>repositório</Link>
         </Flex>
