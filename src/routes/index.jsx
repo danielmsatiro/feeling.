@@ -17,7 +17,7 @@ import { useLocation } from "react-router-dom";
 export const Routes = () => {
   const location = useLocation();
   return (
-    <AnimatePresence exitBeforeEnter initial={false}>
+    <AnimatePresence exitBeforeEnter>
       <Switch location={location} key={location.pathname}>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
