@@ -27,6 +27,8 @@ export const HomeYourSpace = () => {
       bgColor="yellow.50"
     >
       <ImageMotion
+        animate={{ scale: [1.1, 1, 1.1] }}
+        transition={{ duration: 1, repeat: Infinity }}
         src={heart}
         w="80px"
         position="absolute"
@@ -35,7 +37,7 @@ export const HomeYourSpace = () => {
       />
       <Text
         w={["290px", "290px", "290px", "fit-content"]}
-        fontSize={["2xl", "2xl", "2xl", "3xl"]}
+        fontSize={["2xl", "3xl", "3xl", "4xl"]}
         fontWeight="semibold"
       >
         Seu espaço, do{" "}
