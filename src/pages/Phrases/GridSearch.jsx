@@ -2,9 +2,10 @@ import { Flex, Text } from "@chakra-ui/react";
 import { FavoriteCard } from "../../components/Card/FavoriteCard";
 import { useAuth } from "../../provider/AuthContext";
 import { usePhrases } from "../../provider/PhrasesContext";
+import { SearchCard } from "../../components/Card/SearchCard";
 
 export const GridSearch = () => {
-  const { phrases, notFound, contentSearch } = usePhrases();
+  const { phrases, notFound, contentSearch, addMyFavorite } = usePhrases();
   const { user } = useAuth();
 
   return (
@@ -41,7 +42,10 @@ export const GridSearch = () => {
       >
         {/* {myFavorites.lenght > 0 ? ( */}
         {phrases.map((phrase) => (
-          <FavoriteCard key={phrase.id} phrase={phrase} />
+          <SearchCard 
+            key={phrase.id} 
+            phrase={phrase}
+          />
         ))}
       </Flex>
     </>
