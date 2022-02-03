@@ -1,34 +1,22 @@
 import {
-  Box,
   Center,
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  Heading,
-  Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
+
 import { useAuth } from "../../provider/AuthContext";
-import { FiLogOut } from "react-icons/fi";
-import {
-  MdComment,
-  MdHomeFilled,
-  MdOutlineFavorite,
-  MdOutlinePowerSettingsNew,
-  MdOutlineSearch,
-} from "react-icons/md";
+import { MdComment, MdHomeFilled, MdOutlineFavorite } from "react-icons/md";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import {FaSearch, FaPowerOff} from "react-icons/fa"
+import { FaSearch, FaPowerOff } from "react-icons/fa";
 
 export const Menu = ({ isOpen, onClose }) => {
   const sizeIcon = 25;
   const colorIcon = "yellow.500";
-  const { user, signOut } = useAuth();
+  const { signOut } = useAuth();
   const history = useHistory();
 
   const location = useLocation();
@@ -74,7 +62,7 @@ export const Menu = ({ isOpen, onClose }) => {
                 _hover={{
                   color: "orange.500",
                 }}
-                onClick={() => history.push("/comments")}
+                onClick={() => history.push("/mycomments")}
                 as="button"
               >
                 <MdComment size={sizeIcon} />

@@ -3,16 +3,24 @@ import { SignupForm } from "./SignupForm";
 import { SignupImage } from "./SignupImage";
 import { useHistory } from "react-router-dom";
 
+import { motion } from "framer-motion";
+
+const FlexMotion = motion(Flex);
+
 export const SignUp = () => {
   const history = useHistory();
 
   return (
-    <Flex
-      maxW="1000px"
-      w={["250px", "300px", "95%", "90%"]}
-      h={["100vh"]}
-      margin="auto"
+    <FlexMotion
       flexDirection={["column"]}
+      animate="visible"
+      initial="hidden"
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      variants={{
+        visible: { x: 0, opacity: 1 },
+        hidden: { x: -100, opacity: 0 },
+      }}
+      exit={{ x: -100, opacity: 0 }}
     >
       <Flex
         onClick={() => history.push("/")}
@@ -36,6 +44,6 @@ export const SignUp = () => {
         <SignupForm />
         <SignupImage />
       </Flex>
-    </Flex>
+    </FlexMotion>
   );
 };

@@ -4,6 +4,7 @@ import {
   Input,
   InputGroup,
 } from "@chakra-ui/react";
+
 import { forwardRef, useState } from "react";
 
 const ControlledInput = ({ error, name, register, ...rest }, ref) => {
@@ -39,14 +40,19 @@ const ControlledInput = ({ error, name, register, ...rest }, ref) => {
                 transform: "translateX(5px)",
                 transition: "0.5s",
               },
+              "&:not(:focus)::placeholder": {
+                transition: "0.5s",
+              },
             }}
             ref={ref}
             {...rest}
             {...register(name)}
           />
-          <FormErrorMessage fontSize="xs" fontWeight="medium" m="10px 0">
-            {error}
-          </FormErrorMessage>
+          {error && (
+            <FormErrorMessage fontSize="xs" fontWeight="medium" m="10px 0">
+              {error}
+            </FormErrorMessage>
+          )}
         </InputGroup>
       </FormControl>
     </>

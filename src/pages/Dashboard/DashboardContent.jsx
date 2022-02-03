@@ -44,7 +44,7 @@ export const DashboardContent = ({ name }) => {
             Olá,
           </Text>{" "}
           <br />
-          {user.name}
+          {name}
         </Heading>
       </Flex>
 

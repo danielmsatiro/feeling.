@@ -22,11 +22,12 @@ export const HomeWelcome = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      transition={{ duration: 2 }}
+      transition={{ duration: 1 }}
       variants={{
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
       }}
+      exit={{ opacity: 0 }}
       bg="yellow.50"
       flexDirection="column"
       alignItems="center"
