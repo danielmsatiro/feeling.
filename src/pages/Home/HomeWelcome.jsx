@@ -27,6 +27,7 @@ export const HomeWelcome = () => {
         visible: { opacity: 1 },
         hidden: { opacity: 0 },
       }}
+      exit={{ opacity: 0 }}
       bg="yellow.50"
       flexDirection="column"
       alignItems="center"
