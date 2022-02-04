@@ -133,7 +133,6 @@ const PhraseProvider = ({ children }) => {
     <PhraseContext.Provider
       value={{
         phrases,
-        favorites,
         loadPhrases,
         searchPhrase,
         notFound,

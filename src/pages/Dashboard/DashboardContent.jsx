@@ -9,12 +9,13 @@ import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
 
 export const DashboardContent = ({ name }) => {
-  const { phrases, loading, addMyFavorite } = usePhrases();
+  const { phrases, loading, addMyFavorite, loadPhrases } = usePhrases();
   const { user } = useAuth();
   const { RandomPhrase, randomId } = useComments();
   const history = useHistory();
@@ -25,6 +26,12 @@ export const DashboardContent = ({ name }) => {
     history.push(`/comments/${randomId}`);
     // PhraseComments(frase.id);
   };
+
+  /* Ciclo de vida de desmontagem ao sair da página de pesquisa */
+  useEffect(() => {
+    return () => loadPhrases();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const controls = useAnimation();
 

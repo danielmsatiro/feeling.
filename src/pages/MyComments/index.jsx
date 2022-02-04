@@ -18,7 +18,7 @@ export const MyComments = () => {
     <Box>
       <Header />
 
-      <Flex flexDirection="column" alignItems="center">
+      <Flex flexDirection="column" alignItems="center" m="0 20px">
         <HeadingMotion
           animate={{ x: [-50, 0], opacity: [0, 1] }}
           transition={{ duration: 1, ease: "easeInOut" }}

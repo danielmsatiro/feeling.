@@ -6,7 +6,6 @@ import { useAuth } from "../../provider/AuthContext";
 import { MyFavPhrase } from "../../components/Card/MyFavPhrase";
 
 import { motion } from "framer-motion";
-import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
 const HeadingMotion = motion(Heading);
