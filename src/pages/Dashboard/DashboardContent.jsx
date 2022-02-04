@@ -13,8 +13,16 @@ import { useState } from "react";
 export const DashboardContent = ({ name }) => {
   const { user } = useAuth();
   const { phrases } = usePhrases();
-  const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
+  const { /* , PhraseComments */ RandomPhrase } = useComments();
   const history = useHistory();
+
+  const [randomId, setRandomId] = useState(() => {
+    const randomId = localStorage.getItem("@Feeling: randomId");
+    if (randomId) {
+      return randomId;
+    }
+    return RandomPhrase();
+  });
 
   const frase = phrases.find(({ id }) => id === Number(randomId));
 
@@ -158,7 +166,7 @@ export const DashboardContent = ({ name }) => {
           color: "orange.500",
           border: "solid orange.500",
         }}
-        onClick={() => RandomPhrase()}
+        onClick={() => setRandomId(RandomPhrase())}
       >
         Quero outra!
       </Button>
