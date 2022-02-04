@@ -1,12 +1,7 @@
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Input, InputGroup } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { MdOutlineSearch } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
-import { motion } from "framer-motion";
-import {FaSearch} from "react-icons/fa"
-
-const InputMotion = motion(Input)
 
 export const Search = () => {
   const { searchPhrase, loadPhrases } = usePhrases();
@@ -25,37 +20,14 @@ export const Search = () => {
 
   return (
     <>
-      <InputGroup
-        mr={5}
-        as="form"
-        alignItems={"center"}
-        onSubmit={handleSubmit(handleSearch)}
-      >
-        <InputLeftElement 
-          color="yellow.500" 
-          h="30px"
-        >
-          <FaSearch size={20} />
-        </InputLeftElement>
-        <InputMotion
-          pl="16%"
-          animate={{
-            width:[0, 200],
-            opacity:[0.3, 1]
-          }}
-          transition={{
-            duration: 0.4,
-            ease: "easeOut"
-          }}
-          initial={{
-            width: 0 
-          }}
+      <InputGroup mr={5} as="form" onSubmit={handleSubmit(handleSearch)}>
+        <Input
           bg="yellow.50"
           focusBorderColor="orange.500"
           borderRadius="10px"
           borderColor="yellow.500"
           _hover={{
-            borderColor: "yellow.500"
+            borderColor: "yellow.500",
           }}
           h="30px"
           {...register("content")}

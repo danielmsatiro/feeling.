@@ -1,10 +1,9 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Text } from "@chakra-ui/react";
 import { PhraseCard } from "../../components/Card/PhraseCard";
 import { CommentsList } from "../../components/Card/CommentsList";
 import { Header } from "../../components/Header";
 import jumping from "../../assets/jumping.svg";
-import { MdDataSaverOn } from "react-icons/md";
-import { useComments } from "../../provider/CommentsProvider";
+
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { usePhrases } from "../../provider/PhrasesContext";
@@ -51,14 +50,14 @@ export const FellasComments = ({ onOpen }) => {
               <Text>da Galera</Text>
               <Text color="orange.500">!</Text>
             </Flex>
-            <Box
+            <Button
               as="button"
               color="yellow.500"
               fontSize={["40px", "40px", "50px", "60px"]}
               onClick={onOpen}
             >
-              <MdDataSaverOn />
-            </Box>
+              Comentar
+            </Button>
           </Flex>
         </Flex>
         <Flex
@@ -92,7 +91,9 @@ export const FellasComments = ({ onOpen }) => {
           </Box>
         </Flex>
 
-        {frase?.comments?.length > 0 && <CommentsList array={frase?.comments} />}
+        {frase?.comments?.length > 0 && (
+          <CommentsList array={frase?.comments} />
+        )}
       </Flex>
     </>
   );
