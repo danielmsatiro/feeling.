@@ -52,7 +52,7 @@ const CommentsProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     getMyComments();
