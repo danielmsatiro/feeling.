@@ -105,7 +105,7 @@ const CommentsProvider = ({ children }) => {
     const random = Math.floor(Math.random() * phrases.length + 1);
     /* setRandomId(random); */
     localStorage.setItem("@Feeling: randomId", random);
-
+    return random;
     /* const phrase = phrases.find((item) => item.id === randomId);
     if (phrase) {
       setFrase(phrase);
