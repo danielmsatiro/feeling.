@@ -71,6 +71,7 @@ const PhraseProvider = ({ children }) => {
     await api
       .get(`users_who_like?userId=${user.id}&_expand=phrase`)
       .then((res) => setFavorites(res.data));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addMyFavorite = (phraseIdGet, userIdGet) => {
@@ -100,6 +101,14 @@ const PhraseProvider = ({ children }) => {
             position: "top-right",
           })
         );
+    } else {
+      toast({
+        title: "Frase já está nos seus favoritos",
+        description: "Você já adicionou essa frase aos seus favoritos",
+        status: "error",
+        duration: 3000,
+        position: "top-right",
+      });
     }
   };
 

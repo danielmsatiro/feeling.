@@ -7,7 +7,6 @@ import {
 } from "react";
 import { api } from "../../services/api";
 import { toast, useToast } from "@chakra-ui/react";
-import { useComments } from "../CommentsProvider";
 
 const AuthContext = createContext({});
 
@@ -22,8 +21,8 @@ const useAuth = () => {
 const AuthProvider = ({ children }) => {
   const [users, setUsers] = useState([]);
 
-  const toast = useToast()
-  
+  const toast = useToast();
+
   const [data, setData] = useState(() => {
     const accessToken = localStorage.getItem("@Feeling: accessToken");
     const user = localStorage.getItem("@Feeling: user");
@@ -46,7 +45,7 @@ const AuthProvider = ({ children }) => {
 
       setData({ accessToken, user });
       toast({
-        title: "Login Feito!",
+        title: "Welcome!",
         description: "Se motive a cada dia!",
         status: "success",
         duration: 3000,
@@ -61,6 +60,7 @@ const AuthProvider = ({ children }) => {
         position: "top-right",
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signUp = useCallback(async ({ name, email, password }) => {
@@ -101,6 +101,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getUsers = useCallback(async () => {

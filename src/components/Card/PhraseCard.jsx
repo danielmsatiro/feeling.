@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export const PhraseCard = ({ frase, author }) => {
   return (
@@ -18,7 +18,7 @@ export const PhraseCard = ({ frase, author }) => {
         justifyContent={["flex-start", "flex-start", "flex-end", "flex-end"]}
       >
         <Text
-          fontSize={["xl", "2xl", "2xl", "3xl"]}
+          fontSize={["lg", "xl", "xl", "2xl"]}
           fontWeight="light"
           w={["100%", "75%", "75%", "75%"]}
           textAlign={["left", "left", "right", "right"]}
@@ -28,14 +28,13 @@ export const PhraseCard = ({ frase, author }) => {
       </Flex>
       <Flex
         color="orange.500"
-        flexDirection={["row", "row", "row"]}
         alignItems="center"
-        justifyContent="center"
+        justifyContent={["center", "center", "flex-end", "flex-end"]}
         minH="100px"
       >
-        <Heading size="md" fontWeight="medium">
+        <Text fontSize={["lg", "xl", "xl", "2xl"]} fontWeight="medium">
           {author}
-        </Heading>
+        </Text>
       </Flex>
     </Flex>
   );
