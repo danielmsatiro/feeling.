@@ -24,13 +24,13 @@ const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [contentSearch, setContentSearch] = useState("");
-  const {accessToken, user} = useAuth()
-  const [favorites, setFavorites] = useState([])
-  const toast = useToast()
+  const { accessToken, user } = useAuth();
+  const [favorites, setFavorites] = useState([]);
+  const toast = useToast();
 
   useEffect(() => {
     loadPhrases();
-    getMyFavoritePhrases()
+    getMyFavoritePhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -41,9 +41,7 @@ const PhraseProvider = ({ children }) => {
       );
 
       setPhrases(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }, []);
 
   const searchPhrase = useCallback(async (textOrAuthor) => {
@@ -70,65 +68,69 @@ const PhraseProvider = ({ children }) => {
   }, []);
 
   const getMyFavoritePhrases = useCallback(async () => {
-    await api.get(
-      `users_who_like?userId=${user.id}&_expand=phrase`
-    ).then((res) => setFavorites(res.data))
-  }, [])
+    await api
+      .get(`users_who_like?userId=${user.id}&_expand=phrase`)
+      .then((res) => setFavorites(res.data));
+  }, []);
 
   const addMyFavorite = (phraseIdGet, userIdGet) => {
+    const findPhrase = favorites.find((fav) => fav.phraseId === phraseIdGet);
 
-    const findPhrase = favorites.find((fav) => fav.phraseId === phraseIdGet)
-
-    
-    if(!findPhrase){
+    if (!findPhrase) {
       api
-        .post(`users_who_like`, {
-          userId: userIdGet,
-          phraseId: phraseIdGet
-        }, {
-          headers: {
-            authorization: `Bearer ${accessToken}`,
+        .post(
+          `users_who_like`,
+          {
+            userId: userIdGet,
+            phraseId: phraseIdGet,
           },
-        })
-        .then((_) => getMyFavoritePhrases()).then(
-          toast({
-            title: 'Adicionou aos meus favoritos',
-            description: "Agora você tem mais uma frase no seu acervo",
-            status: 'info',
-            duration: 3000,
-            position: 'top-right'
-          })
+          {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          }
         )
-      }
-  };
-
-    const deleteMyFavorite = (phraseIdCard) => {
-      const IdFavorite = phrases[phraseIdCard - 1]
-        .users_who_like
-        .find(({userId}) => userId === user.id )?.id        
-      
-      api
-        .delete(`users_who_like/${IdFavorite}`, {
-          headers: {
-            authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((_) => {
-          loadPhrases();
-        }).then((_) => getMyFavoritePhrases())
+        .then((_) => getMyFavoritePhrases())
         .then(
           toast({
-            title: 'Excluido dos meus favoritos',
-            description: "Agora você tem menos uma frase no seu acervo",
-            status: 'info',
+            title: "Adicionou aos meus favoritos",
+            description: "Agora você tem mais uma frase no seu acervo",
+            status: "info",
             duration: 3000,
-            position: 'top-right'
+            position: "top-right",
           })
-        )
-    }  
+        );
+    }
+  };
 
-    return (
-      <PhraseContext.Provider
+  const deleteMyFavorite = (phraseIdCard) => {
+    const IdFavorite = phrases[phraseIdCard - 1].users_who_like.find(
+      ({ userId }) => userId === user.id
+    )?.id;
+
+    api
+      .delete(`users_who_like/${IdFavorite}`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((_) => {
+        loadPhrases();
+      })
+      .then((_) => getMyFavoritePhrases())
+      .then(
+        toast({
+          title: "Excluido dos meus favoritos",
+          description: "Agora você tem menos uma frase no seu acervo",
+          status: "info",
+          duration: 3000,
+          position: "top-right",
+        })
+      );
+  };
+
+  return (
+    <PhraseContext.Provider
       value={{
         phrases,
         loadPhrases,
@@ -136,9 +138,9 @@ const PhraseProvider = ({ children }) => {
         notFound,
         contentSearch,
         addMyFavorite,
-        deleteMyFavorite
+        deleteMyFavorite,
       }}
-      >
+    >
       {children}
     </PhraseContext.Provider>
   );
