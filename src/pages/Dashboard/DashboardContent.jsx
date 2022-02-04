@@ -6,15 +6,18 @@ import { FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
+import { useAuth } from "../../provider/AuthContext";
 import { useState } from "react";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
 
 export const DashboardContent = ({ name }) => {
-  const { phrases, loading } = usePhrases();
+  const { phrases, favorites, loading, addMyFavorite } = usePhrases();
+  const { user } = useAuth();
   const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
   const history = useHistory();
 
@@ -38,17 +41,17 @@ export const DashboardContent = ({ name }) => {
       h="100%"
     >
       <Flex
+        flexDirection={["column", "row"]}
         alignItems="center"
-        justifyContent={["flex-start", "center", "center", "center"]}
+        justifyContent="center"
         w={["320px", "100%", "100%", "100%"]}
         m={["30px", "0px", "0px", "0px"]}
       >
         <Image
           src={swing}
           alt="swing"
-          display={["none", "block", "block", "block"]}
-          boxSize={["250px", "250px", "250px", "300px"]}
-          mr="50px"
+          boxSize={["110px", "250px", "250px", "300px"]}
+          mr={["0px", "30px", "30px", "30px"]}
           draggable="false"
         />
 
@@ -125,11 +128,14 @@ export const DashboardContent = ({ name }) => {
           >
             <Flex h="fit-content">
               <Icon
+                onClick={() => {
+                  addMyFavorite(frase.id, user.id);
+                }}
                 as={FaHeart}
                 fontSize="2xl"
                 color="gray.300"
                 _hover={{
-                  color: "gray.500",
+                  color: "orange.500",
                   cursor: "pointer",
                   transition: "0.3s",
                 }}
@@ -158,10 +164,12 @@ export const DashboardContent = ({ name }) => {
           <Skeleton isLoaded={!loading}>
             <FlexMotion padding="20px" flexDirection="column">
               <AnimatePresence exitBeforeEnter>
-                <TextMotion fontSize="lg">{frase?.phraseText}</TextMotion>
+                <TextMotion fontSize={["md", "lg"]}>
+                  {frase?.phraseText}
+                </TextMotion>
               </AnimatePresence>
               <Text
-                fontSize="2xl"
+                fontSize={["xl", "2xl"]}
                 fontWeight="medium"
                 mt="30px"
                 color="orange.500"

@@ -3,7 +3,7 @@ import { Header } from "../../components/Header";
 import { MdQuestionAnswer } from "react-icons/md";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
-import { MyFavPhrase } from "../../components/Card/MyFavPhrase"
+import { MyFavPhrase } from "../../components/Card/MyFavPhrase";
 import { FavoriteCard } from "../../components/Card/FavoriteCard";
 
 export const Favorites = () => {
@@ -40,13 +40,13 @@ export const Favorites = () => {
       </Text>
 
       <Flex
-        justifyContent={""}
+        justifyContent={"center"}
         flexWrap={"wrap"}
         gap={["40px", "60px", "60px", "60px"]}
       >
         {/* {myFavorites.lenght > 0 ? ( */}
         {myFavorites.map((phrase) => (
-              <MyFavPhrase phrase={phrase}/>
+          <MyFavPhrase phrase={phrase} key={phrase.id} />
         ))}
       </Flex>
     </Box>
@@ -66,56 +66,56 @@ Você ainda não favoritou nenhuma frase.
 )} */
 
 //CARD
-        // <Flex
-        //   key={phrase.id}
-        //   justifyContent={["center", "space-between", "space-between", "space-between"]}
-        //   gap={["40px", "60px", "60px", "60px"]}
-        // >
-        //   <Box
-        //     w={["300px", "300px", "300px", "300px"]}
-        //     h={["100%", "100%", "100%", "100%"]}
-        //     bg="yellow.200"
-        //     direction={"column"}
-        //     align={"center"}
-        //     borderRadius={"20px"}
-        //     padding="10px"
-        //   >
-        //     <Flex justify={"flex-end"} margin={"10px 10px 0 0"}>
-        //       <IconButton
-        //         bg={"transparent"}
-        //         w={["20px", "30px", "30px", "30px"]}
-        //         h={["20px", "30px", "30px", "30px"]}
-        //         color="orange.500"
-        //         icon={<MdQuestionAnswer size="100%" />}
-        //         aria-label="Ver Comentários"
-        //         onClick={() => {
-        //           //Abre aba de comentários
-        //           deleteMyFavorite(phrase.id)
-        //         }}
-        //       />
-        //     </Flex>
-        //     <Text
-        //       colorScheme={""}
-        //       fontSize={["md", "lg", "lg", "xl"]}
-        //       fontWeight={"300"}
-        //       fontFamily={"Poppins"}
-        //       lineHeight={["40px", "40px", "40px", "54px"]}
-        //       textAlign={"left"}
-        //       fontStyle={"normal"}
-        //       padding={["10%", "7%", "7%", "6%"]}
-        //     >
-        //       <Box>{phrase.phraseText}</Box>
-        //     </Text>
-        //     <Text
-        //       color="orange.500"
-        //       fontWeight={"500"}
-        //       fontSize={["md", "lg", "lg", "xl"]}
-        //       lineHeight={["40px", "40px", "40px", "54px"]}
-        //       textAlign={"right"}
-        //       mr="15px"
-        //       paddingBottom={"7%"}
-        //     >
-        //       <Box>{phrase.phraseAuthor}</Box>
-        //     </Text>
-        //   </Box>
-        // </Flex>
+// <Flex
+//   key={phrase.id}
+//   justifyContent={["center", "space-between", "space-between", "space-between"]}
+//   gap={["40px", "60px", "60px", "60px"]}
+// >
+//   <Box
+//     w={["300px", "300px", "300px", "300px"]}
+//     h={["100%", "100%", "100%", "100%"]}
+//     bg="yellow.200"
+//     direction={"column"}
+//     align={"center"}
+//     borderRadius={"20px"}
+//     padding="10px"
+//   >
+//     <Flex justify={"flex-end"} margin={"10px 10px 0 0"}>
+//       <IconButton
+//         bg={"transparent"}
+//         w={["20px", "30px", "30px", "30px"]}
+//         h={["20px", "30px", "30px", "30px"]}
+//         color="orange.500"
+//         icon={<MdQuestionAnswer size="100%" />}
+//         aria-label="Ver Comentários"
+//         onClick={() => {
+//           //Abre aba de comentários
+//           deleteMyFavorite(phrase.id)
+//         }}
+//       />
+//     </Flex>
+//     <Text
+//       colorScheme={""}
+//       fontSize={["md", "lg", "lg", "xl"]}
+//       fontWeight={"300"}
+//       fontFamily={"Poppins"}
+//       lineHeight={["40px", "40px", "40px", "54px"]}
+//       textAlign={"left"}
+//       fontStyle={"normal"}
+//       padding={["10%", "7%", "7%", "6%"]}
+//     >
+//       <Box>{phrase.phraseText}</Box>
+//     </Text>
+//     <Text
+//       color="orange.500"
+//       fontWeight={"500"}
+//       fontSize={["md", "lg", "lg", "xl"]}
+//       lineHeight={["40px", "40px", "40px", "54px"]}
+//       textAlign={"right"}
+//       mr="15px"
+//       paddingBottom={"7%"}
+//     >
+//       <Box>{phrase.phraseAuthor}</Box>
+//     </Text>
+//   </Box>
+// </Flex>

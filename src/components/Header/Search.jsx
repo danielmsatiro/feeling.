@@ -38,8 +38,9 @@ export const Search = () => {
           <FaSearch size={20} />
         </InputLeftElement>
         <InputMotion
+          pl="16%"
           animate={{
-            width:[0, 300],
+            width:[0, 200],
             opacity:[0.3, 1]
           }}
           transition={{
