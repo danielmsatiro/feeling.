@@ -9,6 +9,10 @@ import { useEffect } from "react";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useState } from "react";
 
+import { motion } from "framer-motion";
+
+const FlexMotion = motion(Flex);
+
 export const FellasComments = ({ onOpen }) => {
   /* const { fraseComments, PhraseComments, randomId } = useComments(); */
   const { phrases } = usePhrases();
@@ -17,12 +21,18 @@ export const FellasComments = ({ onOpen }) => {
 
   useEffect(() => {
     setFrase(phrases.find(({ id }) => id === Number(params.id)));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phrases]);
 
   return (
     <>
       <Header />
-      <Flex flexDirection="column" alignItems="center">
+      <FlexMotion
+        animate={{ y: [50, 0], opacity: [0, 1] }}
+        exit={{ y: 50, opacity: 0 }}
+        flexDirection="column"
+        alignItems="center"
+      >
         <Flex
           w={["300px", "320px", "600px", "750px"]}
           h={["150px", "150px", "150px", "200px"]}
@@ -86,6 +96,7 @@ export const FellasComments = ({ onOpen }) => {
             />
           </Box>
         </Flex>
+
         <Button
           onClick={onOpen}
           fontWeight="medium"
@@ -105,7 +116,7 @@ export const FellasComments = ({ onOpen }) => {
         {frase?.comments?.length > 0 && (
           <CommentsList array={frase?.comments} />
         )}
-      </Flex>
+      </FlexMotion>
     </>
   );
 };

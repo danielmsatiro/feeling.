@@ -18,7 +18,7 @@ export const creatorsInfo = [
     role: "Quality Assurance",
     github: "https://github.com/HardBoris",
     linkedin: "https://www.linkedin.com/in/borisgaibor/",
-    description: "",
+    description: "Aprender e aplicar tecnologia para honrar o nome de Deus.",
   },
 
   {
