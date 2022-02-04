@@ -35,7 +35,6 @@ export const DashboardContent = ({ name }) => {
     // PhraseComments(frase.id);
   };
 
-  /* Ciclo de vida de desmontagem ao sair da página de pesquisa */
   useEffect(() => {
     return () => loadPhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
