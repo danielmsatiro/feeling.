@@ -7,18 +7,16 @@ import { useHistory } from "react-router-dom";
 import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
-import { useState } from "react";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
-import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
 
 export const DashboardContent = ({ name }) => {
-  const { phrases, favorites, loading, addMyFavorite } = usePhrases();
+  const { phrases, loading, addMyFavorite } = usePhrases();
   const { user } = useAuth();
-  const { /* , PhraseComments */ RandomPhrase, randomId } = useComments();
+  const { RandomPhrase, randomId } = useComments();
   const history = useHistory();
 
   const frase = phrases.find(({ id }) => id === Number(randomId));

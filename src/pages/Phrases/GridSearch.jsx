@@ -1,37 +1,35 @@
-import { Flex, Text } from "@chakra-ui/react";
-import { FavoriteCard } from "../../components/Card/FavoriteCard";
-import { useAuth } from "../../provider/AuthContext";
+import { Flex, Heading, Text } from "@chakra-ui/react";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { SearchCard } from "../../components/Card/SearchCard";
 
-export const GridSearch = () => {
-  const { phrases, notFound, contentSearch, addMyFavorite } = usePhrases();
-  const { user } = useAuth();
+import { motion } from "framer-motion";
 
-  
+const FlexMotion = motion(Flex);
+
+export const GridSearch = () => {
+  const { phrases, notFound, contentSearch } = usePhrases();
 
   return (
-    <>
-      <Text
-        as="h1"
-        fontFamily={"Poppins"}
-        fontWeight={"500"}
-        fontSize={["2xl", "3xl", "4xl", "5xl"]}
-        lineHeight={["32px", "32px", "64px", "96px"]}
-        padding={["35px", "40px", "50px", "50px"]}
-        textAlign={"left"}
-      >
-        Pesquisando por:{" "}
-        {!contentSearch ? (
-          <Text as="abbr" color="orange.500">
-            todas as frases...
-          </Text>
-        ) : (
-          <Text as="abbr" color="orange.500">
-            "{contentSearch}"
-          </Text>
-        )}
-      </Text>
+    <FlexMotion
+      animate={{ y: [50, 0], opacity: [0, 1] }}
+      transition={{ duration: 1, ease: "easeOut" }}
+      exit={{ y: 50, opacity: 0 }}
+      flexDirection="column"
+    >
+      <Flex justifyContent="center">
+        <Heading m="40px 0px" textAlign={"left"}>
+          Pesquisando por:{" "}
+          {!contentSearch ? (
+            <Text as="abbr" color="orange.500">
+              todas as frases...
+            </Text>
+          ) : (
+            <Text as="abbr" color="orange.500">
+              "{contentSearch}"
+            </Text>
+          )}
+        </Heading>
+      </Flex>
       {notFound && (
         <Text textAlign={"center"}>
           Não foram encontradas conrrespondências
@@ -44,12 +42,9 @@ export const GridSearch = () => {
       >
         {/* {myFavorites.lenght > 0 ? ( */}
         {phrases.map((phrase) => (
-          <SearchCard 
-            key={phrase.id} 
-            phrase={phrase}
-          />
+          <SearchCard key={phrase.id} phrase={phrase} />
         ))}
       </Flex>
-    </>
+    </FlexMotion>
   );
 };

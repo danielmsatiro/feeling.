@@ -80,7 +80,7 @@ export const Header = () => {
           ) : (
             <Tooltip label="Pesquise por frase ou autor">
               <Center
-                display={location.pathname === "/phrases" && "none"}
+                // display={location.pathname === "/phrases" && "none"}
                 onClick={() => history.push("/phrases")}
                 as="button"
                 color={colorIcon}

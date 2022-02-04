@@ -32,7 +32,7 @@ const PhraseProvider = ({ children }) => {
     loadPhrases();
     getMyFavoritePhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [favorites]);
+  }, []);
 
   const loadPhrases = useCallback(async () => {
     try {
@@ -41,9 +41,7 @@ const PhraseProvider = ({ children }) => {
       );
 
       setPhrases(response.data);
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   }, []);
 
   const searchPhrase = useCallback(async (textOrAuthor) => {

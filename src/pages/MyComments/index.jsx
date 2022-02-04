@@ -1,11 +1,13 @@
 import { Flex, Text, Heading, useDisclosure, Box } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { MyCommentCard } from "../../components/Card/MyCommentCard";
 import { Header } from "../../components/Header";
-import { api } from "../../services/api";
 import { useComments } from "../../provider/CommentsProvider";
 import { ModalCard } from "../../components/Modal/ModalCard";
-import { useAuth } from "../../provider/AuthContext";
+
+import { motion } from "framer-motion";
+
+const FlexMotion = motion(Flex);
+const HeadingMotion = motion(Heading);
 
 export const MyComments = () => {
   const { myComments } = useComments();
@@ -16,17 +18,26 @@ export const MyComments = () => {
     <Box>
       <Header />
 
-      <Flex flexDirection="column" padding="0px 20px" maxW="800px" m="0 auto">
-        <Flex w="100%">
-          <Heading m="40px 0px">
-            Comentários feitos por{" "}
-            <Text as="abbr" color="orange.500">
-              mim!
-            </Text>
-          </Heading>
-        </Flex>
+      <Flex flexDirection="column" alignItems="center">
+        <HeadingMotion
+          animate={{ x: [-50, 0], opacity: [0, 1] }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          exit={{ x: -50, opacity: 0 }}
+          m="40px 0px"
+        >
+          Comentários feitos por{" "}
+          <Text as="span" color="orange.500">
+            mim!
+          </Text>
+        </HeadingMotion>
 
-        <Flex flexDirection="column" alignItems="center">
+        <FlexMotion
+          animate={{ x: [50, 0], opacity: [0, 1] }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          exit={{ x: 50, opacity: 0 }}
+          flexDirection="column"
+          alignItems="center"
+        >
           {myComments.length > 0 ? (
             myComments.map((comment) => (
               <Box key={comment.id} w="100%">
@@ -49,7 +60,7 @@ export const MyComments = () => {
               Você não possui comentários
             </Heading>
           )}
-        </Flex>
+        </FlexMotion>
       </Flex>
     </Box>
   );
