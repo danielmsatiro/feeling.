@@ -25,10 +25,12 @@ const PhraseProvider = ({ children }) => {
   const [notFound, setNotFound] = useState(false);
   const [contentSearch, setContentSearch] = useState("");
   const {accessToken, user} = useAuth()
+  const [favorites, setFavorites] = useState([])
   const toast = useToast()
 
   useEffect(() => {
     loadPhrases();
+    getMyFavoritePhrases()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -46,7 +48,7 @@ const PhraseProvider = ({ children }) => {
 
   const searchPhrase = useCallback(async (textOrAuthor) => {
     const responseText = await api.get(
-      `phrases?phraseText_like=${textOrAuthor}`
+      `phrases?phraseText_like=${textOrAuthor}&_embed=comments&_embed=users_who_like`
     );
     setContentSearch(textOrAuthor);
 
@@ -58,7 +60,7 @@ const PhraseProvider = ({ children }) => {
     }
 
     const responseAuthor = await api.get(
-      `phrases?phraseAuthor_like=${textOrAuthor}`
+      `phrases?phraseAuthor_like=${textOrAuthor}&_embed=comments&_embed=users_who_like`
     );
 
     if (!!responseAuthor.data.length) {
@@ -67,13 +69,17 @@ const PhraseProvider = ({ children }) => {
     }
   }, []);
 
+  const getMyFavoritePhrases = useCallback(async () => {
+    await api.get(
+      `users_who_like?userId=${user.id}&_expand=phrase`
+    ).then((res) => setFavorites(res.data))
+  }, [])
+
   const addMyFavorite = (phraseIdGet, userIdGet) => {
 
-    const findPhrase = (phrases[phraseIdGet - 1]
-      .users_who_like
-      .some(({userId}) => userId === user.id ) )
-    console.log(findPhrase)
+    const findPhrase = favorites.find((fav) => fav.phraseId === phraseIdGet)
 
+    
     if(!findPhrase){
       api
         .post(`users_who_like`, {
@@ -84,9 +90,7 @@ const PhraseProvider = ({ children }) => {
             authorization: `Bearer ${accessToken}`,
           },
         })
-        .then((_) => {
-          loadPhrases();
-        }).then(
+        .then((_) => getMyFavoritePhrases()).then(
           toast({
             title: 'Adicionou aos meus favoritos',
             description: "Agora você tem mais uma frase no seu acervo",
@@ -111,7 +115,7 @@ const PhraseProvider = ({ children }) => {
         })
         .then((_) => {
           loadPhrases();
-        })
+        }).then((_) => getMyFavoritePhrases())
         .then(
           toast({
             title: 'Excluido dos meus favoritos',

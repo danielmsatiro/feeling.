@@ -23,7 +23,7 @@ export const HomeAbout = () => {
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
-        h="100vh"
+        h="140vh"
       >
         <Flex
           justifyContent="center"
@@ -35,7 +35,7 @@ export const HomeAbout = () => {
             <Text
               w="300px"
               mb="15px"
-              fontSize={["3xl", "3xl", "3xl", "4xl"]}
+              fontSize={["2xl", "3xl", "3xl", "4xl"]}
               fontWeight="semibold"
             >
               Quem Somos?
@@ -61,11 +61,12 @@ export const HomeAbout = () => {
             borderRadius="15px"
           >
             <Text mb="15px" fontStyle="italic">
-              Patience and perseverance have a magical effect before which
-              difficulties disappear and obstacles vanish.
+              Eu aprendi que as pessoas vão esquecer o que você disse, as
+              pessoas vão esquecer o que você fez, mas as pessoas nunca
+              esquecerão como você as fez sentir
             </Text>
             <Text color="orange.500" fontWeight="medium">
-              John Adams
+              Maya Angelou
             </Text>
           </Flex>
         </Flex>
@@ -73,7 +74,7 @@ export const HomeAbout = () => {
         <Image
           src={coffee}
           alt="man coffee"
-          w={["300px", "300px", "300px", "450px"]}
+          w={["250px", "250px", "250px", "400px"]}
           draggable={false}
         />
       </FlexMotion>

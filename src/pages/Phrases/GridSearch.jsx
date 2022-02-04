@@ -8,6 +8,8 @@ export const GridSearch = () => {
   const { phrases, notFound, contentSearch, addMyFavorite } = usePhrases();
   const { user } = useAuth();
 
+  
+
   return (
     <>
       <Text

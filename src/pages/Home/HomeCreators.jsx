@@ -49,7 +49,7 @@ export const HomeCreators = () => {
         >
           <Text
             color="orange.500"
-            fontSize={["4xl", "4xl", "4xl", "5xl"]}
+            fontSize={["3xl", "3xl", "3xl", "4xl"]}
             fontWeight="medium"
             mr={["10px", "10px", "10px", "20px"]}
           >

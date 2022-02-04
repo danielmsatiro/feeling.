@@ -11,7 +11,7 @@ export const SignupForm = () => {
     email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
     name: yup.string().required("Escreva seu nome"),
     password: yup.string().required("Senha obrigatória"),
-    confirm_password: yup.string().required("Confirme sua senha"),
+    confirm_password: yup.string().required("Confirme sua senha").oneOf([yup.ref("password")], "Senhas diferentes"),
   });
 
   const { signUp } = useAuth();
