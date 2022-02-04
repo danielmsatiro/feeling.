@@ -30,13 +30,13 @@ const CommentsProvider = ({ children }) => {
   const [fraseComments, setFraseComments] = useState([]);
   const toast = useToast();
 
-  const [randomId, setRandomId] = useState(() => {
+  /* const [randomId, setRandomId] = useState(() => {
     const randomId = localStorage.getItem("@Feeling: randomId");
     if (randomId) {
       return randomId;
     }
     return "";
-  });
+  }); */
 
   const getMyComments = useCallback(async () => {
     try {
@@ -103,7 +103,7 @@ const CommentsProvider = ({ children }) => {
 
   const RandomPhrase = () => {
     const random = Math.floor(Math.random() * phrases.length + 1);
-    setRandomId(random);
+    /* setRandomId(random); */
     localStorage.setItem("@Feeling: randomId", random);
 
     /* const phrase = phrases.find((item) => item.id === randomId);
@@ -111,10 +111,6 @@ const CommentsProvider = ({ children }) => {
       setFrase(phrase);
     } */
   };
-
-  if (!randomId) {
-    RandomPhrase();
-  }
 
   /* const GetComments = useCallback(async () => {
     try {
@@ -167,7 +163,7 @@ const CommentsProvider = ({ children }) => {
         /* PhraseComments, */
         /*  GetComments, */
         RandomPhrase,
-        randomId,
+        /* randomId, */
       }}
     >
       {children}

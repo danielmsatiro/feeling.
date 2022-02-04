@@ -9,7 +9,7 @@ import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
@@ -17,8 +17,16 @@ const TextMotion = motion(Text);
 export const DashboardContent = ({ name }) => {
   const { phrases, loading, addMyFavorite, loadPhrases } = usePhrases();
   const { user } = useAuth();
-  const { RandomPhrase, randomId } = useComments();
+  const { RandomPhrase } = useComments();
   const history = useHistory();
+
+  const [randomId, setRandomId] = useState(() => {
+    const randomId = localStorage.getItem("@Feeling: randomId");
+    if (randomId) {
+      return randomId;
+    }
+    return RandomPhrase();
+  });
 
   const frase = phrases.find(({ id }) => id === Number(randomId));
 
@@ -100,7 +108,7 @@ export const DashboardContent = ({ name }) => {
           border: "solid orange.500",
         }}
         onClick={() => {
-          RandomPhrase();
+          setRandomId(RandomPhrase());
           controls.start((i) => ({
             opacity: [0, 1],
             y: [15, 0],
