@@ -52,7 +52,7 @@ const CommentsProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [accessToken]);
 
   useEffect(() => {
     getMyComments();
@@ -137,7 +137,7 @@ const CommentsProvider = ({ children }) => {
     }
   };
  */
-  const AddComment = useCallback(async (data) => {
+  const AddComment = async (data) => {
     const id = data.phraseId;
     try {
       const response = await api.post(`comments/`, data, {
@@ -150,7 +150,7 @@ const CommentsProvider = ({ children }) => {
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  };
 
   return (
     <CommentsContext.Provider
