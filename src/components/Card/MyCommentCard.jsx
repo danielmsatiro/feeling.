@@ -14,7 +14,7 @@ export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
     <Flex
       w="90vw"
       maxW="700px"
-      minW="320px"
+      //minW="320px"
       m="5px 0"
       bg="yellow.200"
       padding="10px 20px"
@@ -42,12 +42,15 @@ export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
         <Box>
           <Text
             maxW="550px"
-            minW="220px"
+            //minW="220px"
             w="100%"
-            mb="15px"
-            whiteSpace="nowrap"
+            pr="10px"
+            //mb="15px"
+            //isTruncated
+            noOfLines={2}
+            /* whiteSpace="nowrap"
             overflow="hidden"
-            textOverflow="ellipsis"
+            textOverflow="ellipsis" */
             fontWeight="light"
           >
             {phrase}
