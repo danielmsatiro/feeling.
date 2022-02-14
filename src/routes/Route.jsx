@@ -6,16 +6,18 @@ import jwt_decode from "jwt-decode";
 export const Route = ({ isPrivate = false, component: Component, ...rest }) => {
   const { accessToken, signOut } = useAuth();
 
+  const checkToken = () => {
+    const decodedToken = jwt_decode(accessToken);
+    if (decodedToken.exp * 1000 < new Date().getTime()) signOut();
+  };
+
   useEffect(() => {
-    //JWT check if token expired
     if (!!accessToken) {
-      const decodedToken = jwt_decode(accessToken);
-      if (decodedToken.exp * 1000 < new Date().getTime()) signOut();
-      console.log(
-        "Faltam",
-        "\n",
-        (jwt_decode(accessToken).exp * 1000 - new Date().getTime()) / 1000,
-        "segundos"
+      //JWT check if token expired
+      checkToken();
+      setTimeout(
+        () => checkToken(),
+        jwt_decode(accessToken).exp * 1000 - new Date().getTime()
       );
     }
   }, []);
