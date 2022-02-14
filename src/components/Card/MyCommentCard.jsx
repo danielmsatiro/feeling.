@@ -1,14 +1,21 @@
-import { Flex, Text, Box, Link } from "@chakra-ui/react";
+import { Flex, Text, Tooltip, Link } from "@chakra-ui/react";
 import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
-import { api } from "../../services/api";
 import { useComments } from "../../provider/CommentsProvider";
 import { useDisclosure } from "@chakra-ui/react";
 import { EditComment } from "../../components/Modal/EditComment";
+import { useRef, useState } from "react";
+import { useEffect } from "react";
 
 export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
   const { deleteMyComments } = useComments();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const ref = useRef(null);
+  const [isOverflown, setIsOverflown] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+    setIsOverflown(element.scrollheight > element.clientheight);
+  }, []);
 
   return (
     <Flex
@@ -39,23 +46,18 @@ export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
       }}
     >
       <Flex flexDirection="column" color="black" justifyContent="space-between">
-        <Box>
+        <Tooltip label={phrase} isDisabled={!isOverflown}>
           <Text
             maxW="550px"
-            //minW="220px"
             w="100%"
             pr="10px"
-            //mb="15px"
-            //isTruncated
             noOfLines={2}
-            /* whiteSpace="nowrap"
-            overflow="hidden"
-            textOverflow="ellipsis" */
             fontWeight="light"
+            ref={ref}
           >
             {phrase}
           </Text>
-        </Box>
+        </Tooltip>
 
         <Text fontSize="xs">{date}</Text>
       </Flex>
