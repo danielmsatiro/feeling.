@@ -5,14 +5,22 @@ import { useComments } from "../../provider/CommentsProvider";
 import { ModalCard } from "../../components/Modal/ModalCard";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
+import { useAuth } from "../../provider/AuthContext";
 
 const FlexMotion = motion(Flex);
 const HeadingMotion = motion(Heading);
 
 export const MyComments = () => {
-  const { myComments } = useComments();
+  const { myComments, getMyComments } = useComments();
+  const { user, accessToken } = useAuth();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  useEffect(() => {
+    getMyComments(user.id, accessToken);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box>

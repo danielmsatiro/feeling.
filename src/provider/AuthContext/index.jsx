@@ -1,12 +1,6 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
-import { toast, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 const AuthContext = createContext({});
 
@@ -34,7 +28,7 @@ const AuthProvider = ({ children }) => {
     return {};
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = async ({ email, password }) => {
     try {
       const response = await api.post("login", { email, password });
 
@@ -61,9 +55,9 @@ const AuthProvider = ({ children }) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  };
 
-  const signUp = useCallback(async ({ name, email, password }) => {
+  const signUp = async ({ name, email, password }) => {
     try {
       const response = await api.post("register", { name, email, password });
 
@@ -89,29 +83,29 @@ const AuthProvider = ({ children }) => {
         position: "top-right",
       });
     }
-  }, []);
+  };
 
-  const signOut = useCallback(() => {
+  const signOut = () => {
     localStorage.removeItem("@Feeling: accessToken");
     localStorage.removeItem("@Feeling: user");
     localStorage.removeItem("@Feeling: randomId");
 
     setData({});
-  }, []);
+  };
 
   useEffect(() => {
     getUsers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getUsers = useCallback(async () => {
+  const getUsers = async () => {
     try {
       const response = await api.get(`users`);
       setUsers(response.data);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  };
 
   return (
     <AuthContext.Provider

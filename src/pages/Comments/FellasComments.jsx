@@ -7,22 +7,20 @@ import jumping from "../../assets/jumping.svg";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { usePhrases } from "../../provider/PhrasesContext";
-import { useState } from "react";
 
 import { motion } from "framer-motion";
 
 const FlexMotion = motion(Flex);
 
 export const FellasComments = ({ onOpen }) => {
-  /* const { fraseComments, PhraseComments, randomId } = useComments(); */
-  const { phrases } = usePhrases();
+  const { phrases, loadPhrases } = usePhrases();
   const params = useParams();
-  const [frase, setFrase] = useState();
+  const frase = phrases.find(({ id }) => id === Number(params.id));
 
   useEffect(() => {
-    setFrase(phrases.find(({ id }) => id === Number(params.id)));
+    loadPhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phrases]);
+  }, []);
 
   return (
     <>

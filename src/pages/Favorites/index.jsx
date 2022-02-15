@@ -6,17 +6,22 @@ import { useAuth } from "../../provider/AuthContext";
 import { MyFavPhrase } from "../../components/Card/MyFavPhrase";
 
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const FlexMotion = motion(Flex);
 const HeadingMotion = motion(Heading);
 
 export const Favorites = () => {
-  const { phrases } = usePhrases();
+  const { phrases, loadPhrases } = usePhrases();
   const { user } = useAuth();
 
   const myFavorites = phrases.filter((phrase) =>
     phrase.users_who_like.some((item) => item.userId === user.id)
   );
+
+  useEffect(() => {
+    loadPhrases();
+  });
 
   return (
     <Box

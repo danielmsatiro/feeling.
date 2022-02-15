@@ -15,9 +15,9 @@ const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
 
 export const DashboardContent = ({ name }) => {
-  const { phrases, loading, addMyFavorite, loadPhrases } = usePhrases();
-  const { user } = useAuth();
-  const { RandomPhrase } = useComments();
+  const { phrases, loading, randomPhrase, addMyFavorite, loadPhrases } =
+    usePhrases();
+  const { user, accessToken } = useAuth();
   const history = useHistory();
 
   const [randomId, setRandomId] = useState(() => {
@@ -25,7 +25,7 @@ export const DashboardContent = ({ name }) => {
     if (randomId) {
       return randomId;
     }
-    return RandomPhrase();
+    return randomPhrase();
   });
 
   const frase = phrases.find(({ id }) => id === Number(randomId));
@@ -36,6 +36,7 @@ export const DashboardContent = ({ name }) => {
   };
 
   useEffect(() => {
+    loadPhrases();
     return () => loadPhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -107,7 +108,7 @@ export const DashboardContent = ({ name }) => {
           border: "solid orange.500",
         }}
         onClick={() => {
-          setRandomId(RandomPhrase());
+          setRandomId(randomPhrase());
           controls.start((i) => ({
             opacity: [0, 1],
             y: [15, 0],
@@ -141,7 +142,7 @@ export const DashboardContent = ({ name }) => {
             <Flex h="fit-content">
               <Icon
                 onClick={() => {
-                  addMyFavorite(frase.id, user.id);
+                  addMyFavorite(frase.id, user.id, accessToken);
                 }}
                 as={FaHeart}
                 fontSize="2xl"

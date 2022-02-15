@@ -8,6 +8,7 @@ export const Search = () => {
 
   /* Ciclo de vida de desmontagem ao sair da página de pesquisa */
   useEffect(() => {
+    loadPhrases();
     return () => loadPhrases();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

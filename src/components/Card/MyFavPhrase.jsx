@@ -2,14 +2,14 @@ import { Flex, Text, useDisclosure, Icon } from "@chakra-ui/react";
 import { MdRestoreFromTrash, MdQuestionAnswer } from "react-icons/md";
 import { ModalCard } from "../../components/Modal/ModalCard";
 import { usePhrases } from "../../provider/PhrasesContext";
-
 import { useHistory } from "react-router-dom";
+import { useAuth } from "../../provider/AuthContext";
 
 export const MyFavPhrase = ({ phrase }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { deleteMyFavorite } = usePhrases();
+  const { user, accessToken } = useAuth();
   const history = useHistory();
-  //   const { user } = useAuth()
 
   const handleClick = () => {
     history.push(`/comments/${phrase.id}`);
@@ -77,7 +77,7 @@ export const MyFavPhrase = ({ phrase }) => {
         <Icon
           as={MdRestoreFromTrash}
           onClick={() => {
-            deleteMyFavorite(phrase.id);
+            deleteMyFavorite(phrase.id, user.id, accessToken);
           }}
           fontSize="2xl"
           color="gray.500"

@@ -10,12 +10,13 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useComments } from "../../provider/CommentsProvider"
+import { useAuth } from "../../provider/AuthContext";
+import { useComments } from "../../provider/CommentsProvider";
 
 export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
-  
-  const [editedComment, setEditedComment] = useState({commentText: ""})
-  const {UpdateComment} = useComments()
+  const [editedComment, setEditedComment] = useState({ commentText: "" });
+  const { getMyComments, UpdateComment } = useComments();
+  const { user, accessToken } = useAuth();
 
   return (
     <Modal isOpen={isOpen}>
@@ -57,7 +58,9 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             _placeholder={{ color: "orange.500" }}
             bg="yellow.200"
             _focus={{ border: "2px", borderColor: "orange.500" }}
-            onChange={(event) => setEditedComment({commentText: event.target.value})}
+            onChange={(event) =>
+              setEditedComment({ commentText: event.target.value })
+            }
             defaultValue={comment}
             minH={150}
           />
@@ -69,7 +72,10 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             h="30px"
             w="200px"
             borderRadius="30px"
-            onClick={() => {UpdateComment(commentId, editedComment, onClose)}}
+            onClick={() => {
+              UpdateComment(commentId, editedComment, onClose, accessToken);
+              getMyComments(user.id, accessToken);
+            }}
           >
             Postar
           </Button>

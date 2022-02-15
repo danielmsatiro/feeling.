@@ -1,12 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { api } from "../../services/api";
-import { useAuth } from "../AuthContext";
 import { useToast } from "@chakra-ui/react";
 
 const PhraseContext = createContext({});
@@ -24,15 +17,8 @@ const PhraseProvider = ({ children }) => {
   const [phrases, setPhrases] = useState([]);
   const [notFound, setNotFound] = useState(false);
   const [contentSearch, setContentSearch] = useState("");
-  const { accessToken, user } = useAuth();
   const [favorites, setFavorites] = useState([]);
   const toast = useToast();
-
-  useEffect(() => {
-    loadPhrases();
-    getMyFavoritePhrases();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const loadPhrases = useCallback(async () => {
     try {
@@ -44,7 +30,7 @@ const PhraseProvider = ({ children }) => {
     } catch (err) {}
   }, []);
 
-  const searchPhrase = useCallback(async (textOrAuthor) => {
+  const searchPhrase = async (textOrAuthor) => {
     const responseText = await api.get(
       `phrases?phraseText_like=${textOrAuthor}&_embed=comments&_embed=users_who_like`
     );
@@ -65,16 +51,23 @@ const PhraseProvider = ({ children }) => {
       setNotFound(false);
       setPhrases(responseAuthor.data);
     }
-  }, []);
+  };
 
-  const getMyFavoritePhrases = useCallback(async () => {
-    await api
-      .get(`users_who_like?userId=${user.id}&_expand=phrase`)
-      .then((res) => setFavorites(res.data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const randomPhrase = () => {
+    const random = Math.floor(Math.random() * phrases.length + 1);
+    localStorage.setItem("@Feeling: randomId", random);
+    return random;
+  };
 
-  const addMyFavorite = (phraseIdGet, userIdGet) => {
+  const getMyFavoritePhrases = async (accessToken, userId) => {
+    if (!!accessToken) {
+      await api
+        .get(`users_who_like?userId=${userId}&_expand=phrase`)
+        .then((res) => setFavorites(res.data));
+    }
+  };
+
+  const addMyFavorite = (phraseIdGet, userIdGet, accessToken) => {
     const findPhrase = favorites.find((fav) => fav.phraseId === phraseIdGet);
 
     if (!findPhrase) {
@@ -91,7 +84,10 @@ const PhraseProvider = ({ children }) => {
             },
           }
         )
-        .then((_) => getMyFavoritePhrases())
+        .then((_) => {
+          getMyFavoritePhrases(accessToken, userIdGet);
+          loadPhrases();
+        })
         .then(
           toast({
             title: "Adicionou aos meus favoritos",
@@ -112,9 +108,9 @@ const PhraseProvider = ({ children }) => {
     }
   };
 
-  const deleteMyFavorite = (phraseIdCard) => {
+  const deleteMyFavorite = (phraseIdCard, userIdGet, accessToken) => {
     const IdFavorite = phrases[phraseIdCard - 1].users_who_like.find(
-      ({ userId }) => userId === user.id
+      ({ userId }) => userId === userIdGet
     )?.id;
 
     api
@@ -126,7 +122,10 @@ const PhraseProvider = ({ children }) => {
       .then((_) => {
         loadPhrases();
       })
-      .then((_) => getMyFavoritePhrases())
+      .then((_) => {
+        getMyFavoritePhrases();
+        loadPhrases();
+      })
       .then(
         toast({
           title: "Excluido dos meus favoritos",
@@ -144,6 +143,7 @@ const PhraseProvider = ({ children }) => {
         phrases,
         loadPhrases,
         searchPhrase,
+        randomPhrase,
         notFound,
         contentSearch,
         addMyFavorite,

@@ -20,6 +20,7 @@ export const Route = ({ isPrivate = false, component: Component, ...rest }) => {
         jwt_decode(accessToken).exp * 1000 - new Date().getTime()
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -12,14 +12,17 @@ import {
 import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const NewComment = ({ isOpen, onClose, id }) => {
-  const { user } = useAuth();
+  const { user, accessToken } = useAuth();
   const { /* frase, */ AddComment } = useComments();
+  const { loadPhrases } = usePhrases();
   const [value, setValue] = useState({});
 
   const handleClick = () => {
-    AddComment(value);
+    AddComment(value, accessToken);
+    loadPhrases();
     onClose();
   };
 

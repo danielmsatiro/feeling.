@@ -25,7 +25,7 @@ export const CommentCard = ({ comment, userId }) => {
         justifyContent="flex-start"
       >
         <Heading size="md" fontWeight="medium" textAlign="left">
-          {users.find(({ id }) => id === userId).name}
+          {users?.find(({ id }) => id === userId).name}
         </Heading>
       </Flex>
       <Flex
