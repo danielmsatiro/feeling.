@@ -21,7 +21,7 @@ export const Favorites = () => {
 
   useEffect(() => {
     loadPhrases();
-  });
+  }, []);
 
   return (
     <Box

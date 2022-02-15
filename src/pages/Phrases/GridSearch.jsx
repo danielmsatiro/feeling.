@@ -1,6 +1,6 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import { usePhrases } from "../../provider/PhrasesContext";
-import { SearchCard } from "../../components/Card/SearchCard";
+import { MyFavPhrase } from "../../components/Card/MyFavPhrase";
 
 export const GridSearch = () => {
   const { phrases, notFound, contentSearch } = usePhrases();
@@ -34,7 +34,7 @@ export const GridSearch = () => {
       >
         {/* {myFavorites.lenght > 0 ? ( */}
         {phrases.map((phrase) => (
-          <SearchCard key={phrase.id} phrase={phrase} />
+          <MyFavPhrase key={phrase.id} phrase={phrase} />
         ))}
       </Flex>
     </>

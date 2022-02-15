@@ -60,11 +60,9 @@ const PhraseProvider = ({ children }) => {
   };
 
   const getMyFavoritePhrases = async (accessToken, userId) => {
-    if (!!accessToken) {
-      await api
-        .get(`users_who_like?userId=${userId}&_expand=phrase`)
-        .then((res) => setFavorites(res.data));
-    }
+    await api
+      .get(`users_who_like?userId=${userId}&_expand=phrase`)
+      .then((res) => setFavorites(res.data));
   };
 
   const addMyFavorite = (phraseIdGet, userIdGet, accessToken) => {

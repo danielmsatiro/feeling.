@@ -1,5 +1,9 @@
 import { Flex, Text, useDisclosure, Icon } from "@chakra-ui/react";
-import { MdRestoreFromTrash, MdQuestionAnswer } from "react-icons/md";
+import {
+  MdRestoreFromTrash,
+  MdQuestionAnswer,
+  MdOutlineFavorite,
+} from "react-icons/md";
 import { ModalCard } from "../../components/Modal/ModalCard";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useHistory } from "react-router-dom";
@@ -7,13 +11,20 @@ import { useAuth } from "../../provider/AuthContext";
 
 export const MyFavPhrase = ({ phrase }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { deleteMyFavorite } = usePhrases();
+  const { deleteMyFavorite, addMyFavorite } = usePhrases();
   const { user, accessToken } = useAuth();
   const history = useHistory();
+  const isFavorite = phrase.users_who_like.some(
+    ({ userId }) => userId === user.id
+  );
 
   const handleClick = () => {
     history.push(`/comments/${phrase.id}`);
     // PhraseComments(frase.id);
+  };
+
+  const addFav = () => {
+    addMyFavorite(phrase.id, user.id, accessToken);
   };
 
   return (
@@ -74,24 +85,45 @@ export const MyFavPhrase = ({ phrase }) => {
         padding="0 20px"
         alignItems="center"
       >
-        <Icon
-          as={MdRestoreFromTrash}
-          onClick={() => {
-            deleteMyFavorite(phrase.id, user.id, accessToken);
-          }}
-          fontSize="2xl"
-          color="gray.500"
-          _hover={{
-            cursor: "pointer",
-            color: "orange.500",
-            transition: "0.3s",
-          }}
-          css={{
-            "&:not(:hover)": {
+        {!!isFavorite ? (
+          <Icon
+            as={MdRestoreFromTrash}
+            onClick={() => {
+              deleteMyFavorite(phrase.id, user.id, accessToken);
+            }}
+            fontSize="2xl"
+            color="gray.500"
+            _hover={{
+              cursor: "pointer",
+              color: "orange.500",
               transition: "0.3s",
-            },
-          }}
-        />
+            }}
+            css={{
+              "&:not(:hover)": {
+                transition: "0.3s",
+              },
+            }}
+          />
+        ) : (
+          <Icon
+            as={MdOutlineFavorite}
+            onClick={() => {
+              addFav();
+            }}
+            fontSize="2xl"
+            color="gray.500"
+            _hover={{
+              cursor: "pointer",
+              color: "orange.500",
+              transition: "0.3s",
+            }}
+            css={{
+              "&:not(:hover)": {
+                transition: "0.3s",
+              },
+            }}
+          />
+        )}
 
         <Icon
           as={MdQuestionAnswer}
