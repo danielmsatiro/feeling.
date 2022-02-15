@@ -50,10 +50,11 @@ export const MyComments = () => {
             myComments.map((comment) => (
               <Box key={comment.id} w="100%">
                 <MyCommentCard
-                  phrase={comment.commentText}
+                  comment={comment.commentText}
                   date={comment.date}
                   commentId={comment.id}
-                  onOpenPhrase={onOpen}
+                  idPhrase={comment.phrase.id}
+                  phrase={comment.phrase.phraseText}
                 />
                 <ModalCard
                   isOpen={isOpen}

@@ -6,11 +6,19 @@ import { EditComment } from "../../components/Modal/EditComment";
 /* import { useRef, useState } from "react";
 import { useEffect } from "react"; */
 import { useAuth } from "../../provider/AuthContext";
+import { useHistory } from "react-router";
 
-export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
+export const MyCommentCard = ({
+  comment,
+  date,
+  commentId,
+  idPhrase,
+  phrase,
+}) => {
   const { getMyComments, deleteMyComments } = useComments();
   const { user, accessToken } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const history = useHistory();
   /* const ref = useRef(null);
   const [isOverflown, setIsOverflown] = useState(false); */
 
@@ -48,8 +56,21 @@ export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
       }}
     >
       <Flex flexDirection="column" color="black" justifyContent="space-between">
-        <Tooltip label={phrase} /* isDisabled={!isOverflown} */>
-          <Text>{phrase}</Text>
+        <Tooltip
+          label={
+            <>
+              <p>
+                <strong>Comentário: </strong> {comment}
+              </p>
+              <br />
+              <p>
+                <strong>Frase: </strong> {phrase}
+              </p>
+            </>
+          }
+          closeOnMouseDown={false}
+        >
+          <Text>{comment}</Text>
         </Tooltip>
 
         <Text fontSize="xs">{date}</Text>
@@ -68,15 +89,19 @@ export const MyCommentCard = ({ phrase, date, commentId, onOpenPhrase }) => {
           />
         </Flex>
 
-        <Link fontSize="xs" onClick={onOpenPhrase}>
-          Ver a frase
+        <Link
+          fontSize="xs"
+          onClick={() => history.push(`/comments/${idPhrase}`)}
+          mt="5px"
+        >
+          Comentários
         </Link>
       </Flex>
 
       <EditComment
         isOpen={isOpen}
         onClose={onClose}
-        comment={phrase}
+        comment={comment}
         commentId={commentId}
       />
     </Flex>

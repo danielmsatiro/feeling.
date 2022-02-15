@@ -1,6 +1,5 @@
-import { Flex, Text, useDisclosure, Icon } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure, Icon, Tooltip } from "@chakra-ui/react";
 import {
-  MdRestoreFromTrash,
   MdQuestionAnswer,
   MdOutlineFavorite,
 } from "react-icons/md";
@@ -86,24 +85,26 @@ export const MyFavPhrase = ({ phrase }) => {
         alignItems="center"
       >
         {!!isFavorite ? (
-          <Icon
-            as={MdRestoreFromTrash}
-            onClick={() => {
-              deleteMyFavorite(phrase.id, user.id, accessToken);
-            }}
-            fontSize="2xl"
-            color="gray.500"
-            _hover={{
-              cursor: "pointer",
-              color: "orange.500",
-              transition: "0.3s",
-            }}
-            css={{
-              "&:not(:hover)": {
+          <Tooltip /* label="Desfavoritar a frase" */>
+            <Icon
+              as={MdOutlineFavorite}
+              onClick={() => {
+                deleteMyFavorite(phrase.id, user.id, accessToken);
+              }}
+              fontSize="2xl"
+              color="orange.500"
+              _hover={{
+                cursor: "pointer",
+                color: "gray.500",
                 transition: "0.3s",
-              },
-            }}
-          />
+              }}
+              css={{
+                "&:not(:hover)": {
+                  transition: "0.3s",
+                },
+              }}
+            />
+          </Tooltip>
         ) : (
           <Icon
             as={MdOutlineFavorite}
