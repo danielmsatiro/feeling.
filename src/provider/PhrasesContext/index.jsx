@@ -18,6 +18,7 @@ const PhraseProvider = ({ children }) => {
   const [notFound, setNotFound] = useState(false);
   const [contentSearch, setContentSearch] = useState("");
   const [favorites, setFavorites] = useState([]);
+  const [myComments, setMyComments] = useState([]);
   const toast = useToast();
 
   const loadPhrases = useCallback(async () => {
@@ -127,6 +128,79 @@ const PhraseProvider = ({ children }) => {
       );
   };
 
+  const getMyComments = async (userId, accessToken) => {
+    if (!!accessToken) {
+      try {
+        const response = await api.get(
+          `comments?userId=${userId}&_expand=phrase`,
+          {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setMyComments(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const deleteMyComments = (userId, commentId, accessToken) => {
+    api
+      .delete(`comments/${commentId}`, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((_) => {
+        loadPhrases();
+        getMyComments(userId, accessToken);
+        toast({
+          title: "Comentário deletado",
+          description: "Fica tranquilo! Você apagou o que queria",
+          status: "info",
+          duration: 3000,
+          position: "top-right",
+        });
+      });
+  };
+
+  const UpdateComment = (userId, commentId, value, onClose, accessToken) => {
+    api
+      .patch(`comments/${commentId}`, value, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then(onClose)
+      .then((_) => {
+        loadPhrases();
+        getMyComments(userId, accessToken);
+        toast({
+          title: "Comentário alterado",
+          description: "Fica tranquilo! Agora você disse o que queria.",
+          status: "success",
+          duration: 3000,
+          position: "top-right",
+        });
+      });
+  };
+
+  const AddComment = async (data, userId, accessToken) => {
+    try {
+      await api.post(`comments/`, data, {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+      loadPhrases();
+      getMyComments(userId, accessToken);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <PhraseContext.Provider
       value={{
@@ -138,6 +212,11 @@ const PhraseProvider = ({ children }) => {
         contentSearch,
         addMyFavorite,
         deleteMyFavorite,
+        myComments,
+        getMyComments,
+        deleteMyComments,
+        UpdateComment,
+        AddComment,
       }}
     >
       {children}
