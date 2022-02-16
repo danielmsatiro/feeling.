@@ -34,7 +34,18 @@ export const MyComments = () => {
             mim!
           </Text>
         </HeadingMotion>
-
+        <Text
+          w="fit-content"
+          padding="3px"
+          mb="15px"
+          borderRadius="4px"
+          fontSize="xs"
+          textAlign="center"
+          fontStyle="italic"
+          bgColor="yellow.200"
+        >
+          Aqui ficam todos os comentários que você fez!
+        </Text>
         <FlexMotion
           animate={{ x: [50, 0], opacity: [0, 1] }}
           transition={{ duration: 1, ease: "easeInOut" }}

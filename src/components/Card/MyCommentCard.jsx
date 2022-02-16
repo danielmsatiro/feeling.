@@ -1,10 +1,13 @@
-import { Flex, Text, Tooltip, Link, Box } from "@chakra-ui/react";
-import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
+import { Flex, Text, Tooltip, Link, Button } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { EditComment } from "../../components/Modal/EditComment";
 import { useAuth } from "../../provider/AuthContext";
 import { useHistory } from "react-router";
 import { usePhrases } from "../../provider/PhrasesContext";
+
+import { motion, useAnimation } from "framer-motion";
+
+const FlexMotion = motion(Flex);
 
 export const MyCommentCard = ({
   comment,
@@ -18,31 +21,32 @@ export const MyCommentCard = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
 
+  const controls = useAnimation();
+
   return (
-    <Flex
+    <FlexMotion
+      animate={controls}
+      flexDirection={["column", "row"]}
       w="90vw"
       maxW="700px"
-      //minW="320px"
       m="5px 0"
-      bg="yellow.200"
+      bg="white"
       padding="10px 20px"
       borderRadius="15px"
       border="solid 2px"
-      borderColor="yellow.500"
+      borderColor="black"
       cursor="pointer"
       color="orange.500"
       justifyContent="space-between"
       _hover={{
-        borderTop: "solid 1px",
-        borderRight: "solid 1px",
-        borderLeft: "solid 3px",
-        borderBottom: "solid 4px",
-        transition: "0.3s",
-        borderColor: "yellow.500",
+        transition: "0.2s",
+        borderColor: "black",
+        transform: "translate(3px, -3px)",
+        boxShadow: "-5px 5px black",
       }}
       css={{
         "&:not(:hover)": {
-          transition: "0.3s",
+          transition: "0.2s",
         },
       }}
     >
@@ -53,46 +57,74 @@ export const MyCommentCard = ({
               <p>
                 <strong>Comentário: </strong> {comment}
               </p>
-              <br />
               <p>
                 <strong>Frase: </strong> {phrase}
               </p>
             </>
           }
+          placement={"top"}
         >
-          <Text>{comment}</Text>
+          <Text
+            maxW="550px"
+            minW="220px"
+            w="100%"
+            mb="15px"
+            fontStyle="italic"
+            isTruncated
+            fontWeight="light"
+          >
+            {comment}
+          </Text>
         </Tooltip>
 
         <Text fontSize="xs">{date}</Text>
+
+        <Link
+          fontSize="xs"
+          color="orange.500"
+          onClick={() => history.push(`/comments/${idPhrase}`)}
+        >
+          Ir para comentários da Galera
+        </Link>
       </Flex>
 
       <Flex flexDirection="column" justifyContent="space-between" minW="65px">
-        <Flex justifyContent="space-between">
-          <Tooltip label={"Editar"}>
-            <Box>
-              <MdModeEdit size="1.3rem" onClick={onOpen} />
-            </Box>
-          </Tooltip>
-          <Tooltip label={"Excluir"}>
-            <Box>
-              <MdRestoreFromTrash
-                size="1.3rem"
-                onClick={() => {
-                  deleteMyComments(user.id, commentId, accessToken);
-                }}
-              />
-            </Box>
-          </Tooltip>
-        </Flex>
-        <Tooltip label={"Comentários da galera"}>
-          <Link
+        <Flex flexDirection="column">
+          <Button
+            onClick={onOpen}
+            h="30px"
+            m="5px 0"
             fontSize="xs"
-            onClick={() => history.push(`/comments/${idPhrase}`)}
-            mt="5px"
+            color="black"
+            bgColor="white"
+            border="2px solid"
+            borderColor="black"
+            _hover={{ bgColor: "black", color: "white" }}
           >
-            Comentários
-          </Link>
-        </Tooltip>
+            Editar
+          </Button>
+          <Button
+            onClick={() => {
+              deleteMyComments(user.id, commentId, accessToken);
+              controls.start((i) => ({
+                opacity: [1, 0],
+                x: [0, 20],
+                transition: {
+                  duration: 0.5,
+                },
+              }));
+            }}
+            h="30px"
+            fontSize="xs"
+            color="red.400"
+            bgColor="white"
+            border="2px solid"
+            borderColor="red.400"
+            _hover={{ bgColor: "red.400", color: "white" }}
+          >
+            Excluir
+          </Button>
+        </Flex>
       </Flex>
 
       <EditComment
@@ -101,6 +133,6 @@ export const MyCommentCard = ({
         comment={comment}
         commentId={commentId}
       />
-    </Flex>
+    </FlexMotion>
   );
 };

@@ -33,7 +33,7 @@ export const MyFavPhrase = ({ phrase }) => {
       justifyContent="space-between"
     >
       <Flex flexDirection="column">
-        <Tooltip label={phrase.phraseText}>
+        <Tooltip label={phrase.phraseText} placement={"top"}>
           <Text
             fontSize={["md", "lg", "lg", "xl"]}
             fontWeight={"light"}

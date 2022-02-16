@@ -6,6 +6,7 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ModalCloseButton,
   Text,
   Textarea,
 } from "@chakra-ui/react";
@@ -21,25 +22,17 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
   return (
     <Modal isOpen={isOpen}>
       <ModalOverlay />
-      <ModalContent h="auto" w={["250px", "250px", "500px", "700px"]}>
+      <ModalContent h="auto" w={["300px", "300px", "500px", "auto"]}>
         <ModalHeader
           display="flex"
           justifyContent="space-between"
           alignItems="center"
           h="50px"
           bg="yellow.200"
-          // color="orange.500"
           borderTopRadius="lg"
         >
           <Text>Editar Comentário</Text>
-          <Text
-            as="button"
-            onClick={onClose}
-            fontWeight="bold"
-            color={["orange.500"]}
-          >
-            X
-          </Text>
+          <ModalCloseButton onClick={onClose} color={["orange.500"]} />
         </ModalHeader>
         <ModalBody
           minH="200px"
@@ -53,6 +46,7 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             Mude suas palavras:
           </Text>
           <Textarea
+            resize="none"
             textAlign="left"
             placeholder="Escreva aqui"
             _placeholder={{ color: "orange.500" }}
@@ -80,7 +74,6 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
                 onClose,
                 accessToken
               );
-              loadPhrases();
             }}
           >
             Postar
