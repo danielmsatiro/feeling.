@@ -1,8 +1,22 @@
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  Text,
+  Tooltip,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
 import { useAuth } from "../../provider/AuthContext";
+import { useComments } from "../../provider/CommentsProvider";
+import { usePhrases } from "../../provider/PhrasesContext";
+import { EditComment } from "../Modal/EditComment";
 
-export const CommentCard = ({ comment, userId }) => {
-  const { users } = useAuth();
+export const CommentCard = ({ comment, commentId, userId }) => {
+  const { users, user, accessToken } = useAuth();
+  const { deleteMyComments, getMyComments } = useComments();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { loadPhrases } = usePhrases();
 
   return (
     <Flex
@@ -24,9 +38,32 @@ export const CommentCard = ({ comment, userId }) => {
         alignItems="center"
         justifyContent="flex-start"
       >
-        <Heading size="md" fontWeight="medium" textAlign="left">
-          {users?.find(({ id }) => id === userId).name}
+        <Heading size="md" fontWeight="medium" textAlign="left" flex={1}>
+          {users?.find(({ id }) => id === userId)?.name}
         </Heading>
+        {/* userId is the owner of the comment and user.id
+          is the logged user */}
+        {user.id === userId && (
+          <Flex justifyContent="space-between">
+            <Tooltip label={"Editar"}>
+              <Box>
+                <MdModeEdit size="1.3rem" onClick={onOpen} />
+              </Box>
+            </Tooltip>
+            <Tooltip label={"Excluir"}>
+              <Box>
+                <MdRestoreFromTrash
+                  size="1.3rem"
+                  onClick={() => {
+                    deleteMyComments(commentId, accessToken);
+                    getMyComments(user.id, accessToken);
+                    loadPhrases();
+                  }}
+                />
+              </Box>
+            </Tooltip>
+          </Flex>
+        )}
       </Flex>
       <Flex
         w="100%"
@@ -43,6 +80,12 @@ export const CommentCard = ({ comment, userId }) => {
           {comment}
         </Text>
       </Flex>
+      <EditComment
+        isOpen={isOpen}
+        onClose={onClose}
+        comment={comment}
+        commentId={commentId}
+      />
     </Flex>
   );
 };

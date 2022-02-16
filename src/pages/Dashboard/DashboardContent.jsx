@@ -1,4 +1,13 @@
-import { Button, Flex, Image, Text, Icon, Skeleton } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Image,
+  Text,
+  Icon,
+  Skeleton,
+  Tooltip,
+  Box,
+} from "@chakra-ui/react";
 
 import swing from "../../assets/swing.svg";
 
@@ -10,13 +19,20 @@ import { useAuth } from "../../provider/AuthContext";
 
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
+import { MdOutlineFavorite } from "react-icons/md";
 
 const FlexMotion = motion(Flex);
 const TextMotion = motion(Text);
 
 export const DashboardContent = ({ name }) => {
-  const { phrases, loading, randomPhrase, addMyFavorite, loadPhrases } =
-    usePhrases();
+  const {
+    phrases,
+    loading,
+    randomPhrase,
+    addMyFavorite,
+    deleteMyFavorite,
+    loadPhrases,
+  } = usePhrases();
   const { user, accessToken } = useAuth();
   const history = useHistory();
 
@@ -28,11 +44,15 @@ export const DashboardContent = ({ name }) => {
     return randomPhrase();
   });
 
-  const frase = phrases.find(({ id }) => id === Number(randomId));
+  const phrase = phrases.find(({ id }) => id === Number(randomId));
+
+  const isFavorite = phrase?.users_who_like.some(
+    ({ userId }) => userId === user.id
+  );
 
   const handleClick = () => {
     history.push(`/comments/${randomId}`);
-    // PhraseComments(frase.id);
+    // PhraseComments(phrase.id);
   };
 
   useEffect(() => {
@@ -140,20 +160,39 @@ export const DashboardContent = ({ name }) => {
             padding="10px 15px"
           >
             <Flex h="fit-content">
-              <Icon
-                onClick={() => {
-                  addMyFavorite(frase.id, user.id, accessToken);
-                }}
-                as={FaHeart}
-                fontSize="2xl"
-                color="gray.300"
-                _hover={{
-                  color: "orange.500",
-                  cursor: "pointer",
-                  transition: "0.3s",
-                }}
-                css={{ "&:not(:hover)": { transition: "0.3s" } }}
-              />
+              {!!isFavorite ? (
+                <Tooltip label="Desfavoritar a frase">
+                  <Box>
+                    <Icon
+                      as={MdOutlineFavorite}
+                      onClick={() => {
+                        deleteMyFavorite(phrase.id, user.id, accessToken);
+                      }}
+                      fontSize="2xl"
+                      color="orange.500"
+                      _hover={{
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Box>
+                </Tooltip>
+              ) : (
+                <Tooltip label={"Favoritar a frase"}>
+                  <Box>
+                    <Icon
+                      as={MdOutlineFavorite}
+                      onClick={() => {
+                        addMyFavorite(phrase.id, user.id, accessToken);
+                      }}
+                      fontSize="2xl"
+                      color="gray.300"
+                      _hover={{
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Box>
+                </Tooltip>
+              )}
             </Flex>
 
             <Button
@@ -178,7 +217,7 @@ export const DashboardContent = ({ name }) => {
             <FlexMotion padding="20px" flexDirection="column">
               <AnimatePresence exitBeforeEnter>
                 <TextMotion fontSize={["md", "lg"]}>
-                  {frase?.phraseText}
+                  {phrase?.phraseText}
                 </TextMotion>
               </AnimatePresence>
               <Text
@@ -187,7 +226,7 @@ export const DashboardContent = ({ name }) => {
                 mt="30px"
                 color="orange.500"
               >
-                {frase?.phraseAuthor}
+                {phrase?.phraseAuthor}
               </Text>
             </FlexMotion>
           </Skeleton>

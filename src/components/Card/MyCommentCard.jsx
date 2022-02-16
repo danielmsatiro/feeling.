@@ -1,10 +1,8 @@
-import { Flex, Text, Tooltip, Link } from "@chakra-ui/react";
+import { Flex, Text, Tooltip, Link, Box } from "@chakra-ui/react";
 import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
 import { useComments } from "../../provider/CommentsProvider";
 import { useDisclosure } from "@chakra-ui/react";
 import { EditComment } from "../../components/Modal/EditComment";
-/* import { useRef, useState } from "react";
-import { useEffect } from "react"; */
 import { useAuth } from "../../provider/AuthContext";
 import { useHistory } from "react-router";
 
@@ -19,13 +17,6 @@ export const MyCommentCard = ({
   const { user, accessToken } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
-  /* const ref = useRef(null);
-  const [isOverflown, setIsOverflown] = useState(false); */
-
-  /* useEffect(() => {
-    const element = ref.current;
-    setIsOverflown(element.scrollheight > element.clientheight);
-  }, []); */
 
   return (
     <Flex
@@ -68,7 +59,6 @@ export const MyCommentCard = ({
               </p>
             </>
           }
-          closeOnMouseDown={false}
         >
           <Text>{comment}</Text>
         </Tooltip>
@@ -78,24 +68,32 @@ export const MyCommentCard = ({
 
       <Flex flexDirection="column" justifyContent="space-between" minW="65px">
         <Flex justifyContent="space-between">
-          <MdModeEdit size="1.3rem" onClick={onOpen} />
-
-          <MdRestoreFromTrash
-            size="1.3rem"
-            onClick={() => {
-              deleteMyComments(commentId, accessToken);
-              getMyComments(user.id, accessToken);
-            }}
-          />
+          <Tooltip label={"Editar"}>
+            <Box>
+              <MdModeEdit size="1.3rem" onClick={onOpen} />
+            </Box>
+          </Tooltip>
+          <Tooltip label={"Excluir"}>
+            <Box>
+              <MdRestoreFromTrash
+                size="1.3rem"
+                onClick={() => {
+                  deleteMyComments(commentId, accessToken);
+                  getMyComments(user.id, accessToken);
+                }}
+              />
+            </Box>
+          </Tooltip>
         </Flex>
-
-        <Link
-          fontSize="xs"
-          onClick={() => history.push(`/comments/${idPhrase}`)}
-          mt="5px"
-        >
-          Comentários
-        </Link>
+        <Tooltip label={"Comentários da galera"}>
+          <Link
+            fontSize="xs"
+            onClick={() => history.push(`/comments/${idPhrase}`)}
+            mt="5px"
+          >
+            Comentários
+          </Link>
+        </Tooltip>
       </Flex>
 
       <EditComment

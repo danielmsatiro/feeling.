@@ -12,10 +12,12 @@ import {
 import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
 import { useComments } from "../../provider/CommentsProvider";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
   const [editedComment, setEditedComment] = useState({ commentText: "" });
   const { getMyComments, UpdateComment } = useComments();
+  const { loadPhrases } = usePhrases();
   const { user, accessToken } = useAuth();
 
   return (
@@ -75,6 +77,7 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             onClick={() => {
               UpdateComment(commentId, editedComment, onClose, accessToken);
               getMyComments(user.id, accessToken);
+              loadPhrases();
             }}
           >
             Postar

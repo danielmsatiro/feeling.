@@ -2,8 +2,6 @@ import { Flex, Text, Heading, useDisclosure, Box } from "@chakra-ui/react";
 import { MyCommentCard } from "../../components/Card/MyCommentCard";
 import { Header } from "../../components/Header";
 import { useComments } from "../../provider/CommentsProvider";
-import { ModalCard } from "../../components/Modal/ModalCard";
-
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useAuth } from "../../provider/AuthContext";
@@ -55,12 +53,6 @@ export const MyComments = () => {
                   commentId={comment.id}
                   idPhrase={comment.phrase.id}
                   phrase={comment.phrase.phraseText}
-                />
-                <ModalCard
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  phrase={comment.phrase.phraseText}
-                  author={comment.phrase.phraseAuthor}
                 />
               </Box>
             ))
