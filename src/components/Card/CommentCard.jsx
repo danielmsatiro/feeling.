@@ -8,15 +8,15 @@ import {
 } from "@chakra-ui/react";
 import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
 import { useAuth } from "../../provider/AuthContext";
-import { useComments } from "../../provider/CommentsProvider";
+/* import { useComments } from "../../provider/CommentsProvider"; */
 import { usePhrases } from "../../provider/PhrasesContext";
 import { EditComment } from "../Modal/EditComment";
 
 export const CommentCard = ({ comment, commentId, userId }) => {
   const { users, user, accessToken } = useAuth();
-  const { deleteMyComments, getMyComments } = useComments();
+  /* const { deleteMyComments, getMyComments } = useComments(); */
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loadPhrases } = usePhrases();
+  const { deleteMyComments } = usePhrases();
 
   return (
     <Flex
@@ -55,9 +55,7 @@ export const CommentCard = ({ comment, commentId, userId }) => {
                 <MdRestoreFromTrash
                   size="1.3rem"
                   onClick={() => {
-                    deleteMyComments(commentId, accessToken);
-                    getMyComments(user.id, accessToken);
-                    loadPhrases();
+                    deleteMyComments(user.id, commentId, accessToken);
                   }}
                 />
               </Box>

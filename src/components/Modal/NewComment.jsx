@@ -11,18 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
-import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
 
 export const NewComment = ({ isOpen, onClose, id }) => {
   const { user, accessToken } = useAuth();
-  const { /* frase, */ AddComment } = useComments();
-  const { loadPhrases } = usePhrases();
+  const { AddComment } = usePhrases();
   const [value, setValue] = useState({});
 
   const handleClick = () => {
-    AddComment(value, accessToken);
-    loadPhrases();
+    AddComment(value, user.id, accessToken);
     onClose();
   };
 

@@ -1,16 +1,16 @@
-import { Flex, Text, Heading, useDisclosure, Box } from "@chakra-ui/react";
+import { Flex, Text, Heading, Box } from "@chakra-ui/react";
 import { MyCommentCard } from "../../components/Card/MyCommentCard";
 import { Header } from "../../components/Header";
-import { useComments } from "../../provider/CommentsProvider";
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useAuth } from "../../provider/AuthContext";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 const FlexMotion = motion(Flex);
 const HeadingMotion = motion(Heading);
 
 export const MyComments = () => {
-  const { myComments, getMyComments } = useComments();
+  const { myComments, getMyComments } = usePhrases();
   const { user, accessToken } = useAuth();
 
   useEffect(() => {

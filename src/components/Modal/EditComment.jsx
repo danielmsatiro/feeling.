@@ -11,13 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useAuth } from "../../provider/AuthContext";
-import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
 
 export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
   const [editedComment, setEditedComment] = useState({ commentText: "" });
-  const { getMyComments, UpdateComment } = useComments();
-  const { loadPhrases } = usePhrases();
+  const { loadPhrases, UpdateComment } = usePhrases();
   const { user, accessToken } = useAuth();
 
   return (
@@ -75,8 +73,13 @@ export const EditComment = ({ isOpen, onClose, comment, commentId }) => {
             w="200px"
             borderRadius="30px"
             onClick={() => {
-              UpdateComment(commentId, editedComment, onClose, accessToken);
-              getMyComments(user.id, accessToken);
+              UpdateComment(
+                user.id,
+                commentId,
+                editedComment,
+                onClose,
+                accessToken
+              );
               loadPhrases();
             }}
           >

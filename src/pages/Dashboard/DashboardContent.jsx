@@ -8,15 +8,10 @@ import {
   Tooltip,
   Box,
 } from "@chakra-ui/react";
-
 import swing from "../../assets/swing.svg";
-
-import { FaHeart } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
-import { useComments } from "../../provider/CommentsProvider";
 import { usePhrases } from "../../provider/PhrasesContext";
 import { useAuth } from "../../provider/AuthContext";
-
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { MdOutlineFavorite } from "react-icons/md";

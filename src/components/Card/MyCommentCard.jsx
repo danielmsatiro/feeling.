@@ -1,10 +1,10 @@
 import { Flex, Text, Tooltip, Link, Box } from "@chakra-ui/react";
 import { MdModeEdit, MdRestoreFromTrash } from "react-icons/md";
-import { useComments } from "../../provider/CommentsProvider";
 import { useDisclosure } from "@chakra-ui/react";
 import { EditComment } from "../../components/Modal/EditComment";
 import { useAuth } from "../../provider/AuthContext";
 import { useHistory } from "react-router";
+import { usePhrases } from "../../provider/PhrasesContext";
 
 export const MyCommentCard = ({
   comment,
@@ -13,7 +13,7 @@ export const MyCommentCard = ({
   idPhrase,
   phrase,
 }) => {
-  const { getMyComments, deleteMyComments } = useComments();
+  const { deleteMyComments } = usePhrases();
   const { user, accessToken } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const history = useHistory();
@@ -78,8 +78,7 @@ export const MyCommentCard = ({
               <MdRestoreFromTrash
                 size="1.3rem"
                 onClick={() => {
-                  deleteMyComments(commentId, accessToken);
-                  getMyComments(user.id, accessToken);
+                  deleteMyComments(user.id, commentId, accessToken);
                 }}
               />
             </Box>
