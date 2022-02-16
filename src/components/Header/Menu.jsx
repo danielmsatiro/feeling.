@@ -32,71 +32,61 @@ export const Menu = ({ isOpen, onClose }) => {
       >
         <DrawerBody>
           <VStack>
-            <Tooltip label="Motive-se com esta frase">
-              <Center
-                color={colorIcon}
-                _hover={{
-                  color: "orange.500",
-                }}
-                onClick={() => history.push("/dashboard")}
-                as="button"
-              >
-                <MdHomeFilled size={sizeIcon} />
-              </Center>
-            </Tooltip>
-            <Tooltip label="Suas favoritas">
-              <Center
-                color={colorIcon}
-                _hover={{
-                  color: "orange.500",
-                }}
-                onClick={() => history.push("/favorites")}
-                as="button"
-              >
-                <MdOutlineFavorite size={sizeIcon} />
-              </Center>
-            </Tooltip>
-            <Tooltip label="Seus comentários">
-              <Center
-                color={colorIcon}
-                _hover={{
-                  color: "orange.500",
-                }}
-                onClick={() => history.push("/mycomments")}
-                as="button"
-              >
-                <MdComment size={sizeIcon} />
-              </Center>
-            </Tooltip>
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: "orange.500",
+              }}
+              onClick={() => history.push("/dashboard")}
+              as="button"
+            >
+              <MdHomeFilled size={sizeIcon} />
+            </Center>
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: "orange.500",
+              }}
+              onClick={() => history.push("/favorites")}
+              as="button"
+            >
+              <MdOutlineFavorite size={sizeIcon} />
+            </Center>
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: "orange.500",
+              }}
+              onClick={() => history.push("/mycomments")}
+              as="button"
+            >
+              <MdComment size={sizeIcon} />
+            </Center>
             {location.pathname !== "/phrases" && (
-              <Tooltip label="Pesquise por uma frase ou autor">
-                <Center
-                  display={location.pathname === "/phrases" && "none"}
-                  onClick={() => history.push("/phrases")}
-                  as="button"
-                  color={colorIcon}
-                  _hover={{
-                    color: "orange.500",
-                  }}
-                >
-                  <FaSearch size={sizeIcon} />
-                </Center>
-              </Tooltip>
-            )}
-            <Tooltip label="Sair">
               <Center
+                display={location.pathname === "/phrases" && "none"}
+                onClick={() => history.push("/phrases")}
+                as="button"
                 color={colorIcon}
                 _hover={{
                   color: "orange.500",
                 }}
-                ml="auto"
-                onClick={signOut}
-                as="button"
-                fontSize="2rem"
               >
-                <FaPowerOff size={sizeIcon} />
+                <FaSearch size={sizeIcon} />
               </Center>
-            </Tooltip>
+            )}
+            <Center
+              color={colorIcon}
+              _hover={{
+                color: "orange.500",
+              }}
+              ml="auto"
+              onClick={signOut}
+              as="button"
+              fontSize="2rem"
+            >
+              <FaPowerOff size={sizeIcon} />
+            </Center>
           </VStack>
         </DrawerBody>
       </DrawerContent>

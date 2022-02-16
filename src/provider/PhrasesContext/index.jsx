@@ -95,14 +95,6 @@ const PhraseProvider = ({ children }) => {
             position: "top-right",
           })
         );
-    } else {
-      toast({
-        title: "Frase já está nos seus favoritos",
-        description: "Você já adicionou essa frase aos seus favoritos",
-        status: "error",
-        duration: 3000,
-        position: "top-right",
-      });
     }
   };
 

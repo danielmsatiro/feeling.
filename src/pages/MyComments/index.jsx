@@ -13,8 +13,6 @@ export const MyComments = () => {
   const { myComments, getMyComments } = useComments();
   const { user, accessToken } = useAuth();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   useEffect(() => {
     getMyComments(user.id, accessToken);
     // eslint-disable-next-line react-hooks/exhaustive-deps
