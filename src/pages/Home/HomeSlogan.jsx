@@ -59,7 +59,10 @@ export const HomeSlogan = () => {
         >
           <Link href="#">voltar ao topo</Link>
 
-          <Link href="https://github.com/GuiCoutoSt/feeling." target="_blank">
+          <Link
+            href="https://github.com/danielmsatiro/feeling."
+            target="_blank"
+          >
             repositório
           </Link>
         </Flex>
