@@ -2,7 +2,7 @@
 
 Esta plataforma foi um trabalho em equipe realizado pelos desenvolvedores:
 - Boris Gaibor - Quality Assurance
-- Daniel Satiro - Quality Assurance
+- Daniel Mateus Satiro - Quality Assurance
 - Guilherme Couto - Tech Leader
 - Inti Ferreira - Product Owner
 - Pedro Basilio - Scrum Master
