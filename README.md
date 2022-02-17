@@ -41,4 +41,4 @@ Esta é a versão do Front end desenvolvido em **React** com algumas últimas re
 
 Este é o endpoint da API utilizada já com um endereço atualizado: https://feeling-api-q2-g1-jul21.herokuapp.com/
 
-Esta é uma documentação provisória da API que foi desenvolvida utilizado-se do Insomnia: https://feelings-api-q2-g1-jul21.vercel.app/
+Esta é uma documentação provisória da API que foi desenvolvida utilizado-se do Insomnia: https://feeling-api-q2-g1-jul21.vercel.app/
